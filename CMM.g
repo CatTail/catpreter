@@ -12,6 +12,84 @@ Sep 2012
 grammar CMM;
 
 
+statement
+	: compound_statement
+	| expression_statement
+	| selection_statement
+	| iteration_statement
+	;
+compound_statement
+	:
+	;
+expression_statement
+	: ';'
+	| expression ';'
+	;
+selection_statement
+	:
+	;
+iteration_statement
+	:
+	;
+
+expression
+	: assignment_expression
+	;
+//TODO 对左递归进行重构
+/*
+实例
+additive_expression
+	: (multiplicative_expression) ('+' multiplicative_expression | '-' multiplicative_expression)*
+	;
+*/
+assignment_expression
+	: equality_expression
+	| primary_expression assignment_operator assignment_expression
+	;
+equality_expression
+	: relational_expression
+	| equality_expression EQ_OP relational_expression 
+	| equality_expression NE_OP relational_expression
+	;
+relational_expression
+	: additive_expression
+	| relational_expression '<' additive_expression
+	;
+additive_expression
+	: multiplicative_expression
+	| additive_expression '+' multiplicative_expression
+	| additive_expression '-' multiplicative_expression
+	;
+multiplicative_expression
+	: primary_expression
+	| multiplicative_expression '*' primary_expression
+	| multiplicative_expression '/' primary_expression
+	;
+primary_expression
+	: CONSTANT
+	| IDENTIFIER
+	| '(' expression ')'
+	;
+CONSTANT
+	: INT
+	| REAL
+	;
+IDENTIFIER
+	: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*('a'..'z'|'A'..'Z'|'0'..'9')?
+	;
+INT
+	: ('+'|'-')? ('0'..'9')+
+	;
+REAL
+	: INT '.' INT ( ('e'|'E') ('+'|'-') INT )?
+	;
+assignment_operator
+	: '='
+	| '+='
+	| '-='
+	| '*='
+	| '/='
+	;
 declaration
 	: type init_declarator_list ';'
 	;
@@ -26,60 +104,6 @@ init_declarator_list
 init_declarator
 	: IDENTIFIER '=' number
 	;
-number
-	: INT
-	| REAL
-	;
-//expression
-expression
-	: assignment_expression
-	;
-primary_expression
-	: number
-	| IDENTIFIER
-	;
-multiplicative_expression
-	: primary_expression '*' multiplicative_expression
-	| primary_expression '/' multiplicative_expression
-	| primary_expression
-	;
-additive_expression
-	: multiplicative_expression '+' additive_expression
-	| multiplicative_expression '-' additive_expression
-	| multiplicative_expression
-	;
-//$(A9X$(B7O$(ATK$(B;;Id(B
-/*
-	a = 0
-	a = b
-	a = 1 + 1
-	a = b = c + 1
-*/
-assignment_expression
-	: IDENTIFIER assignment_operator number
-	| IDENTIFIER assignment_operator expression
-	;
-//ignore self increase(decrease) right now
-assignment_operator
-	: '='
-	| '+='
-	| '-='
-	| '*='
-	| '/='
-	;
-
-		
-//statement
-statement
-	: expression ';'
-	;
-
-INT
-	: ('+'|'-')? ('0'..'9')+
-	;
-REAL
-	: INT '.' INT ( ('e'|'E') ('+'|'-') INT )?
-	;
 
 COMMENT
     :   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
@@ -88,8 +112,9 @@ COMMENT
 LINE_COMMENT
     : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
     ;
-
-//terminal
-IDENTIFIER
-	: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*('a'..'z'|'A'..'Z'|'0'..'9')?
+EQ_OP
+	: '=='
+	;
+NE_OP
+	: '<>'
 	;
