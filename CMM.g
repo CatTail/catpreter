@@ -1,7 +1,7 @@
 /*
 ANSI C ANTLR v3 grammar
 
-refer to the following two webpages to figure out ANSI C grammar
+Refer to the following two webpages to figure out ANSI C grammar
 References
 	http://www.lysator.liu.se/c/ANSI-C-grammar-l.html
 	http://www.lysator.liu.se/c/ANSI-C-grammar-y.html
@@ -42,6 +42,9 @@ iteration_statement
 expression
 	: assignment_expression ( ',' assignment_expression )*
 	;
+constant_expression
+	: equality_expression
+	;
 assignment_expression
 options {backtrack=true;}
 	: equality_expression
@@ -79,7 +82,7 @@ init_declarator
 	| declarator '=' initializer
 	;
 declarator
-	: IDENTIFIER
+	: IDENTIFIER ('[' constant_expression? ']')*
 	;
 initializer
 	: assignment_expression 
