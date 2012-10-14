@@ -147,6 +147,7 @@ Cat.randomString = (function(){
 	}
 	return __randomString;
 })();
+//replace string placeholder with arguments
 Cat.format = function(original){
 	var args = arguments;
 	return original.replace(/\{(\d+)\}/gi,function(match,p1){
@@ -218,5 +219,3 @@ Cat.animate = function(element,properties,duration){
 	},rate);
 
 };
-
-//exports.Cat = Cat;

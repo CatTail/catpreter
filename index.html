@@ -10,17 +10,26 @@
 <textarea id="source" name="" rows="10" cols="30">
 int a=0;
 int b=1+1;
-</textarea>
-	<button id="compile">compile</button>
+</textarea><br>
+	<button id="compile">compile</button><br>
+	Result tokens:
+	<div id="display"></div>
 	<script type="text/javascript">
 		Cat.querySelectorAll('#compile')[0].onclick = function(){
 			var source = Cat.querySelectorAll('#source')[0].value;
 			console.log(source);
 			var lexer = new Lexer(source);
+			var result = '';
 			for (var token = lexer.next() ; lexer.hasNext() ; token = lexer.next()) {
+				result += elegantDisplay(token);
 				console.log(token);
 			}
+			Cat.querySelectorAll('#display')[0].innerHTML = result;
 		};
+		function elegantDisplay(token){
+			var value = token.value === '\n' ? '\\n' : token.value;
+			return Cat.format('&lt;{0},"{1}"&gt;<br>',token.name,value);
+		}
 	</script>
 </body>
 </html>
