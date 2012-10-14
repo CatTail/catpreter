@@ -218,3 +218,5 @@ Cat.animate = function(element,properties,duration){
 	},rate);
 
 };
+
+exports.Cat = Cat;
