@@ -1,12 +1,12 @@
 import java.io.*;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
-public class Test {
+public class CTest {
     public static void main(String args[]) throws Exception {
-        CMMLexer lex = new CMMLexer(new ANTLRFileStream(args[0]));
+        CLexer lex = new CLexer(new ANTLRFileStream(args[0]));
         CommonTokenStream tokens = new CommonTokenStream(lex);
  
-        CMMParser parser = new CMMParser(tokens);
-		parser.prog(); // launch parsing
+        CParser parser = new CParser(tokens);
+		parser.statement(); // launch parsing
     }
 }
