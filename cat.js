@@ -219,4 +219,4 @@ Cat.animate = function(element,properties,duration){
 
 };
 
-exports.Cat = Cat;
+//exports.Cat = Cat;

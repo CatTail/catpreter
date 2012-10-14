@@ -4,10 +4,23 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<script src="./cat.js" type="text/javascript"></script>
-	<script src="./tokens.js" type="text/javascript"></script>
 	<script src="./Lexer.js" type="text/javascript"></script>
-	<script src="./test.js" type="text/javascript"></script>
 </head>
 <body>
+<textarea id="source" name="" rows="10" cols="30">
+int a=0;
+int b=1+1;
+</textarea>
+	<button id="compile">compile</button>
+	<script type="text/javascript">
+		Cat.querySelectorAll('#compile')[0].onclick = function(){
+			var source = Cat.querySelectorAll('#source')[0].value;
+			console.log(source);
+			var lexer = new Lexer(source);
+			for (var token = lexer.next() ; lexer.hasNext() ; token = lexer.next()) {
+				console.log(token);
+			}
+		};
+	</script>
 </body>
 </html>
