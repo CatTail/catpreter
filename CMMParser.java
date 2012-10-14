@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/cattail/project/catperter/CMM.g 2012-10-14 12:13:28
+// $ANTLR 3.4 CMM.g 2012-10-14 12:25:27
 
 	import java.util.Set;
 	import java.util.HashMap;
@@ -77,7 +77,7 @@ public class CMMParser extends Parser {
     }
 
     public String[] getTokenNames() { return CMMParser.tokenNames; }
-    public String getGrammarFileName() { return "/home/cattail/project/catperter/CMM.g"; }
+    public String getGrammarFileName() { return "CMM.g"; }
 
 
     	Object getValue(String name) {
@@ -93,7 +93,7 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "prog"
-    // /home/cattail/project/catperter/CMM.g:39:1: prog : statement ;
+    // CMM.g:39:1: prog : statement ;
     public final void prog() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -105,8 +105,8 @@ public class CMMParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:44:2: ( statement )
-            // /home/cattail/project/catperter/CMM.g:44:4: statement
+            // CMM.g:44:2: ( statement )
+            // CMM.g:44:4: statement
             {
             pushFollow(FOLLOW_statement_in_prog60);
             statement();
@@ -136,14 +136,14 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "statement"
-    // /home/cattail/project/catperter/CMM.g:46:1: statement : ( compound_statement | expression_statement | selection_statement | iteration_statement | declaration );
+    // CMM.g:46:1: statement : ( compound_statement | expression_statement | selection_statement | iteration_statement | declaration );
     public final void statement() throws RecognitionException {
         int statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:47:2: ( compound_statement | expression_statement | selection_statement | iteration_statement | declaration )
+            // CMM.g:47:2: ( compound_statement | expression_statement | selection_statement | iteration_statement | declaration )
             int alt1=5;
             switch ( input.LA(1) ) {
             case 34:
@@ -189,7 +189,7 @@ public class CMMParser extends Parser {
 
             switch (alt1) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:47:4: compound_statement
+                    // CMM.g:47:4: compound_statement
                     {
                     pushFollow(FOLLOW_compound_statement_in_statement70);
                     compound_statement();
@@ -200,7 +200,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:48:4: expression_statement
+                    // CMM.g:48:4: expression_statement
                     {
                     pushFollow(FOLLOW_expression_statement_in_statement75);
                     expression_statement();
@@ -211,7 +211,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/cattail/project/catperter/CMM.g:49:4: selection_statement
+                    // CMM.g:49:4: selection_statement
                     {
                     pushFollow(FOLLOW_selection_statement_in_statement80);
                     selection_statement();
@@ -222,7 +222,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/cattail/project/catperter/CMM.g:50:4: iteration_statement
+                    // CMM.g:50:4: iteration_statement
                     {
                     pushFollow(FOLLOW_iteration_statement_in_statement85);
                     iteration_statement();
@@ -233,7 +233,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/cattail/project/catperter/CMM.g:51:4: declaration
+                    // CMM.g:51:4: declaration
                     {
                     pushFollow(FOLLOW_declaration_in_statement90);
                     declaration();
@@ -263,7 +263,7 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "compound_statement"
-    // /home/cattail/project/catperter/CMM.g:53:1: compound_statement : ( '{' '}' | '{' statement_list '}' );
+    // CMM.g:53:1: compound_statement : ( '{' '}' | '{' statement_list '}' );
     public final void compound_statement() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -275,7 +275,7 @@ public class CMMParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:58:2: ( '{' '}' | '{' statement_list '}' )
+            // CMM.g:58:2: ( '{' '}' | '{' statement_list '}' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -307,7 +307,7 @@ public class CMMParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:58:4: '{' '}'
+                    // CMM.g:58:4: '{' '}'
                     {
                     match(input,34,FOLLOW_34_in_compound_statement111); if (state.failed) return ;
 
@@ -316,7 +316,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:59:4: '{' statement_list '}'
+                    // CMM.g:59:4: '{' statement_list '}'
                     {
                     match(input,34,FOLLOW_34_in_compound_statement118); if (state.failed) return ;
 
@@ -352,17 +352,17 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "statement_list"
-    // /home/cattail/project/catperter/CMM.g:61:1: statement_list : ( statement )+ ;
+    // CMM.g:61:1: statement_list : ( statement )+ ;
     public final void statement_list() throws RecognitionException {
         int statement_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:62:2: ( ( statement )+ )
-            // /home/cattail/project/catperter/CMM.g:62:4: ( statement )+
+            // CMM.g:62:2: ( ( statement )+ )
+            // CMM.g:62:4: ( statement )+
             {
-            // /home/cattail/project/catperter/CMM.g:62:4: ( statement )+
+            // CMM.g:62:4: ( statement )+
             int cnt3=0;
             loop3:
             do {
@@ -376,7 +376,7 @@ public class CMMParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:62:4: statement
+            	    // CMM.g:62:4: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_statement_list132);
             	    statement();
@@ -418,14 +418,14 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "expression_statement"
-    // /home/cattail/project/catperter/CMM.g:64:1: expression_statement : ( ';' | expression ';' );
+    // CMM.g:64:1: expression_statement : ( ';' | expression ';' );
     public final void expression_statement() throws RecognitionException {
         int expression_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:65:2: ( ';' | expression ';' )
+            // CMM.g:65:2: ( ';' | expression ';' )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -445,14 +445,14 @@ public class CMMParser extends Parser {
             }
             switch (alt4) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:65:4: ';'
+                    // CMM.g:65:4: ';'
                     {
                     match(input,24,FOLLOW_24_in_expression_statement143); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:66:4: expression ';'
+                    // CMM.g:66:4: expression ';'
                     {
                     pushFollow(FOLLOW_expression_in_expression_statement148);
                     expression();
@@ -484,15 +484,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "selection_statement"
-    // /home/cattail/project/catperter/CMM.g:68:1: selection_statement : 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? ;
+    // CMM.g:68:1: selection_statement : 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? ;
     public final void selection_statement() throws RecognitionException {
         int selection_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:69:2: ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? )
-            // /home/cattail/project/catperter/CMM.g:69:4: 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )?
+            // CMM.g:69:2: ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? )
+            // CMM.g:69:4: 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )?
             {
             match(input,30,FOLLOW_30_in_selection_statement160); if (state.failed) return ;
 
@@ -512,7 +512,7 @@ public class CMMParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:69:38: ( options {k=1; backtrack=false; } : 'else' statement )?
+            // CMM.g:69:38: ( options {k=1; backtrack=false; } : 'else' statement )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -525,7 +525,7 @@ public class CMMParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:69:71: 'else' statement
+                    // CMM.g:69:71: 'else' statement
                     {
                     match(input,29,FOLLOW_29_in_selection_statement183); if (state.failed) return ;
 
@@ -561,15 +561,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "iteration_statement"
-    // /home/cattail/project/catperter/CMM.g:71:1: iteration_statement : 'while' '(' expression ')' statement ;
+    // CMM.g:71:1: iteration_statement : 'while' '(' expression ')' statement ;
     public final void iteration_statement() throws RecognitionException {
         int iteration_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:72:2: ( 'while' '(' expression ')' statement )
-            // /home/cattail/project/catperter/CMM.g:72:4: 'while' '(' expression ')' statement
+            // CMM.g:72:2: ( 'while' '(' expression ')' statement )
+            // CMM.g:72:4: 'while' '(' expression ')' statement
             {
             match(input,33,FOLLOW_33_in_iteration_statement197); if (state.failed) return ;
 
@@ -609,15 +609,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "expression"
-    // /home/cattail/project/catperter/CMM.g:75:1: expression : assignment_expression ( ',' assignment_expression )* ;
+    // CMM.g:75:1: expression : assignment_expression ( ',' assignment_expression )* ;
     public final void expression() throws RecognitionException {
         int expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:76:2: ( assignment_expression ( ',' assignment_expression )* )
-            // /home/cattail/project/catperter/CMM.g:76:4: assignment_expression ( ',' assignment_expression )*
+            // CMM.g:76:2: ( assignment_expression ( ',' assignment_expression )* )
+            // CMM.g:76:4: assignment_expression ( ',' assignment_expression )*
             {
             pushFollow(FOLLOW_assignment_expression_in_expression216);
             assignment_expression();
@@ -625,7 +625,7 @@ public class CMMParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:76:26: ( ',' assignment_expression )*
+            // CMM.g:76:26: ( ',' assignment_expression )*
             loop6:
             do {
                 int alt6=2;
@@ -638,7 +638,7 @@ public class CMMParser extends Parser {
 
                 switch (alt6) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:76:28: ',' assignment_expression
+            	    // CMM.g:76:28: ',' assignment_expression
             	    {
             	    match(input,19,FOLLOW_19_in_expression220); if (state.failed) return ;
 
@@ -677,15 +677,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "constant_expression"
-    // /home/cattail/project/catperter/CMM.g:78:1: constant_expression : equality_expression ;
+    // CMM.g:78:1: constant_expression : equality_expression ;
     public final void constant_expression() throws RecognitionException {
         int constant_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:79:2: ( equality_expression )
-            // /home/cattail/project/catperter/CMM.g:79:4: equality_expression
+            // CMM.g:79:2: ( equality_expression )
+            // CMM.g:79:4: equality_expression
             {
             pushFollow(FOLLOW_equality_expression_in_constant_expression235);
             equality_expression();
@@ -713,14 +713,14 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "assignment_expression"
-    // /home/cattail/project/catperter/CMM.g:81:1: assignment_expression : ( equality_expression | primary_expression assignment_operator assignment_expression );
+    // CMM.g:81:1: assignment_expression : ( equality_expression | primary_expression assignment_operator assignment_expression );
     public final void assignment_expression() throws RecognitionException {
         int assignment_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:82:2: ( equality_expression | primary_expression assignment_operator assignment_expression )
+            // CMM.g:82:2: ( equality_expression | primary_expression assignment_operator assignment_expression )
             int alt7=2;
             switch ( input.LA(1) ) {
             case INT_LITERAL:
@@ -915,7 +915,7 @@ public class CMMParser extends Parser {
 
             switch (alt7) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:82:4: equality_expression
+                    // CMM.g:82:4: equality_expression
                     {
                     pushFollow(FOLLOW_equality_expression_in_assignment_expression245);
                     equality_expression();
@@ -926,7 +926,7 @@ public class CMMParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:83:4: primary_expression assignment_operator assignment_expression
+                    // CMM.g:83:4: primary_expression assignment_operator assignment_expression
                     {
                     pushFollow(FOLLOW_primary_expression_in_assignment_expression250);
                     primary_expression();
@@ -968,15 +968,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "equality_expression"
-    // /home/cattail/project/catperter/CMM.g:85:1: equality_expression : relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )* ;
+    // CMM.g:85:1: equality_expression : relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )* ;
     public final void equality_expression() throws RecognitionException {
         int equality_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:86:2: ( relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )* )
-            // /home/cattail/project/catperter/CMM.g:86:4: relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )*
+            // CMM.g:86:2: ( relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )* )
+            // CMM.g:86:4: relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )*
             {
             pushFollow(FOLLOW_relational_expression_in_equality_expression264);
             relational_expression();
@@ -984,7 +984,7 @@ public class CMMParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:86:26: ( EQ_OP relational_expression | NE_OP relational_expression )*
+            // CMM.g:86:26: ( EQ_OP relational_expression | NE_OP relational_expression )*
             loop8:
             do {
                 int alt8=3;
@@ -1000,7 +1000,7 @@ public class CMMParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:86:28: EQ_OP relational_expression
+            	    // CMM.g:86:28: EQ_OP relational_expression
             	    {
             	    match(input,EQ_OP,FOLLOW_EQ_OP_in_equality_expression268); if (state.failed) return ;
 
@@ -1013,7 +1013,7 @@ public class CMMParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // /home/cattail/project/catperter/CMM.g:86:58: NE_OP relational_expression
+            	    // CMM.g:86:58: NE_OP relational_expression
             	    {
             	    match(input,NE_OP,FOLLOW_NE_OP_in_equality_expression274); if (state.failed) return ;
 
@@ -1052,15 +1052,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "relational_expression"
-    // /home/cattail/project/catperter/CMM.g:88:1: relational_expression : additive_expression ( '<' additive_expression )* ;
+    // CMM.g:88:1: relational_expression : additive_expression ( '<' additive_expression )* ;
     public final void relational_expression() throws RecognitionException {
         int relational_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:89:2: ( additive_expression ( '<' additive_expression )* )
-            // /home/cattail/project/catperter/CMM.g:89:4: additive_expression ( '<' additive_expression )*
+            // CMM.g:89:2: ( additive_expression ( '<' additive_expression )* )
+            // CMM.g:89:4: additive_expression ( '<' additive_expression )*
             {
             pushFollow(FOLLOW_additive_expression_in_relational_expression289);
             additive_expression();
@@ -1068,7 +1068,7 @@ public class CMMParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:89:24: ( '<' additive_expression )*
+            // CMM.g:89:24: ( '<' additive_expression )*
             loop9:
             do {
                 int alt9=2;
@@ -1081,7 +1081,7 @@ public class CMMParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:89:26: '<' additive_expression
+            	    // CMM.g:89:26: '<' additive_expression
             	    {
             	    match(input,25,FOLLOW_25_in_relational_expression293); if (state.failed) return ;
 
@@ -1120,15 +1120,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "additive_expression"
-    // /home/cattail/project/catperter/CMM.g:91:1: additive_expression : multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )* ;
+    // CMM.g:91:1: additive_expression : multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )* ;
     public final void additive_expression() throws RecognitionException {
         int additive_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:92:2: ( multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )* )
-            // /home/cattail/project/catperter/CMM.g:92:4: multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )*
+            // CMM.g:92:2: ( multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )* )
+            // CMM.g:92:4: multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )*
             {
             pushFollow(FOLLOW_multiplicative_expression_in_additive_expression308);
             multiplicative_expression();
@@ -1136,7 +1136,7 @@ public class CMMParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:92:30: ( '+' multiplicative_expression | '-' multiplicative_expression )*
+            // CMM.g:92:30: ( '+' multiplicative_expression | '-' multiplicative_expression )*
             loop10:
             do {
                 int alt10=3;
@@ -1152,7 +1152,7 @@ public class CMMParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:92:32: '+' multiplicative_expression
+            	    // CMM.g:92:32: '+' multiplicative_expression
             	    {
             	    match(input,17,FOLLOW_17_in_additive_expression312); if (state.failed) return ;
 
@@ -1165,7 +1165,7 @@ public class CMMParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // /home/cattail/project/catperter/CMM.g:92:64: '-' multiplicative_expression
+            	    // CMM.g:92:64: '-' multiplicative_expression
             	    {
             	    match(input,20,FOLLOW_20_in_additive_expression318); if (state.failed) return ;
 
@@ -1204,28 +1204,23 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "multiplicative_expression"
-    // /home/cattail/project/catperter/CMM.g:94:1: multiplicative_expression returns [Object value] : unary_expression ( '*' unary_expression | '/' unary_expression )* ;
-    public final Object multiplicative_expression() throws RecognitionException {
-        Object value = null;
-
+    // CMM.g:94:1: multiplicative_expression : unary_expression ( '*' unary_expression | '/' unary_expression )* ;
+    public final void multiplicative_expression() throws RecognitionException {
         int multiplicative_expression_StartIndex = input.index();
 
-        CMMParser.unary_expression_return unary_expression1 =null;
-
-
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return value; }
+            if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:95:2: ( unary_expression ( '*' unary_expression | '/' unary_expression )* )
-            // /home/cattail/project/catperter/CMM.g:95:4: unary_expression ( '*' unary_expression | '/' unary_expression )*
+            // CMM.g:95:2: ( unary_expression ( '*' unary_expression | '/' unary_expression )* )
+            // CMM.g:95:4: unary_expression ( '*' unary_expression | '/' unary_expression )*
             {
-            pushFollow(FOLLOW_unary_expression_in_multiplicative_expression337);
-            unary_expression1=unary_expression();
+            pushFollow(FOLLOW_unary_expression_in_multiplicative_expression333);
+            unary_expression();
 
             state._fsp--;
-            if (state.failed) return value;
+            if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:95:21: ( '*' unary_expression | '/' unary_expression )*
+            // CMM.g:95:21: ( '*' unary_expression | '/' unary_expression )*
             loop11:
             do {
                 int alt11=3;
@@ -1241,28 +1236,28 @@ public class CMMParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:95:23: '*' unary_expression
+            	    // CMM.g:95:23: '*' unary_expression
             	    {
-            	    match(input,15,FOLLOW_15_in_multiplicative_expression341); if (state.failed) return value;
+            	    match(input,15,FOLLOW_15_in_multiplicative_expression337); if (state.failed) return ;
 
-            	    pushFollow(FOLLOW_unary_expression_in_multiplicative_expression343);
+            	    pushFollow(FOLLOW_unary_expression_in_multiplicative_expression339);
             	    unary_expression();
 
             	    state._fsp--;
-            	    if (state.failed) return value;
+            	    if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // /home/cattail/project/catperter/CMM.g:95:46: '/' unary_expression
+            	    // CMM.g:95:46: '/' unary_expression
             	    {
-            	    match(input,22,FOLLOW_22_in_multiplicative_expression347); if (state.failed) return value;
+            	    match(input,22,FOLLOW_22_in_multiplicative_expression343); if (state.failed) return ;
 
-            	    pushFollow(FOLLOW_unary_expression_in_multiplicative_expression349);
+            	    pushFollow(FOLLOW_unary_expression_in_multiplicative_expression345);
             	    unary_expression();
 
             	    state._fsp--;
-            	    if (state.failed) return value;
+            	    if (state.failed) return ;
 
             	    }
             	    break;
@@ -1272,8 +1267,6 @@ public class CMMParser extends Parser {
                 }
             } while (true);
 
-
-            if ( state.backtracking==0 ) {System.out.println((unary_expression1!=null?input.toString(unary_expression1.start,unary_expression1.stop):null));value =0;}
 
             }
 
@@ -1288,33 +1281,28 @@ public class CMMParser extends Parser {
             if ( state.backtracking>0 ) { memoize(input, 14, multiplicative_expression_StartIndex); }
 
         }
-        return value;
+        return ;
     }
     // $ANTLR end "multiplicative_expression"
 
 
-    public static class unary_expression_return extends ParserRuleReturnScope {
-        public Object value;
-    };
-
 
     // $ANTLR start "unary_expression"
-    // /home/cattail/project/catperter/CMM.g:98:1: unary_expression returns [Object value] : ( postfix_expression | unary_operator unary_expression );
-    public final CMMParser.unary_expression_return unary_expression() throws RecognitionException {
-        CMMParser.unary_expression_return retval = new CMMParser.unary_expression_return();
-        retval.start = input.LT(1);
+    // CMM.g:97:1: unary_expression returns [Object value] : ( postfix_expression | unary_operator unary_expression );
+    public final Object unary_expression() throws RecognitionException {
+        Object value = null;
 
         int unary_expression_StartIndex = input.index();
 
-        CMMParser.postfix_expression_return postfix_expression2 =null;
+        CMMParser.postfix_expression_return postfix_expression1 =null;
 
-        CMMParser.unary_operator_return unary_operator3 =null;
+        CMMParser.unary_operator_return unary_operator2 =null;
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
+            if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return value; }
 
-            // /home/cattail/project/catperter/CMM.g:99:2: ( postfix_expression | unary_operator unary_expression )
+            // CMM.g:98:2: ( postfix_expression | unary_operator unary_expression )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1325,7 +1313,7 @@ public class CMMParser extends Parser {
                 alt12=2;
             }
             else {
-                if (state.backtracking>0) {state.failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return value;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 12, 0, input);
 
@@ -1334,40 +1322,40 @@ public class CMMParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:99:4: postfix_expression
+                    // CMM.g:98:4: postfix_expression
                     {
-                    pushFollow(FOLLOW_postfix_expression_in_unary_expression370);
-                    postfix_expression2=postfix_expression();
+                    pushFollow(FOLLOW_postfix_expression_in_unary_expression362);
+                    postfix_expression1=postfix_expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
+                    if (state.failed) return value;
 
-                    if ( state.backtracking==0 ) {retval.value =(postfix_expression2!=null?postfix_expression2.value:null);}
+                    if ( state.backtracking==0 ) {value =(postfix_expression1!=null?postfix_expression1.value:null);}
 
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:100:4: unary_operator unary_expression
+                    // CMM.g:99:4: unary_operator unary_expression
                     {
-                    pushFollow(FOLLOW_unary_operator_in_unary_expression377);
-                    unary_operator3=unary_operator();
+                    pushFollow(FOLLOW_unary_operator_in_unary_expression369);
+                    unary_operator2=unary_operator();
 
                     state._fsp--;
-                    if (state.failed) return retval;
+                    if (state.failed) return value;
 
-                    pushFollow(FOLLOW_unary_expression_in_unary_expression379);
+                    pushFollow(FOLLOW_unary_expression_in_unary_expression371);
                     unary_expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
+                    if (state.failed) return value;
 
                     if ( state.backtracking==0 ) {
-                    			switch((unary_operator3!=null?input.toString(unary_operator3.start,unary_operator3.stop):null)){
+                    			switch((unary_operator2!=null?input.toString(unary_operator2.start,unary_operator2.stop):null)){
                     				case "-":
-                    					retval.value =-(Float)retval.value;
+                    					value =-(Float)value;
                     					break;
                     				case "+":
-                    					retval.value =retval.value;
+                    					value =value;
                     					break;
                     			}
                     		}
@@ -1376,9 +1364,6 @@ public class CMMParser extends Parser {
                     break;
 
             }
-            retval.stop = input.LT(-1);
-
-
         }
         catch (RecognitionException re) {
             reportError(re);
@@ -1390,7 +1375,7 @@ public class CMMParser extends Parser {
             if ( state.backtracking>0 ) { memoize(input, 15, unary_expression_StartIndex); }
 
         }
-        return retval;
+        return value;
     }
     // $ANTLR end "unary_expression"
 
@@ -1401,7 +1386,7 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "postfix_expression"
-    // /home/cattail/project/catperter/CMM.g:112:1: postfix_expression returns [Object value] : primary_expression ( '[' expression ']' )* ;
+    // CMM.g:111:1: postfix_expression returns [Object value] : primary_expression ( '[' expression ']' )* ;
     public final CMMParser.postfix_expression_return postfix_expression() throws RecognitionException {
         CMMParser.postfix_expression_return retval = new CMMParser.postfix_expression_return();
         retval.start = input.LT(1);
@@ -1411,16 +1396,16 @@ public class CMMParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
 
-            // /home/cattail/project/catperter/CMM.g:113:2: ( primary_expression ( '[' expression ']' )* )
-            // /home/cattail/project/catperter/CMM.g:113:4: primary_expression ( '[' expression ']' )*
+            // CMM.g:112:2: ( primary_expression ( '[' expression ']' )* )
+            // CMM.g:112:4: primary_expression ( '[' expression ']' )*
             {
-            pushFollow(FOLLOW_primary_expression_in_postfix_expression397);
+            pushFollow(FOLLOW_primary_expression_in_postfix_expression389);
             primary_expression();
 
             state._fsp--;
             if (state.failed) return retval;
 
-            // /home/cattail/project/catperter/CMM.g:113:23: ( '[' expression ']' )*
+            // CMM.g:112:23: ( '[' expression ']' )*
             loop13:
             do {
                 int alt13=2;
@@ -1433,17 +1418,17 @@ public class CMMParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:113:24: '[' expression ']'
+            	    // CMM.g:112:24: '[' expression ']'
             	    {
-            	    match(input,27,FOLLOW_27_in_postfix_expression400); if (state.failed) return retval;
+            	    match(input,27,FOLLOW_27_in_postfix_expression392); if (state.failed) return retval;
 
-            	    pushFollow(FOLLOW_expression_in_postfix_expression402);
+            	    pushFollow(FOLLOW_expression_in_postfix_expression394);
             	    expression();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
 
-            	    match(input,28,FOLLOW_28_in_postfix_expression404); if (state.failed) return retval;
+            	    match(input,28,FOLLOW_28_in_postfix_expression396); if (state.failed) return retval;
 
             	    }
             	    break;
@@ -1479,20 +1464,20 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "primary_expression"
-    // /home/cattail/project/catperter/CMM.g:116:1: primary_expression returns [Object value] : ( constant | IDENTIFIER | '(' expression ')' );
+    // CMM.g:115:1: primary_expression returns [Object value] : ( constant | IDENTIFIER | '(' expression ')' );
     public final Object primary_expression() throws RecognitionException {
         Object value = null;
 
         int primary_expression_StartIndex = input.index();
 
-        Token IDENTIFIER5=null;
-        Object constant4 =null;
+        Token IDENTIFIER4=null;
+        Object constant3 =null;
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return value; }
 
-            // /home/cattail/project/catperter/CMM.g:117:2: ( constant | IDENTIFIER | '(' expression ')' )
+            // CMM.g:116:2: ( constant | IDENTIFIER | '(' expression ')' )
             int alt14=3;
             switch ( input.LA(1) ) {
             case INT_LITERAL:
@@ -1522,39 +1507,39 @@ public class CMMParser extends Parser {
 
             switch (alt14) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:117:4: constant
+                    // CMM.g:116:4: constant
                     {
-                    pushFollow(FOLLOW_constant_in_primary_expression424);
-                    constant4=constant();
+                    pushFollow(FOLLOW_constant_in_primary_expression416);
+                    constant3=constant();
 
                     state._fsp--;
                     if (state.failed) return value;
 
-                    if ( state.backtracking==0 ) {value =constant4;}
+                    if ( state.backtracking==0 ) {value =constant3;}
 
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:118:4: IDENTIFIER
+                    // CMM.g:117:4: IDENTIFIER
                     {
-                    IDENTIFIER5=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_primary_expression431); if (state.failed) return value;
+                    IDENTIFIER4=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_primary_expression423); if (state.failed) return value;
 
-                    if ( state.backtracking==0 ) {value =getValue((IDENTIFIER5!=null?IDENTIFIER5.getText():null));}
+                    if ( state.backtracking==0 ) {value =getValue((IDENTIFIER4!=null?IDENTIFIER4.getText():null));}
 
                     }
                     break;
                 case 3 :
-                    // /home/cattail/project/catperter/CMM.g:119:4: '(' expression ')'
+                    // CMM.g:118:4: '(' expression ')'
                     {
-                    match(input,13,FOLLOW_13_in_primary_expression438); if (state.failed) return value;
+                    match(input,13,FOLLOW_13_in_primary_expression430); if (state.failed) return value;
 
-                    pushFollow(FOLLOW_expression_in_primary_expression440);
+                    pushFollow(FOLLOW_expression_in_primary_expression432);
                     expression();
 
                     state._fsp--;
                     if (state.failed) return value;
 
-                    match(input,14,FOLLOW_14_in_primary_expression442); if (state.failed) return value;
+                    match(input,14,FOLLOW_14_in_primary_expression434); if (state.failed) return value;
 
                     }
                     break;
@@ -1578,29 +1563,29 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "declaration"
-    // /home/cattail/project/catperter/CMM.g:121:1: declaration : declarator_specifiers init_declarator_list ';' ;
+    // CMM.g:120:1: declaration : declarator_specifiers init_declarator_list ';' ;
     public final void declaration() throws RecognitionException {
         int declaration_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:122:2: ( declarator_specifiers init_declarator_list ';' )
-            // /home/cattail/project/catperter/CMM.g:122:4: declarator_specifiers init_declarator_list ';'
+            // CMM.g:121:2: ( declarator_specifiers init_declarator_list ';' )
+            // CMM.g:121:4: declarator_specifiers init_declarator_list ';'
             {
-            pushFollow(FOLLOW_declarator_specifiers_in_declaration453);
+            pushFollow(FOLLOW_declarator_specifiers_in_declaration445);
             declarator_specifiers();
 
             state._fsp--;
             if (state.failed) return ;
 
-            pushFollow(FOLLOW_init_declarator_list_in_declaration455);
+            pushFollow(FOLLOW_init_declarator_list_in_declaration447);
             init_declarator_list();
 
             state._fsp--;
             if (state.failed) return ;
 
-            match(input,24,FOLLOW_24_in_declaration457); if (state.failed) return ;
+            match(input,24,FOLLOW_24_in_declaration449); if (state.failed) return ;
 
             }
 
@@ -1622,15 +1607,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "declarator_specifiers"
-    // /home/cattail/project/catperter/CMM.g:124:1: declarator_specifiers : ( 'int' | 'real' );
+    // CMM.g:123:1: declarator_specifiers : ( 'int' | 'real' );
     public final void declarator_specifiers() throws RecognitionException {
         int declarator_specifiers_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:125:2: ( 'int' | 'real' )
-            // /home/cattail/project/catperter/CMM.g:
+            // CMM.g:124:2: ( 'int' | 'real' )
+            // CMM.g:
             {
             if ( (input.LA(1) >= 31 && input.LA(1) <= 32) ) {
                 input.consume();
@@ -1664,23 +1649,23 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "init_declarator_list"
-    // /home/cattail/project/catperter/CMM.g:128:1: init_declarator_list : init_declarator ( ',' init_declarator )* ;
+    // CMM.g:127:1: init_declarator_list : init_declarator ( ',' init_declarator )* ;
     public final void init_declarator_list() throws RecognitionException {
         int init_declarator_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:129:2: ( init_declarator ( ',' init_declarator )* )
-            // /home/cattail/project/catperter/CMM.g:129:4: init_declarator ( ',' init_declarator )*
+            // CMM.g:128:2: ( init_declarator ( ',' init_declarator )* )
+            // CMM.g:128:4: init_declarator ( ',' init_declarator )*
             {
-            pushFollow(FOLLOW_init_declarator_in_init_declarator_list482);
+            pushFollow(FOLLOW_init_declarator_in_init_declarator_list474);
             init_declarator();
 
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:129:20: ( ',' init_declarator )*
+            // CMM.g:128:20: ( ',' init_declarator )*
             loop15:
             do {
                 int alt15=2;
@@ -1693,11 +1678,11 @@ public class CMMParser extends Parser {
 
                 switch (alt15) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:129:22: ',' init_declarator
+            	    // CMM.g:128:22: ',' init_declarator
             	    {
-            	    match(input,19,FOLLOW_19_in_init_declarator_list486); if (state.failed) return ;
+            	    match(input,19,FOLLOW_19_in_init_declarator_list478); if (state.failed) return ;
 
-            	    pushFollow(FOLLOW_init_declarator_in_init_declarator_list488);
+            	    pushFollow(FOLLOW_init_declarator_in_init_declarator_list480);
             	    init_declarator();
 
             	    state._fsp--;
@@ -1732,26 +1717,26 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "init_declarator"
-    // /home/cattail/project/catperter/CMM.g:131:1: init_declarator : declarator ( '=' initializer )? ;
+    // CMM.g:130:1: init_declarator : declarator ( '=' initializer )? ;
     public final void init_declarator() throws RecognitionException {
         int init_declarator_StartIndex = input.index();
 
-        CMMParser.declarator_return declarator6 =null;
+        CMMParser.declarator_return declarator5 =null;
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:132:2: ( declarator ( '=' initializer )? )
-            // /home/cattail/project/catperter/CMM.g:132:4: declarator ( '=' initializer )?
+            // CMM.g:131:2: ( declarator ( '=' initializer )? )
+            // CMM.g:131:4: declarator ( '=' initializer )?
             {
-            pushFollow(FOLLOW_declarator_in_init_declarator501);
-            declarator6=declarator();
+            pushFollow(FOLLOW_declarator_in_init_declarator493);
+            declarator5=declarator();
 
             state._fsp--;
             if (state.failed) return ;
 
-            // /home/cattail/project/catperter/CMM.g:132:15: ( '=' initializer )?
+            // CMM.g:131:15: ( '=' initializer )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1760,11 +1745,11 @@ public class CMMParser extends Parser {
             }
             switch (alt16) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:132:16: '=' initializer
+                    // CMM.g:131:16: '=' initializer
                     {
-                    match(input,26,FOLLOW_26_in_init_declarator504); if (state.failed) return ;
+                    match(input,26,FOLLOW_26_in_init_declarator496); if (state.failed) return ;
 
-                    pushFollow(FOLLOW_initializer_in_init_declarator506);
+                    pushFollow(FOLLOW_initializer_in_init_declarator498);
                     initializer();
 
                     state._fsp--;
@@ -1777,7 +1762,7 @@ public class CMMParser extends Parser {
 
 
             if ( state.backtracking==0 ) {
-            			((Symbols_scope)Symbols_stack.peek()).values.put((declarator6!=null?input.toString(declarator6.start,declarator6.stop):null),0);
+            			((Symbols_scope)Symbols_stack.peek()).values.put((declarator5!=null?input.toString(declarator5.start,declarator5.stop):null),0);
             		}
 
             }
@@ -1803,7 +1788,7 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "declarator"
-    // /home/cattail/project/catperter/CMM.g:137:1: declarator : IDENTIFIER ( '[' ( constant_expression )? ']' )* ;
+    // CMM.g:136:1: declarator : IDENTIFIER ( '[' ( constant_expression )? ']' )* ;
     public final CMMParser.declarator_return declarator() throws RecognitionException {
         CMMParser.declarator_return retval = new CMMParser.declarator_return();
         retval.start = input.LT(1);
@@ -1813,12 +1798,12 @@ public class CMMParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
 
-            // /home/cattail/project/catperter/CMM.g:138:2: ( IDENTIFIER ( '[' ( constant_expression )? ']' )* )
-            // /home/cattail/project/catperter/CMM.g:138:4: IDENTIFIER ( '[' ( constant_expression )? ']' )*
+            // CMM.g:137:2: ( IDENTIFIER ( '[' ( constant_expression )? ']' )* )
+            // CMM.g:137:4: IDENTIFIER ( '[' ( constant_expression )? ']' )*
             {
-            match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_declarator522); if (state.failed) return retval;
+            match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_declarator514); if (state.failed) return retval;
 
-            // /home/cattail/project/catperter/CMM.g:138:15: ( '[' ( constant_expression )? ']' )*
+            // CMM.g:137:15: ( '[' ( constant_expression )? ']' )*
             loop18:
             do {
                 int alt18=2;
@@ -1831,11 +1816,11 @@ public class CMMParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:138:16: '[' ( constant_expression )? ']'
+            	    // CMM.g:137:16: '[' ( constant_expression )? ']'
             	    {
-            	    match(input,27,FOLLOW_27_in_declarator525); if (state.failed) return retval;
+            	    match(input,27,FOLLOW_27_in_declarator517); if (state.failed) return retval;
 
-            	    // /home/cattail/project/catperter/CMM.g:138:20: ( constant_expression )?
+            	    // CMM.g:137:20: ( constant_expression )?
             	    int alt17=2;
             	    int LA17_0 = input.LA(1);
 
@@ -1844,9 +1829,9 @@ public class CMMParser extends Parser {
             	    }
             	    switch (alt17) {
             	        case 1 :
-            	            // /home/cattail/project/catperter/CMM.g:138:20: constant_expression
+            	            // CMM.g:137:20: constant_expression
             	            {
-            	            pushFollow(FOLLOW_constant_expression_in_declarator527);
+            	            pushFollow(FOLLOW_constant_expression_in_declarator519);
             	            constant_expression();
 
             	            state._fsp--;
@@ -1858,7 +1843,7 @@ public class CMMParser extends Parser {
             	    }
 
 
-            	    match(input,28,FOLLOW_28_in_declarator530); if (state.failed) return retval;
+            	    match(input,28,FOLLOW_28_in_declarator522); if (state.failed) return retval;
 
             	    }
             	    break;
@@ -1892,17 +1877,17 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "initializer"
-    // /home/cattail/project/catperter/CMM.g:140:1: initializer : assignment_expression ;
+    // CMM.g:139:1: initializer : assignment_expression ;
     public final void initializer() throws RecognitionException {
         int initializer_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:141:2: ( assignment_expression )
-            // /home/cattail/project/catperter/CMM.g:141:4: assignment_expression
+            // CMM.g:140:2: ( assignment_expression )
+            // CMM.g:140:4: assignment_expression
             {
-            pushFollow(FOLLOW_assignment_expression_in_initializer542);
+            pushFollow(FOLLOW_assignment_expression_in_initializer534);
             assignment_expression();
 
             state._fsp--;
@@ -1928,19 +1913,19 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "constant"
-    // /home/cattail/project/catperter/CMM.g:144:1: constant returns [Object value] : ( INT_LITERAL | REAL_LITERAL );
+    // CMM.g:143:1: constant returns [Object value] : ( INT_LITERAL | REAL_LITERAL );
     public final Object constant() throws RecognitionException {
         Object value = null;
 
         int constant_StartIndex = input.index();
 
-        Token INT_LITERAL7=null;
-        Token REAL_LITERAL8=null;
+        Token INT_LITERAL6=null;
+        Token REAL_LITERAL7=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return value; }
 
-            // /home/cattail/project/catperter/CMM.g:145:2: ( INT_LITERAL | REAL_LITERAL )
+            // CMM.g:144:2: ( INT_LITERAL | REAL_LITERAL )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -1960,20 +1945,20 @@ public class CMMParser extends Parser {
             }
             switch (alt19) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:145:4: INT_LITERAL
+                    // CMM.g:144:4: INT_LITERAL
                     {
-                    INT_LITERAL7=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_constant558); if (state.failed) return value;
+                    INT_LITERAL6=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_constant550); if (state.failed) return value;
 
-                    if ( state.backtracking==0 ) {value =Integer.parseInt((INT_LITERAL7!=null?INT_LITERAL7.getText():null));}
+                    if ( state.backtracking==0 ) {value =Integer.parseInt((INT_LITERAL6!=null?INT_LITERAL6.getText():null));}
 
                     }
                     break;
                 case 2 :
-                    // /home/cattail/project/catperter/CMM.g:146:4: REAL_LITERAL
+                    // CMM.g:145:4: REAL_LITERAL
                     {
-                    REAL_LITERAL8=(Token)match(input,REAL_LITERAL,FOLLOW_REAL_LITERAL_in_constant565); if (state.failed) return value;
+                    REAL_LITERAL7=(Token)match(input,REAL_LITERAL,FOLLOW_REAL_LITERAL_in_constant557); if (state.failed) return value;
 
-                    if ( state.backtracking==0 ) {value =Float.parseFloat((REAL_LITERAL8!=null?REAL_LITERAL8.getText():null));}
+                    if ( state.backtracking==0 ) {value =Float.parseFloat((REAL_LITERAL7!=null?REAL_LITERAL7.getText():null));}
 
                     }
                     break;
@@ -1997,15 +1982,15 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "assignment_operator"
-    // /home/cattail/project/catperter/CMM.g:161:1: assignment_operator : ( '=' | '+=' | '-=' | '*=' | '/=' );
+    // CMM.g:160:1: assignment_operator : ( '=' | '+=' | '-=' | '*=' | '/=' );
     public final void assignment_operator() throws RecognitionException {
         int assignment_operator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return ; }
 
-            // /home/cattail/project/catperter/CMM.g:162:2: ( '=' | '+=' | '-=' | '*=' | '/=' )
-            // /home/cattail/project/catperter/CMM.g:
+            // CMM.g:161:2: ( '=' | '+=' | '-=' | '*=' | '/=' )
+            // CMM.g:
             {
             if ( input.LA(1)==16||input.LA(1)==18||input.LA(1)==21||input.LA(1)==23||input.LA(1)==26 ) {
                 input.consume();
@@ -2042,7 +2027,7 @@ public class CMMParser extends Parser {
 
 
     // $ANTLR start "unary_operator"
-    // /home/cattail/project/catperter/CMM.g:174:1: unary_operator : ( '+' | '-' );
+    // CMM.g:173:1: unary_operator : ( '+' | '-' );
     public final CMMParser.unary_operator_return unary_operator() throws RecognitionException {
         CMMParser.unary_operator_return retval = new CMMParser.unary_operator_return();
         retval.start = input.LT(1);
@@ -2052,8 +2037,8 @@ public class CMMParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return retval; }
 
-            // /home/cattail/project/catperter/CMM.g:175:2: ( '+' | '-' )
-            // /home/cattail/project/catperter/CMM.g:
+            // CMM.g:174:2: ( '+' | '-' )
+            // CMM.g:
             {
             if ( input.LA(1)==17||input.LA(1)==20 ) {
                 input.consume();
@@ -2089,8 +2074,8 @@ public class CMMParser extends Parser {
 
     // $ANTLR start synpred9_CMM
     public final void synpred9_CMM_fragment() throws RecognitionException {
-        // /home/cattail/project/catperter/CMM.g:82:4: ( equality_expression )
-        // /home/cattail/project/catperter/CMM.g:82:4: equality_expression
+        // CMM.g:82:4: ( equality_expression )
+        // CMM.g:82:4: equality_expression
         {
         pushFollow(FOLLOW_equality_expression_in_synpred9_CMM245);
         equality_expression();
@@ -2171,39 +2156,39 @@ public class CMMParser extends Parser {
     public static final BitSet FOLLOW_multiplicative_expression_in_additive_expression314 = new BitSet(new long[]{0x0000000000120002L});
     public static final BitSet FOLLOW_20_in_additive_expression318 = new BitSet(new long[]{0x00000000001228C0L});
     public static final BitSet FOLLOW_multiplicative_expression_in_additive_expression320 = new BitSet(new long[]{0x0000000000120002L});
-    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression337 = new BitSet(new long[]{0x0000000000408002L});
-    public static final BitSet FOLLOW_15_in_multiplicative_expression341 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression343 = new BitSet(new long[]{0x0000000000408002L});
-    public static final BitSet FOLLOW_22_in_multiplicative_expression347 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression349 = new BitSet(new long[]{0x0000000000408002L});
-    public static final BitSet FOLLOW_postfix_expression_in_unary_expression370 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_operator_in_unary_expression377 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_unary_expression_in_unary_expression379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_expression_in_postfix_expression397 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_27_in_postfix_expression400 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_expression_in_postfix_expression402 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_postfix_expression404 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_constant_in_primary_expression424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_primary_expression431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_primary_expression438 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_expression_in_primary_expression440 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_primary_expression442 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_declarator_specifiers_in_declaration453 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_init_declarator_list_in_declaration455 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_declaration457 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_init_declarator_in_init_declarator_list482 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_init_declarator_list486 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_init_declarator_in_init_declarator_list488 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_declarator_in_init_declarator501 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_26_in_init_declarator504 = new BitSet(new long[]{0x00000000001228C0L});
-    public static final BitSet FOLLOW_initializer_in_init_declarator506 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_in_declarator522 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_27_in_declarator525 = new BitSet(new long[]{0x00000000101228C0L});
-    public static final BitSet FOLLOW_constant_expression_in_declarator527 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_declarator530 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_assignment_expression_in_initializer542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_constant558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REAL_LITERAL_in_constant565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression333 = new BitSet(new long[]{0x0000000000408002L});
+    public static final BitSet FOLLOW_15_in_multiplicative_expression337 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression339 = new BitSet(new long[]{0x0000000000408002L});
+    public static final BitSet FOLLOW_22_in_multiplicative_expression343 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_unary_expression_in_multiplicative_expression345 = new BitSet(new long[]{0x0000000000408002L});
+    public static final BitSet FOLLOW_postfix_expression_in_unary_expression362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_operator_in_unary_expression369 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_unary_expression_in_unary_expression371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_expression_in_postfix_expression389 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27_in_postfix_expression392 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_expression_in_postfix_expression394 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_postfix_expression396 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_constant_in_primary_expression416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_primary_expression423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_primary_expression430 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_expression_in_primary_expression432 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_primary_expression434 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_declarator_specifiers_in_declaration445 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_init_declarator_list_in_declaration447 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_declaration449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_init_declarator_in_init_declarator_list474 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_init_declarator_list478 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_init_declarator_in_init_declarator_list480 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_declarator_in_init_declarator493 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_26_in_init_declarator496 = new BitSet(new long[]{0x00000000001228C0L});
+    public static final BitSet FOLLOW_initializer_in_init_declarator498 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_in_declarator514 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27_in_declarator517 = new BitSet(new long[]{0x00000000101228C0L});
+    public static final BitSet FOLLOW_constant_expression_in_declarator519 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_declarator522 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_assignment_expression_in_initializer534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_constant550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REAL_LITERAL_in_constant557 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_equality_expression_in_synpred9_CMM245 = new BitSet(new long[]{0x0000000000000002L});
 
 }

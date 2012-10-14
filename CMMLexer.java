@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/cattail/project/catperter/CMM.g 2012-10-14 12:13:29
+// $ANTLR 3.4 CMM.g 2012-10-14 12:25:27
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -54,15 +54,15 @@ public class CMMLexer extends Lexer {
     public CMMLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "/home/cattail/project/catperter/CMM.g"; }
+    public String getGrammarFileName() { return "CMM.g"; }
 
     // $ANTLR start "T__13"
     public final void mT__13() throws RecognitionException {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:2:7: ( '(' )
-            // /home/cattail/project/catperter/CMM.g:2:9: '('
+            // CMM.g:2:7: ( '(' )
+            // CMM.g:2:9: '('
             {
             match('('); 
 
@@ -82,8 +82,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:3:7: ( ')' )
-            // /home/cattail/project/catperter/CMM.g:3:9: ')'
+            // CMM.g:3:7: ( ')' )
+            // CMM.g:3:9: ')'
             {
             match(')'); 
 
@@ -103,8 +103,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:4:7: ( '*' )
-            // /home/cattail/project/catperter/CMM.g:4:9: '*'
+            // CMM.g:4:7: ( '*' )
+            // CMM.g:4:9: '*'
             {
             match('*'); 
 
@@ -124,8 +124,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:5:7: ( '*=' )
-            // /home/cattail/project/catperter/CMM.g:5:9: '*='
+            // CMM.g:5:7: ( '*=' )
+            // CMM.g:5:9: '*='
             {
             match("*="); 
 
@@ -147,8 +147,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:6:7: ( '+' )
-            // /home/cattail/project/catperter/CMM.g:6:9: '+'
+            // CMM.g:6:7: ( '+' )
+            // CMM.g:6:9: '+'
             {
             match('+'); 
 
@@ -168,8 +168,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:7:7: ( '+=' )
-            // /home/cattail/project/catperter/CMM.g:7:9: '+='
+            // CMM.g:7:7: ( '+=' )
+            // CMM.g:7:9: '+='
             {
             match("+="); 
 
@@ -191,8 +191,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:8:7: ( ',' )
-            // /home/cattail/project/catperter/CMM.g:8:9: ','
+            // CMM.g:8:7: ( ',' )
+            // CMM.g:8:9: ','
             {
             match(','); 
 
@@ -212,8 +212,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:9:7: ( '-' )
-            // /home/cattail/project/catperter/CMM.g:9:9: '-'
+            // CMM.g:9:7: ( '-' )
+            // CMM.g:9:9: '-'
             {
             match('-'); 
 
@@ -233,8 +233,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:10:7: ( '-=' )
-            // /home/cattail/project/catperter/CMM.g:10:9: '-='
+            // CMM.g:10:7: ( '-=' )
+            // CMM.g:10:9: '-='
             {
             match("-="); 
 
@@ -256,8 +256,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:11:7: ( '/' )
-            // /home/cattail/project/catperter/CMM.g:11:9: '/'
+            // CMM.g:11:7: ( '/' )
+            // CMM.g:11:9: '/'
             {
             match('/'); 
 
@@ -277,8 +277,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:12:7: ( '/=' )
-            // /home/cattail/project/catperter/CMM.g:12:9: '/='
+            // CMM.g:12:7: ( '/=' )
+            // CMM.g:12:9: '/='
             {
             match("/="); 
 
@@ -300,8 +300,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:13:7: ( ';' )
-            // /home/cattail/project/catperter/CMM.g:13:9: ';'
+            // CMM.g:13:7: ( ';' )
+            // CMM.g:13:9: ';'
             {
             match(';'); 
 
@@ -321,8 +321,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:14:7: ( '<' )
-            // /home/cattail/project/catperter/CMM.g:14:9: '<'
+            // CMM.g:14:7: ( '<' )
+            // CMM.g:14:9: '<'
             {
             match('<'); 
 
@@ -342,8 +342,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:15:7: ( '=' )
-            // /home/cattail/project/catperter/CMM.g:15:9: '='
+            // CMM.g:15:7: ( '=' )
+            // CMM.g:15:9: '='
             {
             match('='); 
 
@@ -363,8 +363,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:16:7: ( '[' )
-            // /home/cattail/project/catperter/CMM.g:16:9: '['
+            // CMM.g:16:7: ( '[' )
+            // CMM.g:16:9: '['
             {
             match('['); 
 
@@ -384,8 +384,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:17:7: ( ']' )
-            // /home/cattail/project/catperter/CMM.g:17:9: ']'
+            // CMM.g:17:7: ( ']' )
+            // CMM.g:17:9: ']'
             {
             match(']'); 
 
@@ -405,8 +405,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:18:7: ( 'else' )
-            // /home/cattail/project/catperter/CMM.g:18:9: 'else'
+            // CMM.g:18:7: ( 'else' )
+            // CMM.g:18:9: 'else'
             {
             match("else"); 
 
@@ -428,8 +428,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:19:7: ( 'if' )
-            // /home/cattail/project/catperter/CMM.g:19:9: 'if'
+            // CMM.g:19:7: ( 'if' )
+            // CMM.g:19:9: 'if'
             {
             match("if"); 
 
@@ -451,8 +451,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:20:7: ( 'int' )
-            // /home/cattail/project/catperter/CMM.g:20:9: 'int'
+            // CMM.g:20:7: ( 'int' )
+            // CMM.g:20:9: 'int'
             {
             match("int"); 
 
@@ -474,8 +474,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:21:7: ( 'real' )
-            // /home/cattail/project/catperter/CMM.g:21:9: 'real'
+            // CMM.g:21:7: ( 'real' )
+            // CMM.g:21:9: 'real'
             {
             match("real"); 
 
@@ -497,8 +497,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:22:7: ( 'while' )
-            // /home/cattail/project/catperter/CMM.g:22:9: 'while'
+            // CMM.g:22:7: ( 'while' )
+            // CMM.g:22:9: 'while'
             {
             match("while"); 
 
@@ -520,8 +520,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:23:7: ( '{' )
-            // /home/cattail/project/catperter/CMM.g:23:9: '{'
+            // CMM.g:23:7: ( '{' )
+            // CMM.g:23:9: '{'
             {
             match('{'); 
 
@@ -541,8 +541,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:24:7: ( '}' )
-            // /home/cattail/project/catperter/CMM.g:24:9: '}'
+            // CMM.g:24:7: ( '}' )
+            // CMM.g:24:9: '}'
             {
             match('}'); 
 
@@ -562,13 +562,13 @@ public class CMMLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:149:2: ( LETTER ( LETTER | '0' .. '9' | '_' )* ( LETTER | '0' .. '9' )? )
-            // /home/cattail/project/catperter/CMM.g:149:4: LETTER ( LETTER | '0' .. '9' | '_' )* ( LETTER | '0' .. '9' )?
+            // CMM.g:148:2: ( LETTER ( LETTER | '0' .. '9' | '_' )* ( LETTER | '0' .. '9' )? )
+            // CMM.g:148:4: LETTER ( LETTER | '0' .. '9' | '_' )* ( LETTER | '0' .. '9' )?
             {
             mLETTER(); 
 
 
-            // /home/cattail/project/catperter/CMM.g:149:11: ( LETTER | '0' .. '9' | '_' )*
+            // CMM.g:148:11: ( LETTER | '0' .. '9' | '_' )*
             loop1:
             do {
                 int alt1=2;
@@ -581,7 +581,7 @@ public class CMMLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:
+            	    // CMM.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
@@ -602,7 +602,7 @@ public class CMMLexer extends Lexer {
             } while (true);
 
 
-            // /home/cattail/project/catperter/CMM.g:149:40: ( LETTER | '0' .. '9' )?
+            // CMM.g:148:40: ( LETTER | '0' .. '9' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -611,7 +611,7 @@ public class CMMLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:
+                    // CMM.g:
                     {
                     if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                         input.consume();
@@ -643,8 +643,8 @@ public class CMMLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // /home/cattail/project/catperter/CMM.g:154:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /home/cattail/project/catperter/CMM.g:
+            // CMM.g:153:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // CMM.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -671,10 +671,10 @@ public class CMMLexer extends Lexer {
         try {
             int _type = INT_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:156:2: ( ( '0' .. '9' )+ )
-            // /home/cattail/project/catperter/CMM.g:156:4: ( '0' .. '9' )+
+            // CMM.g:155:2: ( ( '0' .. '9' )+ )
+            // CMM.g:155:4: ( '0' .. '9' )+
             {
-            // /home/cattail/project/catperter/CMM.g:156:4: ( '0' .. '9' )+
+            // CMM.g:155:4: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -688,7 +688,7 @@ public class CMMLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:
+            	    // CMM.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -729,8 +729,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = REAL_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:159:2: ( INT_LITERAL '.' INT_LITERAL ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )? )
-            // /home/cattail/project/catperter/CMM.g:159:4: INT_LITERAL '.' INT_LITERAL ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )?
+            // CMM.g:158:2: ( INT_LITERAL '.' INT_LITERAL ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )? )
+            // CMM.g:158:4: INT_LITERAL '.' INT_LITERAL ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )?
             {
             mINT_LITERAL(); 
 
@@ -740,7 +740,7 @@ public class CMMLexer extends Lexer {
             mINT_LITERAL(); 
 
 
-            // /home/cattail/project/catperter/CMM.g:159:32: ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )?
+            // CMM.g:158:32: ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -749,7 +749,7 @@ public class CMMLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:159:34: ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL
+                    // CMM.g:158:34: ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -796,8 +796,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = EQ_OP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:169:2: ( '==' )
-            // /home/cattail/project/catperter/CMM.g:169:4: '=='
+            // CMM.g:168:2: ( '==' )
+            // CMM.g:168:4: '=='
             {
             match("=="); 
 
@@ -819,8 +819,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = NE_OP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:172:2: ( '<>' )
-            // /home/cattail/project/catperter/CMM.g:172:4: '<>'
+            // CMM.g:171:2: ( '<>' )
+            // CMM.g:171:4: '<>'
             {
             match("<>"); 
 
@@ -842,8 +842,8 @@ public class CMMLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:178:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // /home/cattail/project/catperter/CMM.g:178:8: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+            // CMM.g:177:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
+            // CMM.g:177:8: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -873,14 +873,14 @@ public class CMMLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:181:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // /home/cattail/project/catperter/CMM.g:181:9: '/*' ( options {greedy=false; } : . )* '*/'
+            // CMM.g:180:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // CMM.g:180:9: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // /home/cattail/project/catperter/CMM.g:181:14: ( options {greedy=false; } : . )*
+            // CMM.g:180:14: ( options {greedy=false; } : . )*
             loop5:
             do {
                 int alt5=2;
@@ -905,7 +905,7 @@ public class CMMLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:181:42: .
+            	    // CMM.g:180:42: .
             	    {
             	    matchAny(); 
 
@@ -940,14 +940,14 @@ public class CMMLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/cattail/project/catperter/CMM.g:184:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // /home/cattail/project/catperter/CMM.g:184:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // CMM.g:183:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // CMM.g:183:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match("//"); 
 
 
 
-            // /home/cattail/project/catperter/CMM.g:184:12: (~ ( '\\n' | '\\r' ) )*
+            // CMM.g:183:12: (~ ( '\\n' | '\\r' ) )*
             loop6:
             do {
                 int alt6=2;
@@ -960,7 +960,7 @@ public class CMMLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // /home/cattail/project/catperter/CMM.g:
+            	    // CMM.g:
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -981,7 +981,7 @@ public class CMMLexer extends Lexer {
             } while (true);
 
 
-            // /home/cattail/project/catperter/CMM.g:184:26: ( '\\r' )?
+            // CMM.g:183:26: ( '\\r' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -990,7 +990,7 @@ public class CMMLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // /home/cattail/project/catperter/CMM.g:184:26: '\\r'
+                    // CMM.g:183:26: '\\r'
                     {
                     match('\r'); 
 
@@ -1016,12 +1016,12 @@ public class CMMLexer extends Lexer {
     // $ANTLR end "LINE_COMMENT"
 
     public void mTokens() throws RecognitionException {
-        // /home/cattail/project/catperter/CMM.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | IDENTIFIER | INT_LITERAL | REAL_LITERAL | EQ_OP | NE_OP | WS | COMMENT | LINE_COMMENT )
+        // CMM.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | IDENTIFIER | INT_LITERAL | REAL_LITERAL | EQ_OP | NE_OP | WS | COMMENT | LINE_COMMENT )
         int alt8=31;
         alt8 = dfa8.predict(input);
         switch (alt8) {
             case 1 :
-                // /home/cattail/project/catperter/CMM.g:1:10: T__13
+                // CMM.g:1:10: T__13
                 {
                 mT__13(); 
 
@@ -1029,7 +1029,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // /home/cattail/project/catperter/CMM.g:1:16: T__14
+                // CMM.g:1:16: T__14
                 {
                 mT__14(); 
 
@@ -1037,7 +1037,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // /home/cattail/project/catperter/CMM.g:1:22: T__15
+                // CMM.g:1:22: T__15
                 {
                 mT__15(); 
 
@@ -1045,7 +1045,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // /home/cattail/project/catperter/CMM.g:1:28: T__16
+                // CMM.g:1:28: T__16
                 {
                 mT__16(); 
 
@@ -1053,7 +1053,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // /home/cattail/project/catperter/CMM.g:1:34: T__17
+                // CMM.g:1:34: T__17
                 {
                 mT__17(); 
 
@@ -1061,7 +1061,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 6 :
-                // /home/cattail/project/catperter/CMM.g:1:40: T__18
+                // CMM.g:1:40: T__18
                 {
                 mT__18(); 
 
@@ -1069,7 +1069,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 7 :
-                // /home/cattail/project/catperter/CMM.g:1:46: T__19
+                // CMM.g:1:46: T__19
                 {
                 mT__19(); 
 
@@ -1077,7 +1077,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 8 :
-                // /home/cattail/project/catperter/CMM.g:1:52: T__20
+                // CMM.g:1:52: T__20
                 {
                 mT__20(); 
 
@@ -1085,7 +1085,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // /home/cattail/project/catperter/CMM.g:1:58: T__21
+                // CMM.g:1:58: T__21
                 {
                 mT__21(); 
 
@@ -1093,7 +1093,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // /home/cattail/project/catperter/CMM.g:1:64: T__22
+                // CMM.g:1:64: T__22
                 {
                 mT__22(); 
 
@@ -1101,7 +1101,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // /home/cattail/project/catperter/CMM.g:1:70: T__23
+                // CMM.g:1:70: T__23
                 {
                 mT__23(); 
 
@@ -1109,7 +1109,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // /home/cattail/project/catperter/CMM.g:1:76: T__24
+                // CMM.g:1:76: T__24
                 {
                 mT__24(); 
 
@@ -1117,7 +1117,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // /home/cattail/project/catperter/CMM.g:1:82: T__25
+                // CMM.g:1:82: T__25
                 {
                 mT__25(); 
 
@@ -1125,7 +1125,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // /home/cattail/project/catperter/CMM.g:1:88: T__26
+                // CMM.g:1:88: T__26
                 {
                 mT__26(); 
 
@@ -1133,7 +1133,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // /home/cattail/project/catperter/CMM.g:1:94: T__27
+                // CMM.g:1:94: T__27
                 {
                 mT__27(); 
 
@@ -1141,7 +1141,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // /home/cattail/project/catperter/CMM.g:1:100: T__28
+                // CMM.g:1:100: T__28
                 {
                 mT__28(); 
 
@@ -1149,7 +1149,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // /home/cattail/project/catperter/CMM.g:1:106: T__29
+                // CMM.g:1:106: T__29
                 {
                 mT__29(); 
 
@@ -1157,7 +1157,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // /home/cattail/project/catperter/CMM.g:1:112: T__30
+                // CMM.g:1:112: T__30
                 {
                 mT__30(); 
 
@@ -1165,7 +1165,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // /home/cattail/project/catperter/CMM.g:1:118: T__31
+                // CMM.g:1:118: T__31
                 {
                 mT__31(); 
 
@@ -1173,7 +1173,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // /home/cattail/project/catperter/CMM.g:1:124: T__32
+                // CMM.g:1:124: T__32
                 {
                 mT__32(); 
 
@@ -1181,7 +1181,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // /home/cattail/project/catperter/CMM.g:1:130: T__33
+                // CMM.g:1:130: T__33
                 {
                 mT__33(); 
 
@@ -1189,7 +1189,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // /home/cattail/project/catperter/CMM.g:1:136: T__34
+                // CMM.g:1:136: T__34
                 {
                 mT__34(); 
 
@@ -1197,7 +1197,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 23 :
-                // /home/cattail/project/catperter/CMM.g:1:142: T__35
+                // CMM.g:1:142: T__35
                 {
                 mT__35(); 
 
@@ -1205,7 +1205,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 24 :
-                // /home/cattail/project/catperter/CMM.g:1:148: IDENTIFIER
+                // CMM.g:1:148: IDENTIFIER
                 {
                 mIDENTIFIER(); 
 
@@ -1213,7 +1213,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 25 :
-                // /home/cattail/project/catperter/CMM.g:1:159: INT_LITERAL
+                // CMM.g:1:159: INT_LITERAL
                 {
                 mINT_LITERAL(); 
 
@@ -1221,7 +1221,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 26 :
-                // /home/cattail/project/catperter/CMM.g:1:171: REAL_LITERAL
+                // CMM.g:1:171: REAL_LITERAL
                 {
                 mREAL_LITERAL(); 
 
@@ -1229,7 +1229,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 27 :
-                // /home/cattail/project/catperter/CMM.g:1:184: EQ_OP
+                // CMM.g:1:184: EQ_OP
                 {
                 mEQ_OP(); 
 
@@ -1237,7 +1237,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 28 :
-                // /home/cattail/project/catperter/CMM.g:1:190: NE_OP
+                // CMM.g:1:190: NE_OP
                 {
                 mNE_OP(); 
 
@@ -1245,7 +1245,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 29 :
-                // /home/cattail/project/catperter/CMM.g:1:196: WS
+                // CMM.g:1:196: WS
                 {
                 mWS(); 
 
@@ -1253,7 +1253,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 30 :
-                // /home/cattail/project/catperter/CMM.g:1:199: COMMENT
+                // CMM.g:1:199: COMMENT
                 {
                 mCOMMENT(); 
 
@@ -1261,7 +1261,7 @@ public class CMMLexer extends Lexer {
                 }
                 break;
             case 31 :
-                // /home/cattail/project/catperter/CMM.g:1:207: LINE_COMMENT
+                // CMM.g:1:207: LINE_COMMENT
                 {
                 mLINE_COMMENT(); 
 
