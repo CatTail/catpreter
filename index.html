@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script src="./cat.js" type="text/javascript"></script>
-	<script src="./Lexer.js" type="text/javascript"></script>
+	<script src="lib/cat.js" type="text/javascript"></script>
+	<script src="js/Lexer.js" type="text/javascript"></script>
 </head>
 <body>
 <textarea id="source" name="" rows="10" cols="30">
@@ -15,8 +15,8 @@ int b=1+1;
 	Result tokens:
 	<div id="display"></div>
 	<script type="text/javascript">
-		Cat.querySelectorAll('#compile')[0].onclick = function(){
-			var source = Cat.querySelectorAll('#source')[0].value;
+		cat.querySelectorAll('#compile')[0].onclick = function(){
+			var source = cat.querySelectorAll('#source')[0].value;
 			console.log(source);
 			var lexer = new Lexer(source);
 			var result = '';
@@ -24,11 +24,11 @@ int b=1+1;
 				result += elegantDisplay(token);
 				console.log(token);
 			}
-			Cat.querySelectorAll('#display')[0].innerHTML = result;
+			cat.querySelectorAll('#display')[0].innerHTML = result;
 		};
 		function elegantDisplay(token){
 			var value = token.value === '\n' ? '\\n' : token.value;
-			return Cat.format('&lt;{0},"{1}"&gt;<br>',token.name,value);
+			return cat.format('&lt;{0},"{1}"&gt;<br>',token.name,value);
 		}
 	</script>
 </body>
