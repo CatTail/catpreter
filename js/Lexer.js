@@ -40,7 +40,7 @@ function Lexer(source){
 		_this.consume = function(character){
 			buffer += character;
 			var tmp = [];
-			Cat.each(matches,function(reg){
+			cat.each(matches,function(reg){
 				reg.test(buffer) ? tmp.push(reg) : 0;
 				reg.lastIndex = 0;
 			});
@@ -54,7 +54,7 @@ function Lexer(source){
 		_this.pattern = function(){
 			buffer = buffer.slice(0,-1);
 			var backtrack = [];
-			Cat.each(tokens,function(reg){
+			cat.each(tokens,function(reg){
 				reg.test(buffer) ? backtrack.push(reg) : 0;
 				reg.lastIndex = 0;
 			});
@@ -93,7 +93,7 @@ function Lexer(source){
 		if (buffer !== '') {
 			var pattern = dfa.pattern();
 			for (var type in tokenMapping) {
-				Cat.each(tokenMapping[type],function(reg){
+				cat.each(tokenMapping[type],function(reg){
 					reg.toString() === pattern.toString() ?
 						token = new Token(type,buffer) : 0;
 				});
