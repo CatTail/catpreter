@@ -4,7 +4,7 @@
 // The finnal version will generate grammar automatically by webpage.
 var fs = require('fs');
 var util = require('util');
-var content = fs.readFileSync('_grammar','utf8');
+var content = fs.readFileSync('_grammar_test','utf8');
 var subpatterns = [')', ')?', ')*', ')+'];
 
 (function genGrammar(){
@@ -24,7 +24,7 @@ var subpatterns = [')', ')?', ')*', ')+'];
   var result = util.inspect(grammar,false,null);
   result = "// This file was generated automatically by genGrammar.js\n" +
     "// Don't edit it directly\n" +
-    'var grammar = ' + result + ';' +
+    'var grammar = ' + result + ';\n' +
     'exports.grammar = grammar;'
 
   console.log(result);
