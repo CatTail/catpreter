@@ -1,4 +1,6 @@
-{ prog: [ [ 'statement' ] ],
+// This file was generated automatically by genGrammar.js
+// Don't edit it directly
+var grammar = { prog: [ [ 'statement' ] ],
   statement: 
    [ [ 'compound_statement' ],
      [ 'expression_statement' ],
@@ -87,4 +89,4 @@
      [ '\'/=\'' ] ],
   EQ_OP: [ [ '\'==\'' ] ],
   NE_OP: [ [ '\'<>\'' ] ],
-  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ 'read' ], [ 'write' ] ] }
+  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ 'read' ], [ 'write' ] ] };exports.grammar = grammar;
