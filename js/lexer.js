@@ -113,3 +113,5 @@ function Lexer(source){
 		return index === source.length;
 	};
 }
+
+exports.Lexer = Lexer;

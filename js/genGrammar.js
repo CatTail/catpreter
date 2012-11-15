@@ -4,23 +4,31 @@
 // The finnal version will generate grammar automatically by webpage.
 var fs = require('fs');
 var util = require('util');
-var content = fs.readFileSync('grammar','utf8');
+var content = fs.readFileSync('_grammar','utf8');
 var subpatterns = [')', ')?', ')*', ')+'];
 
-var grammar = {};
-var productions = content.split('\n\t;\n');
-productions.forEach(function(production){
-  var head = production.split('\n\t: ')[0];
-  if (head!=='') {
-    grammar[head] = [];
-    var bodys = production.split('\n\t: ')[1].split('\n\t| ');
-    bodys.forEach(function(body){
-      var symbols = body.split(' ');
-      grammar[head].push(genBody(symbols));
-    });
-  }
-});
-console.log(util.inspect(grammar,false,null));
+(function genGrammar(){
+  var grammar = {};
+  var productions = content.split('\n\t;\n');
+  productions.forEach(function(production){
+    var head = production.split('\n\t: ')[0];
+    if (head!=='') {
+      grammar[head] = [];
+      var bodys = production.split('\n\t: ')[1].split('\n\t| ');
+      bodys.forEach(function(body){
+        var symbols = body.split(' ');
+        grammar[head].push(genBody(symbols));
+      });
+    }
+  });
+  var result = util.inspect(grammar,false,null);
+  result = "// This file was generated automatically by genGrammar.js\n" +
+    "// Don't edit it directly\n" +
+    'var grammar = ' + result + ';' +
+    'exports.grammar = grammar;'
+
+  console.log(result);
+})();
 
 // Generator production body
 function genBody(symbols){
