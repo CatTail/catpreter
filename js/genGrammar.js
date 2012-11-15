@@ -25,7 +25,7 @@ var subpatterns = [')', ')?', ')*', ')+'];
   result = "// This file was generated automatically by genGrammar.js\n" +
     "// Don't edit it directly\n" +
     'var grammar = ' + result + ';\n' +
-    'exports.grammar = grammar;'
+    'if (exports) exports.grammar = grammar;'
 
   console.log(result);
 })();

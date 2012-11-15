@@ -1,3 +1,7 @@
+if (require) {
+  var cat = require('../lib/catjs/cat.js').cat;
+}
+
 var tokenMapping = {
 	'DEFAULT': [
 		/^\+$/,/^-$/,/^\*$/,/^\/$/,/^<$/,/^==$/,/^<>$/,/^\[$/,/^\]$/,/^=$/,//运算符
@@ -114,4 +118,6 @@ function Lexer(source){
 	};
 }
 
-exports.Lexer = Lexer;
+if (exports) {
+  exports.Lexer = Lexer;
+}
