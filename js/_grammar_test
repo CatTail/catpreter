@@ -1,4 +1,7 @@
 A
 	: A b
-	| a
+	| A c
+	| A B d
+	| A B e
+	| f
 	;
