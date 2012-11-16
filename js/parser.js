@@ -15,22 +15,19 @@ var Parser = function(lexer,grammar){
   // cache magic production header
   this.magicCache = [];
   this.magicMapping = {'?': 'Zero2One','*': 'Zero2Many','+': 'One2Many','|': 'Opt',};
-  debugger;
 
 //  console.log(util.inspect(this.grammar, false, null));
   // Following action will alter this.grammar.so we can't put them into one
   // single loop.
   for (var head in this.grammar) {
-    this.handleMagic(head);
+ //   this.handleMagic(head);
   }
-  /*
   for (var head in this.grammar) {
     this.extFactor(head);
   }
   for (var head in this.grammar) {
-    this.eliRecur(head);
+//    this.eliRecur(head);
   }
-  */
 
   console.log(util.inspect(this.grammar, false, null));
 };
@@ -68,24 +65,32 @@ Parser.prototype.handleMagic = function(head){
 };
 /**
  * Internally handle optional magic '|'
+ * @param {Object} symbol Cound be any magic mark symbol
+ * @param {String} newHead String represent nonterminal
  */
 Parser.prototype._handleOpt = function(symbol, newHead){
   this.grammar[newHead] = symbol['|'];
 };
 /**
  * Internally handle Zero or One magic '?'
+ * @param {Object} symbol Cound be any magic mark symbol
+ * @param {String} newHead String represent nonterminal
  */
 Parser.prototype._handleZero2One = function(symbol, newHead){
   this.grammar[newHead] = [symbol['?'], []];
 };
 /**
  * Internally handle Zero or Many magic '*'
+ * @param {Object} symbol Cound be any magic mark symbol
+ * @param {String} newHead String represent nonterminal
  */
 Parser.prototype._handleZero2Many = function(symbol, newHead){
   this.grammar[newHead] = [symbol['*'].concat(newHead), []];
 };
 /**
  * Internally handle One or Many magic '+'
+ * @param {Object} symbol Cound be any magic mark symbol
+ * @param {String} newHead String represent nonterminal
  */
 Parser.prototype._handleOne2Many = function(symbol, newHead){
   this.grammar[newHead] = [symbol['+'].concat({
@@ -96,21 +101,36 @@ Parser.prototype._handleOne2Many = function(symbol, newHead){
 
 /**
  * Eliminate left recursive
+ * @param {String} head Production head
  */
 Parser.prototype.eliRecur = function(head){
-/*
-  for (var head in this.grammar) {
-    this.grammar[head].forEach(function(body){
-      if (head === body) {
-        var body = this.grammar[head][idx];
-      }
-    });
-  }
-*/
+  var rBodys = [],
+  nBodys = [];
+  cat.each(this.grammar[head], function(body){
+    if (head === body[0]) {
+      rBodys.push(body.slice(1));
+    }else{
+      nBodys.push(body);
+    }
+  });
+  if (rBodys.length === 0) return;
+  // left recursive exist
+  var newHead = head + '$r_' + cat.randomString(this.ranLen);
+  this.grammar[head] = [];
+  cat.each(nBodys, function(nBody){
+    this.grammar[head].push(nBody.concat(newHead));
+  }, this);
+  this.grammar[newHead] = [[]];
+  cat.each(rBodys, function(rBody){
+    this.grammar[newHead].push(rBody.concat(newHead));
+  }, this);
+  debugger;
+
 };
 
 /**
  * Extract left common factor.
+ * @param {String} head Production head
  */
 Parser.prototype.extFactor = function(head){
   var common_list = this.widthFirst(this.grammar[head]);
@@ -118,7 +138,7 @@ Parser.prototype.extFactor = function(head){
 };
 
 /**
- * @param {String} head
+ * @param {String} head Production head
  * @param {Array.Object} common_list See widthFirst returns
  */
 Parser.prototype._extFactor = function(head, common_list){
@@ -127,6 +147,7 @@ Parser.prototype._extFactor = function(head, common_list){
   var newBodys = [],
   bodys = this.grammar[head];
 
+  var all = [];
   cat.each(common_list, function(commons){
     // create new production
     var key = head+'$c_'+cat.randomString(this.ranLen);
@@ -149,12 +170,16 @@ Parser.prototype._extFactor = function(head, common_list){
  * Using width-first technique to extract factor.
  * Filter 𝜀 as empty array.
  * @param {String} bodys Production bodys
- * @returns {Array.Object} Array of common object have the same common factor
- *  [{'commons': [0,1,2],'level': 2},{'commons': [5,8],'level': 1}]
+ * @returns {Object} Array of common object have the same common factor
+ *  {
+ *    'common_list': [{'commons': [0,1,2],'level': 2},{'commons': [5,8],'level': 1}],
+ *    'uncommons': [3,4,6,7]
+ *  }
  */
 Parser.prototype.widthFirst = function(bodys){
   var hash = {},
-  common_list = [];
+  common_list = [],
+  uncommons = [];
   cat.each(bodys, function(body, idx){
     var key = body[0];
     if (key != null) {//escape 𝜀
@@ -172,9 +197,11 @@ Parser.prototype.widthFirst = function(bodys){
         'commons': hash[key],
         'level': level
       });
+    }else{
+      uncommons.push(key);
     }
   }
-  return common_list;
+  return {'common_list': common_list, 'uncommons': uncommons};
 };
 
 /**
