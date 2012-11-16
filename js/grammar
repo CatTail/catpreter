@@ -13,7 +13,7 @@ compound_statement
 	| '{' statement_list '}'
 	;
 statement_list
-	: statement+
+	: ( statement )+
 	;
 expression_statement
 	: ';'
@@ -94,6 +94,6 @@ NE_OP
 unary_operator
 	: '+'
 	| '-'
-	| read
-	| write
+	| 'read'
+	| 'write'
 	;

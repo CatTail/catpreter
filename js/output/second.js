@@ -1,12 +1,14 @@
-{ prog: [ [ 'statement' ] ],
+// This file was generated automatically by modGramamr.js
+// Don't edit it directly
+var grammar = { prog: [ [ 'statement' ] ],
   statement: 
    [ [ 'compound_statement' ],
      [ 'expression_statement' ],
      [ 'selection_statement' ],
      [ 'iteration_statement' ],
      [ 'declaration' ] ],
-  compound_statement: [ [ '\'{\'', 'compound_statement$c_ZpYcEV' ] ],
-  statement_list: [ [ 'statement+' ] ],
+  compound_statement: [ [ '\'{\'', 'compound_statement$c_eyRUkM' ] ],
+  statement_list: [ [ 'statement_list$+' ] ],
   expression_statement: [ [ '\';\'' ], [ 'expression', '\';\'' ] ],
   selection_statement: 
    [ [ '\'if\'',
@@ -42,37 +44,34 @@
   declarator: [ [ 'IDENTIFIER', 'declarator$*' ] ],
   initializer: [ [ 'assignment_expression' ] ],
   constant: [ [ 'INT_LITERAL' ], [ 'REAL_LITERAL' ] ],
-  assignment_operator: 
-   [ [ '\'=\'' ],
-     [ '\'+=\'' ],
-     [ '\'-=\'' ],
-     [ '\'*=\'' ],
-     [ '\'/=\'' ] ],
+  assignment_operator: [ [ '\'=\'' ] ],
   EQ_OP: [ [ '\'==\'' ] ],
   NE_OP: [ [ '\'<>\'' ] ],
-  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ 'read' ], [ 'write' ] ],
+  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ '\'read\'' ], [ '\'write\'' ] ],
+  'statement_list$+': [ [ 'statement', 'statement_list$+$*' ] ],
+  'statement_list$+$*': [ [ 'statement', 'statement_list$+$*' ], [] ],
   'selection_statement$?': [ [ '\'else\'', 'statement' ], [] ],
   'expression$*': [ [ '\',\'', 'assignment_expression', 'expression$*' ], [] ],
   'equality_expression$*': 
-   [ [ 'equality_expression$*$|_xNfjNq', 'equality_expression$*' ],
+   [ [ 'equality_expression$*$|_eQaMhd', 'equality_expression$*' ],
      [] ],
-  'equality_expression$*$|_xNfjNq': 
+  'equality_expression$*$|_eQaMhd': 
    [ [ 'EQ_OP', 'relational_expression' ],
      [ 'NE_OP', 'relational_expression' ] ],
   'relational_expression$*': 
    [ [ '\'<\'', 'additive_expression', 'relational_expression$*' ],
      [] ],
   'additive_expression$*': 
-   [ [ 'additive_expression$*$|_VASpsH', 'additive_expression$*' ],
+   [ [ 'additive_expression$*$|_GLuaVr', 'additive_expression$*' ],
      [] ],
-  'additive_expression$*$|_VASpsH': 
+  'additive_expression$*$|_GLuaVr': 
    [ [ '\'+\'', 'multiplicative_expression' ],
      [ '\'-\'', 'multiplicative_expression' ] ],
   'multiplicative_expression$*': 
-   [ [ 'multiplicative_expression$*$|_tWkbFz',
+   [ [ 'multiplicative_expression$*$|_zXEEOR',
        'multiplicative_expression$*' ],
      [] ],
-  'multiplicative_expression$*$|_tWkbFz': 
+  'multiplicative_expression$*$|_zXEEOR': 
    [ [ '\'*\'', 'unary_expression' ],
      [ '\'/\'', 'unary_expression' ] ],
   'postfix_expression$*': 
@@ -82,4 +81,5 @@
   'init_declarator$?': [ [ '\'=\'', 'initializer' ], [] ],
   'declarator$*': [ [ '\'[\'', 'declarator$*$?', '\']\'', 'declarator$*' ], [] ],
   'declarator$*$?': [ [ 'constant_expression' ], [] ],
-  'compound_statement$c_ZpYcEV': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] }
+  'compound_statement$c_eyRUkM': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] };
+if (exports) exports.grammar = grammar;

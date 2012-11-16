@@ -5,7 +5,7 @@
 var fs = require('fs');
 var util = require('util');
 //var content = fs.readFileSync('_grammar','utf8');
-var content = fs.readFileSync('_grammar','utf8');
+var content = fs.readFileSync('grammar','utf8');
 var subpatterns = [')', ')?', ')*', ')+'];
 
 (function genGrammar(){
