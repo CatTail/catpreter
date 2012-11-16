@@ -36,7 +36,7 @@ assignment_expression
 	| primary_expression assignment_operator assignment_expression
 	;
 equality_expression
-	: relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )*
+	: relational_expression ( '==' relational_expression | '<>' relational_expression )*
 	;
 relational_expression
 	: additive_expression ( '<' additive_expression )*
@@ -84,12 +84,6 @@ constant
 	;
 assignment_operator
 	: '='
-	;
-EQ_OP
-	: '=='
-	;
-NE_OP
-	: '<>'
 	;
 unary_operator
 	: '+'

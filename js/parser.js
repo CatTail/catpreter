@@ -235,3 +235,6 @@ Parser.prototype._deeper = function(bodys, commons, level){
 if (exports) {
   exports.Parser = Parser;
 }
+
+// TODO calculate FIRST and follow
+// TODO generator analysis table

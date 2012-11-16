@@ -31,8 +31,8 @@ var grammar = { prog: [ [ 'statement' ] ],
    [ [ 'relational_expression',
        { '*': 
           [ { '|': 
-               [ [ 'EQ_OP', 'relational_expression' ],
-                 [ 'NE_OP', 'relational_expression' ] ] } ] } ] ],
+               [ [ '\'==\'', 'relational_expression' ],
+                 [ '\'<>\'', 'relational_expression' ] ] } ] } ] ],
   relational_expression: 
    [ [ 'additive_expression',
        { '*': [ '\'<\'', 'additive_expression' ] } ] ],
@@ -68,7 +68,5 @@ var grammar = { prog: [ [ 'statement' ] ],
   initializer: [ [ 'assignment_expression' ] ],
   constant: [ [ 'INT_LITERAL' ], [ 'REAL_LITERAL' ] ],
   assignment_operator: [ [ '\'=\'' ] ],
-  EQ_OP: [ [ '\'==\'' ] ],
-  NE_OP: [ [ '\'<>\'' ] ],
   unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ '\'read\'' ], [ '\'write\'' ] ] };
 if (exports) exports.grammar = grammar;
