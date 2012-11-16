@@ -39,70 +39,53 @@ var Parser = function(lexer,grammar){
  * Transform ?,*,+,| magic mark into production
  */
 Parser.prototype.handleMagic = function(head){
-  console.log(this.grammar[head]);
   cat.each(this.grammar[head], function(body, bIdx){
     // handle every production body
     cat.each(body, function(symbol, sIdx){
       // only affect magic ?,*,+,|
       if (typeof symbol === 'object') { 
-        var type = Object.keys(symbol)[0];
-        // can't cache magic |, for every | is somewhat different
+        var newHead,
+        type = Object.keys(symbol)[0];
+        // can't cache magic '|', for every '|' is somewhat different
         if (type === '|') {
-            this._handleOpt(head, bIdx, sIdx);
+            var newHead = head + '$|_' + cat.randomString(this.ranLen);
+            this._handleOpt(symbol, newHead);
         }else{
           // cache magic ?,*,+
           var newHead = head + '$' + type;
           if (this.magicCache.indexOf(newHead) === -1) {
             this.magicCache.push(newHead);
-//            var symbol = this.grammar[head][bIdx][sIdx];
             var funcName = '_handle'+this.magicMapping[type];
             this[funcName](symbol, newHead);
           }
-          this.grammar[head][bIdx].splice(sIdx, 1, newHead);
-          // recursive incoke to eliminate magic
-//          this.handleMagic(newHead);
         }
+        this.grammar[head][bIdx].splice(sIdx, 1, newHead);
+        // recursive incoke to eliminate magic
+        this.handleMagic(newHead);
       }
     }, this);
   }, this);
 };
-// TODO :
-// 建立如B+,B*等的数据库，使得每个magic都不需要重复建立如B+2,B+3，而可以重用B+
 /**
  * Internally handle optional magic '|'
- * @param {String} head Production head
- * @param {Integer} bIdx Production body index
- * @param {Integer} sIdx Symbol index in production body
  */
-Parser.prototype._handleOpt = function(head, bIdx, sIdx){
-  var symbol = this.grammar[head][bIdx][sIdx];
-  var newHead = head + '$|_' + cat.randomString(this.ranLen);
+Parser.prototype._handleOpt = function(symbol, newHead){
   this.grammar[newHead] = symbol['|'];
-  this.grammar[head][bIdx].splice(sIdx, 1, newHead);
 };
 /**
  * Internally handle Zero or One magic '?'
- * @param {String} head Production head
- * @param {Integer} bIdx Production body index
- * @param {Integer} sIdx Symbol index in production body
  */
 Parser.prototype._handleZero2One = function(symbol, newHead){
   this.grammar[newHead] = [symbol['?'], []];
 };
 /**
  * Internally handle Zero or Many magic '*'
- * @param {String} head Production head
- * @param {Integer} bIdx Production body index
- * @param {Integer} sIdx Symbol index in production body
  */
 Parser.prototype._handleZero2Many = function(symbol, newHead){
   this.grammar[newHead] = [symbol['*'].concat(newHead), []];
 };
 /**
  * Internally handle One or Many magic '+'
- * @param {String} head Production head
- * @param {Integer} bIdx Production body index
- * @param {Integer} sIdx Symbol index in production body
  */
 Parser.prototype._handleOne2Many = function(symbol, newHead){
   this.grammar[newHead] = [symbol['+'].concat({
