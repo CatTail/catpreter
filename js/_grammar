@@ -84,10 +84,6 @@ constant
 	;
 assignment_operator
 	: '='
-	| '+='
-	| '-='
-	| '*='
-	| '/='
 	;
 EQ_OP
 	: '=='
