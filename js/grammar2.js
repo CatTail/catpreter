@@ -4,46 +4,39 @@
        'expression',
        '\')\'',
        'statement',
-       'selection_statement$?_ZxmyLj' ] ],
-  init_declarator: [ [ 'declarator', 'init_declarator$?_WYcVos' ] ],
-  declarator: [ [ 'IDENTIFIER', 'declarator$*_xkzwJf' ] ],
-  expression: [ [ 'assignment_expression', 'expression$*_SbpbXh' ] ],
-  equality_expression: [ [ 'relational_expression', 'equality_expression$*_uMUVrU' ] ],
-  relational_expression: [ [ 'additive_expression', 'relational_expression$*_ZXMuWM' ] ],
-  additive_expression: [ [ 'multiplicative_expression', 'additive_expression$*_GoxGbS' ] ],
-  multiplicative_expression: [ [ 'unary_expression', 'multiplicative_expression$*_EAgObR' ] ],
+       'selection_statement$?' ] ],
+  init_declarator: [ [ 'declarator', 'init_declarator$?' ] ],
+  declarator: [ [ 'IDENTIFIER', 'declarator$*' ] ],
+  expression: [ [ 'assignment_expression', 'expression$*' ] ],
+  equality_expression: [ [ 'relational_expression', 'equality_expression$*' ] ],
+  relational_expression: [ [ 'additive_expression', 'relational_expression$*' ] ],
+  additive_expression: [ [ 'multiplicative_expression', 'additive_expression$*' ] ],
+  multiplicative_expression: [ [ 'unary_expression', 'multiplicative_expression$*' ] ],
   statement_list: [ [ 'statement+' ] ],
-  'selection_statement$?_ZxmyLj': [ [ '\'else\'', 'statement' ], [] ],
-  'init_declarator$?_WYcVos': [ [ '\'=\'', 'initializer' ], [] ],
-  'declarator$*_xkzwJf': 
-   [ [ '\'[\'',
-       { '?': [ 'constant_expression' ] },
-       '\']\'',
-       'declarator$*_xkzwJf' ],
+  'selection_statement$?': [ [ '\'else\'', 'statement' ], [] ],
+  'init_declarator$?': [ [ '\'=\'', 'initializer' ], [] ],
+  'declarator$*': [ [ '\'[\'', 'declarator$*$?', '\']\'', 'declarator$*' ], [] ],
+  'declarator$*$?': [ [ 'constant_expression' ], [] ],
+  'expression$*': [ [ '\',\'', 'assignment_expression', 'expression$*' ], [] ],
+  'equality_expression$*': 
+   [ [ 'equality_expression$*$|_OhMmYm', 'equality_expression$*' ],
      [] ],
-  'expression$*_SbpbXh': 
-   [ [ '\',\'', 'assignment_expression', 'expression$*_SbpbXh' ],
+  'equality_expression$*$|_OhMmYm': 
+   [ [ 'EQ_OP', 'relational_expression' ],
+     [ 'NE_OP', 'relational_expression' ] ],
+  'relational_expression$*': 
+   [ [ '\'<\'', 'additive_expression', 'relational_expression$*' ],
      [] ],
-  'equality_expression$*_uMUVrU': 
-   [ [ { '|': 
-          [ [ 'EQ_OP', 'relational_expression' ],
-            [ 'NE_OP', 'relational_expression' ] ] },
-       'equality_expression$*_uMUVrU' ],
+  'additive_expression$*': 
+   [ [ 'additive_expression$*$|_fWUtfu', 'additive_expression$*' ],
      [] ],
-  'relational_expression$*_ZXMuWM': 
-   [ [ '\'<\'',
-       'additive_expression',
-       'relational_expression$*_ZXMuWM' ],
+  'additive_expression$*$|_fWUtfu': 
+   [ [ '\'+\'', 'multiplicative_expression' ],
+     [ '\'-\'', 'multiplicative_expression' ] ],
+  'multiplicative_expression$*': 
+   [ [ 'multiplicative_expression$*$|_angUPx',
+       'multiplicative_expression$*' ],
      [] ],
-  'additive_expression$*_GoxGbS': 
-   [ [ { '|': 
-          [ [ '\'+\'', 'multiplicative_expression' ],
-            [ '\'-\'', 'multiplicative_expression' ] ] },
-       'additive_expression$*_GoxGbS' ],
-     [] ],
-  'multiplicative_expression$*_EAgObR': 
-   [ [ { '|': 
-          [ [ '\'*\'', 'unary_expression' ],
-            [ '\'/\'', 'unary_expression' ] ] },
-       'multiplicative_expression$*_EAgObR' ],
-     [] ] }
+  'multiplicative_expression$*$|_angUPx': 
+   [ [ '\'*\'', 'unary_expression' ],
+     [ '\'/\'', 'unary_expression' ] ] }
