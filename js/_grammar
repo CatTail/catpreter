@@ -73,7 +73,7 @@ init_declarator
 	: declarator ( '=' initializer )?
 	;
 declarator
-	: IDENTIFIER ( '[' constant_expression? ']' )*
+	: IDENTIFIER ( '[' ( constant_expression )? ']' )*
 	;
 initializer
 	: assignment_expression
@@ -81,18 +81,6 @@ initializer
 constant
 	: INT_LITERAL
 	| REAL_LITERAL
-	;
-IDENTIFIER
-	: LETTER ( LETTER | '0'..'9' | '_' )* ( LETTER | '0'..'9' )?
-	;
-LETTER
-	: ( 'a'..'z' | 'A'..'Z' )
-	;
-INT_LITERAL
-	: ( '0'..'9' )+
-	;
-REAL_LITERAL
-	: INT_LITERAL '.' INT_LITERAL ( ( 'e' | 'E' ) ( '+' | '-' ) INT_LITERAL )?
 	;
 assignment_operator
 	: '='
