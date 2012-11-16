@@ -5,6 +5,11 @@ if (require) {
 }
 
 /**
+ * Grammar analysis.
+ * Include following action:
+ *  1.magic mark translation
+ *  2.common factor extract
+ *  3.left recursive elimination
  * @constructor
  */
 var Parser = function(lexer,grammar){
@@ -16,17 +21,16 @@ var Parser = function(lexer,grammar){
   this.magicCache = [];
   this.magicMapping = {'?': 'Zero2One','*': 'Zero2Many','+': 'One2Many','|': 'Opt',};
 
-//  console.log(util.inspect(this.grammar, false, null));
   // Following action will alter this.grammar.so we can't put them into one
   // single loop.
   for (var head in this.grammar) {
- //   this.handleMagic(head);
+    this.handleMagic(head);
   }
   for (var head in this.grammar) {
     this.extFactor(head);
   }
   for (var head in this.grammar) {
-//    this.eliRecur(head);
+    this.eliRecur(head);
   }
 
   console.log(util.inspect(this.grammar, false, null));
@@ -124,8 +128,9 @@ Parser.prototype.eliRecur = function(head){
   cat.each(rBodys, function(rBody){
     this.grammar[newHead].push(rBody.concat(newHead));
   }, this);
-  debugger;
 
+  // recursively resolve left recursive
+  this.eliRecur(newHead);
 };
 
 /**
@@ -133,21 +138,25 @@ Parser.prototype.eliRecur = function(head){
  * @param {String} head Production head
  */
 Parser.prototype.extFactor = function(head){
-  var common_list = this.widthFirst(this.grammar[head]);
-  this._extFactor(head, common_list);
+  var similarity = this.widthFirst(this.grammar[head]);
+  this._extFactor(head, similarity);
 };
 
 /**
  * @param {String} head Production head
- * @param {Array.Object} common_list See widthFirst returns
+ * @param {Object} similarity See widthFirst returns
  */
-Parser.prototype._extFactor = function(head, common_list){
+Parser.prototype._extFactor = function(head, similarity){
+  var common_list = similarity.common_list;
   if (common_list.length === 0) return;
   // new bodys in old production
   var newBodys = [],
   bodys = this.grammar[head];
 
-  var all = [];
+  // keep uncommon production bodys
+  cat.each(similarity.uncommons, function(uncommon){
+    newBodys.push(bodys[uncommon]);
+  });
   cat.each(common_list, function(commons){
     // create new production
     var key = head+'$c_'+cat.randomString(this.ranLen);
@@ -198,7 +207,7 @@ Parser.prototype.widthFirst = function(bodys){
         'level': level
       });
     }else{
-      uncommons.push(key);
+      uncommons = uncommons.concat(hash[key]);
     }
   }
   return {'common_list': common_list, 'uncommons': uncommons};
