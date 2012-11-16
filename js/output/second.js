@@ -7,7 +7,7 @@ var grammar = { prog: [ [ 'statement' ] ],
      [ 'selection_statement' ],
      [ 'iteration_statement' ],
      [ 'declaration' ] ],
-  compound_statement: [ [ '\'{\'', 'compound_statement$c_eyRUkM' ] ],
+  compound_statement: [ [ '\'{\'', 'compound_statement$c_yOIygl' ] ],
   statement_list: [ [ 'statement_list$+' ] ],
   expression_statement: [ [ '\';\'' ], [ 'expression', '\';\'' ] ],
   selection_statement: 
@@ -45,33 +45,31 @@ var grammar = { prog: [ [ 'statement' ] ],
   initializer: [ [ 'assignment_expression' ] ],
   constant: [ [ 'INT_LITERAL' ], [ 'REAL_LITERAL' ] ],
   assignment_operator: [ [ '\'=\'' ] ],
-  EQ_OP: [ [ '\'==\'' ] ],
-  NE_OP: [ [ '\'<>\'' ] ],
   unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ '\'read\'' ], [ '\'write\'' ] ],
   'statement_list$+': [ [ 'statement', 'statement_list$+$*' ] ],
   'statement_list$+$*': [ [ 'statement', 'statement_list$+$*' ], [] ],
   'selection_statement$?': [ [ '\'else\'', 'statement' ], [] ],
   'expression$*': [ [ '\',\'', 'assignment_expression', 'expression$*' ], [] ],
   'equality_expression$*': 
-   [ [ 'equality_expression$*$|_eQaMhd', 'equality_expression$*' ],
+   [ [ 'equality_expression$*$|_xpGmYl', 'equality_expression$*' ],
      [] ],
-  'equality_expression$*$|_eQaMhd': 
-   [ [ 'EQ_OP', 'relational_expression' ],
-     [ 'NE_OP', 'relational_expression' ] ],
+  'equality_expression$*$|_xpGmYl': 
+   [ [ '\'==\'', 'relational_expression' ],
+     [ '\'<>\'', 'relational_expression' ] ],
   'relational_expression$*': 
    [ [ '\'<\'', 'additive_expression', 'relational_expression$*' ],
      [] ],
   'additive_expression$*': 
-   [ [ 'additive_expression$*$|_GLuaVr', 'additive_expression$*' ],
+   [ [ 'additive_expression$*$|_tagpRN', 'additive_expression$*' ],
      [] ],
-  'additive_expression$*$|_GLuaVr': 
+  'additive_expression$*$|_tagpRN': 
    [ [ '\'+\'', 'multiplicative_expression' ],
      [ '\'-\'', 'multiplicative_expression' ] ],
   'multiplicative_expression$*': 
-   [ [ 'multiplicative_expression$*$|_zXEEOR',
+   [ [ 'multiplicative_expression$*$|_ftYWTj',
        'multiplicative_expression$*' ],
      [] ],
-  'multiplicative_expression$*$|_zXEEOR': 
+  'multiplicative_expression$*$|_ftYWTj': 
    [ [ '\'*\'', 'unary_expression' ],
      [ '\'/\'', 'unary_expression' ] ],
   'postfix_expression$*': 
@@ -81,5 +79,5 @@ var grammar = { prog: [ [ 'statement' ] ],
   'init_declarator$?': [ [ '\'=\'', 'initializer' ], [] ],
   'declarator$*': [ [ '\'[\'', 'declarator$*$?', '\']\'', 'declarator$*' ], [] ],
   'declarator$*$?': [ [ 'constant_expression' ], [] ],
-  'compound_statement$c_eyRUkM': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] };
+  'compound_statement$c_yOIygl': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] };
 if (exports) exports.grammar = grammar;
