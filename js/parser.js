@@ -32,8 +32,6 @@ var Parser = function(lexer,grammar){
   for (var head in this.grammar) {
     this.eliRecur(head);
   }
-
-  console.log(util.inspect(this.grammar, false, null));
 };
 
 /**

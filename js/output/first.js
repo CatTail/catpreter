@@ -8,7 +8,7 @@ var grammar = { prog: [ [ 'statement' ] ],
      [ 'iteration_statement' ],
      [ 'declaration' ] ],
   compound_statement: [ [ '\'{\'', '\'}\'' ], [ '\'{\'', 'statement_list', '\'}\'' ] ],
-  statement_list: [ [ 'statement+' ] ],
+  statement_list: [ [ { '+': [ 'statement' ] } ] ],
   expression_statement: [ [ '\';\'' ], [ 'expression', '\';\'' ] ],
   selection_statement: 
    [ [ '\'if\'',
@@ -67,13 +67,8 @@ var grammar = { prog: [ [ 'statement' ] ],
        { '*': [ '\'[\'', { '?': [ 'constant_expression' ] }, '\']\'' ] } ] ],
   initializer: [ [ 'assignment_expression' ] ],
   constant: [ [ 'INT_LITERAL' ], [ 'REAL_LITERAL' ] ],
-  assignment_operator: 
-   [ [ '\'=\'' ],
-     [ '\'+=\'' ],
-     [ '\'-=\'' ],
-     [ '\'*=\'' ],
-     [ '\'/=\'' ] ],
+  assignment_operator: [ [ '\'=\'' ] ],
   EQ_OP: [ [ '\'==\'' ] ],
   NE_OP: [ [ '\'<>\'' ] ],
-  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ 'read' ], [ 'write' ] ] };
+  unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ '\'read\'' ], [ '\'write\'' ] ] };
 if (exports) exports.grammar = grammar;
