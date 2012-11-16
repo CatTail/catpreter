@@ -9,14 +9,17 @@ var Parser = function(lexer,grammar){
   this.lexer = lexer;
   this.grammar = grammar;  
 
-  this.extFactor();
-  this.eliRecur();
+  for (var head in this.grammar) {
+    this.extFactor(head);
+    this.eliRecur(head);
+  }
+  console.log(this.grammar);
 };
 
 /**
  * Eliminate left recursive
  */
-Parser.prototype.eliRecur = function(){
+Parser.prototype.eliRecur = function(head){
 /*
   for (var head in this.grammar) {
     this.grammar[head].forEach(function(body){
@@ -31,11 +34,9 @@ Parser.prototype.eliRecur = function(){
 /**
  * Extract left common factor.
  */
-Parser.prototype.extFactor = function(){
-  for (var head in this.grammar) {
-    var common_list = this.widthFirst(this.grammar[head]);
-    this._extFactor(head, common_list);
-  }
+Parser.prototype.extFactor = function(head){
+  var common_list = this.widthFirst(this.grammar[head]);
+  this._extFactor(head, common_list);
 };
 
 /**
@@ -43,14 +44,27 @@ Parser.prototype.extFactor = function(){
  * @param {Array.Object} common_list See widthFirst returns
  */
 Parser.prototype._extFactor = function(head, common_list){
-  var newBody = [];
-  cat.each(this.grammar[head], function(body, idx){
-    if (common_list.commons.indexOf(idx) === -1) {
-      newBody.push(body);
-    }else{
-      //TODO : extract facters
-    }
-  });
+  if (common_list.length === 0) return;
+  // new bodys in old production
+  var newBodys = [],
+  bodys = this.grammar[head];
+
+  cat.each(common_list, function(commons){
+    // create new production
+    var key = head+'$c_'+cat.randomString(6);
+    this.grammar[key] = [];
+    cat.each(commons.commons, function(common){
+      var body = bodys[common];
+      if (!commons.hasAdd) {
+        newBodys.push(body.slice(0, commons.level).concat(key));
+        commons.hasAdd = true;
+      }
+      this.grammar[key].push(body.slice(commons.level));
+    }, this);
+    this.extFactor(key);
+  }, this);
+  this.grammar[head] = newBodys;
+
 };
 
 /**

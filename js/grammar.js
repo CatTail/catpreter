@@ -5,5 +5,8 @@ var grammar = { A:
      [ 'A', 'c' ],
      [ 'A', 'B', 'd' ],
      [ 'A', 'B', 'e' ],
-     [ 'f' ] ] };
+     [ 'f' ],
+     [ 'f' ,'2'],
+     
+     ] };
 if (exports) exports.grammar = grammar;
