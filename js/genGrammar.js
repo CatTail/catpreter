@@ -4,6 +4,7 @@
 // The finnal version will generate grammar automatically by webpage.
 var fs = require('fs');
 var util = require('util');
+//var content = fs.readFileSync('_grammar','utf8');
 var content = fs.readFileSync('_grammar_test','utf8');
 var subpatterns = [')', ')?', ')*', ')+'];
 
@@ -79,7 +80,7 @@ function handleOpt(symbols){
         cur.push(symbol);
       }
     });
-    return {'|': stack};
+    return [{'|': stack}];
   }else{
     return symbols;
   }
