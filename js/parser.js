@@ -254,7 +254,6 @@ Parser.prototype.calFirst = function(){
   cat.Array.each(this.symbols.unterminals, function(x){
     if (this.firstMapping[x] === undefined) {
      this._first(x);
-//      this.firstMapping[x] = tmp;//this._first(x);
     }
   }, this);
 
@@ -279,12 +278,19 @@ Parser.prototype._first = function(x){
     }else{
       // continue if every symbol's first have settings.null
       cat.Array.every(body, function(symbol){
-        var first = this.grammar[x] || this._first(symbol);
+        var first = this.firstMapping[symbol] || this._first(symbol);
         firsts = cat.Array.concat(firsts, first);
+        // FIXME: 
+        console.log(x);
+        console.log(symbol);
+        console.log(firsts);
+        console.log(first);
+        debugger;
         return cat.Array.contain(first, settings.null);
-      }, this);
+      }, this, true);
     }
   }, this);
+  this.firstMapping[x] = firsts;
   return firsts;
 };
 
