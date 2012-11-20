@@ -1,6 +1,6 @@
-if (require) {
+try {
   var cat = require('../lib/catjs/cat.js').cat;
-}
+} catch (err) {}
 
 var tokenMapping = {
 	'DEFAULT': [
@@ -44,7 +44,7 @@ function Lexer(source){
 		_this.consume = function(character){
 			buffer += character;
 			var tmp = [];
-			cat.each(matches,function(reg){
+			cat.Array.each(matches,function(reg){
 				reg.test(buffer) ? tmp.push(reg) : 0;
 				reg.lastIndex = 0;
 			});
@@ -58,7 +58,7 @@ function Lexer(source){
 		_this.pattern = function(){
 			buffer = buffer.slice(0,-1);
 			var backtrack = [];
-			cat.each(tokens,function(reg){
+			cat.Array.each(tokens,function(reg){
 				reg.test(buffer) ? backtrack.push(reg) : 0;
 				reg.lastIndex = 0;
 			});
@@ -97,7 +97,7 @@ function Lexer(source){
 		if (buffer !== '') {
 			var pattern = dfa.pattern();
 			for (var type in tokenMapping) {
-				cat.each(tokenMapping[type],function(reg){
+				cat.Array.each(tokenMapping[type],function(reg){
 					reg.toString() === pattern.toString() ?
 						token = new Token(type,buffer) : 0;
 				});
@@ -118,6 +118,6 @@ function Lexer(source){
 	};
 }
 
-if (exports) {
+try {
   exports.Lexer = Lexer;
-}
+} catch (err) {}

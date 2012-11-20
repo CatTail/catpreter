@@ -69,4 +69,4 @@ var grammar = { prog: [ [ 'statement' ] ],
   constant: [ [ 'INT_LITERAL' ], [ 'REAL_LITERAL' ] ],
   assignment_operator: [ [ '\'=\'' ] ],
   unary_operator: [ [ '\'+\'' ], [ '\'-\'' ], [ '\'read\'' ], [ '\'write\'' ] ] };
-if (exports) exports.grammar = grammar;
+try{exports.grammar = grammar;}catch(err){}
