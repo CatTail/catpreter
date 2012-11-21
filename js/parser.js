@@ -24,6 +24,7 @@ var Parser = function(lexer, symbols, grammar){
   // first, follow array mapping
   this.firstMapping = {};
   this.followMapping = {};
+  this.unresolveFollow = [];
 
   // Following action will alter this.grammar.so we can't put them into one
   // single loop.
@@ -302,14 +303,45 @@ Parser.prototype._first = function(x){
  * in follow(A) in set.
  */
 Parser.prototype.calFollow = function(){
-  console.log(settings.startSymbol);
+  this.followMapping[settings.startSymbol] = [settings.endSymbol];
+
+  for (var unterminal in this.grammar) {
+    cat.Array.each(this.grammar[unterminal], function(body, bidx){
+      cat.Array.each(body, function(symbol, sidx){
+        if (!cat.Array.contain(this.symbols.terminals, symbol)) {
+          this._follow(unterminal, bidx, sidx, symbol);
+        }
+      }, this);
+    }, this);
+  }
+  console.log(this.followMapping);
 };
 
 /**
- * @param {String} x String representatino of symbol
- * @returns {Array}
+ * Check second step, calculate following.
+ * @param {String} head
+ * @param {Integer} bidx
+ * @param {Integer} sidx
+ * @param {String} symbol
  */
-Parser.prototype._follow = function(x){
+Parser.prototype._follow = function(head, bidx, sidx, symbol){
+  //FIXME
+  // calculate following
+  var following = this.grammar[head][bidx].slice(sidx+1);
+  var hasEmpty = cat.Array.every(following, function(symbol){
+    var first = this.firstMapping[symbol];
+    this.followMapping[symbol] = this.followMapping[symbol] === undefined ?
+      first : cat.Array.concat(this.followMapping[symbol], first);
+    return cat.Array.contain(first, settings.null);
+  }, this);
+  hasEmpty ? this.unresolveFollow.push({'head': head,'symbol': symbol}) : 0;
+  // add unresolved following if following symbols conclude empty
+};
+
+/**
+ * Check third step, check unresolve following.
+ */
+Parser.prototype._resolveFollow = function(head, symbol){
 };
 
 // TODO generator analysis table
