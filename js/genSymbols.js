@@ -6,7 +6,8 @@ var util = require('util');
 
 var symbols = {
   'terminals': [],
-  'unterminals': []
+//  'unterminals': []
+// unterminals will be generate dynamically through grammar analysis
 };
 var all = {};
 Object.keys(grammar).forEach(function(item){
@@ -28,11 +29,11 @@ for (var item in all) {
   }else if (ascii >= 65 && ascii <= 90) {
     symbols.terminals.push(item);
   }else if (ascii >= 97 && ascii <= 122) { 
-    symbols.unterminals.push(item);
+//    symbols.unterminals.push(item);
   }
 }
 symbols.terminals.sort();
-symbols.unterminals.sort();
+//symbols.unterminals.sort();
 
 function parseItem(item){
   if (cat.type(item) === 'Object') {

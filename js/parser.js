@@ -39,6 +39,7 @@ var Parser = function(lexer, symbols, grammar){
 
   // Calculate symbol's first & follow
   this.calFirst();
+  this.calFollow();
 };
 
 /**
@@ -251,13 +252,12 @@ Parser.prototype.calFirst = function(){
       this.firstMapping[x] = [x];
   }, this);
   // unterminal
-  cat.Array.each(this.symbols.unterminals, function(x){
-    if (this.firstMapping[x] === undefined) {
-     this._first(x);
+  // FIXME: need add additional newly generated unterminal
+  for (var unterminal in this.grammar) {
+    if (this.firstMapping[unterminal] === undefined) {
+     this._first(unterminal);
     }
-  }, this);
-
-  console.log(this.firstMapping);
+  }
 };
 
 /**
@@ -277,23 +277,21 @@ Parser.prototype._first = function(x){
       cat.Array.push(firsts, settings.null);
     }else{
       // continue if every symbol's first have settings.null
-      cat.Array.every(body, function(symbol){
+      cat.Array.every(body, function(symbol, idx){
         var first = this.firstMapping[symbol] || this._first(symbol);
+        // deal with empty production body
+        var hasEmpty = cat.Array.contain(first, settings.null);
+        if (idx !== body.length-1) {
+          cat.Array.remove(first, settings.null);
+        }
         firsts = cat.Array.concat(firsts, first);
-        // FIXME: 
-        console.log(x);
-        console.log(symbol);
-        console.log(firsts);
-        console.log(first);
-        debugger;
-        return cat.Array.contain(first, settings.null);
+        return hasEmpty;
       }, this, true);
     }
   }, this);
   this.firstMapping[x] = firsts;
   return firsts;
 };
-
 
 /**
  * Calculate symbol's FOLLOW.
@@ -304,6 +302,7 @@ Parser.prototype._first = function(x){
  * in follow(A) in set.
  */
 Parser.prototype.calFollow = function(){
+  console.log(settings.startSymbol);
 };
 
 /**
