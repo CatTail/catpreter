@@ -24,7 +24,7 @@ var Parser = function(lexer, symbols, grammar){
   // first, follow array mapping
   this.firstMapping = {};
   this.followMapping = {};
-  this.unresolveFollow = [];
+  this.unresolves = {};
 
   // Following action will alter this.grammar.so we can't put them into one
   // single loop.
@@ -253,7 +253,6 @@ Parser.prototype.calFirst = function(){
       this.firstMapping[x] = [x];
   }, this);
   // unterminal
-  // FIXME: need add additional newly generated unterminal
   for (var unterminal in this.grammar) {
     if (this.firstMapping[unterminal] === undefined) {
      this._first(unterminal);
@@ -262,9 +261,11 @@ Parser.prototype.calFirst = function(){
 };
 
 /**
- * @param {String} x String representatino of symbol
+ * @param {String} x String representatinon of symbol
  * @returns {Array}
  */
+// TODO: check if calFirst will modify this.grammar.
+// This kind of action will cause problem.
 Parser.prototype._first = function(x){
   // terminal
   if (cat.Array.contain(this.symbols.terminals, x)) {
@@ -279,7 +280,9 @@ Parser.prototype._first = function(x){
     }else{
       // continue if every symbol's first have settings.null
       cat.Array.every(body, function(symbol, idx){
-        var first = this.firstMapping[symbol] || this._first(symbol);
+        var first =
+          (this.firstMapping[symbol] && this.firstMapping[symbol].slice())
+          || this._first(symbol);
         // deal with empty production body
         var hasEmpty = cat.Array.contain(first, settings.null);
         if (idx !== body.length-1) {
@@ -303,8 +306,13 @@ Parser.prototype._first = function(x){
  * in follow(A) in set.
  */
 Parser.prototype.calFollow = function(){
+  // setting up this.followMapping
+  for (var unterminal in this.grammar) {
+    this.followMapping[unterminal] = [];
+  }
+  // add end symbol
   this.followMapping[settings.startSymbol] = [settings.endSymbol];
-
+  // second rule
   for (var unterminal in this.grammar) {
     cat.Array.each(this.grammar[unterminal], function(body, bidx){
       cat.Array.each(body, function(symbol, sidx){
@@ -314,7 +322,11 @@ Parser.prototype.calFollow = function(){
       }, this);
     }, this);
   }
-  console.log(this.followMapping);
+
+  // third rule
+  for (var symbol in this.unresolves) {
+    this._resolve(this.unresolves[symbol], symbol);
+  }
 };
 
 /**
@@ -325,23 +337,39 @@ Parser.prototype.calFollow = function(){
  * @param {String} symbol
  */
 Parser.prototype._follow = function(head, bidx, sidx, symbol){
-  //FIXME
   // calculate following
   var following = this.grammar[head][bidx].slice(sidx+1);
-  var hasEmpty = cat.Array.every(following, function(symbol){
-    var first = this.firstMapping[symbol];
-    this.followMapping[symbol] = this.followMapping[symbol] === undefined ?
-      first : cat.Array.concat(this.followMapping[symbol], first);
+  var isUnresolve = cat.Array.every(following, function(s){
+    var first = this.firstMapping[s].slice();
+    // FOLLOW can't contain settings.null
+    cat.Array.remove(first, settings.null);
+
+    this.followMapping[symbol] = cat.Array.concat(this.followMapping[symbol], first);
     return cat.Array.contain(first, settings.null);
   }, this);
-  hasEmpty ? this.unresolveFollow.push({'head': head,'symbol': symbol}) : 0;
-  // add unresolved following if following symbols conclude empty
+  isUnresolve ? this.unresolves[symbol] = head : 0;
 };
 
 /**
  * Check third step, check unresolve following.
+ * @returns {Array} Resolved FOLLOW array
  */
-Parser.prototype._resolveFollow = function(head, symbol){
+Parser.prototype._resolve= function(head, symbol){
+  console.log('xxx');
+  console.log('symbol ',symbol);
+  console.log('head ',head);
+  console.log('xxx');
+  debugger;
+
+  var follow_head = head in this.unresolves ?
+    this._resolve(this.unresolves[head], head) :
+    this.followMapping[head];
+
+  this.followMapping[symbol] =
+    cat.Array.concat(this.followMapping[symbol], follow_head);
+
+  delete this.unresolves.symbol;
+  return this.followMapping[symbol];
 };
 
 // TODO generator analysis table
