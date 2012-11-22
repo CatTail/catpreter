@@ -15,7 +15,6 @@ var symbols = { terminals:
      '\'==\'',
      '\'[\'',
      '\']\'',
-     '\'else\'',
      '\'if\'',
      '\'int\'',
      '\'read\'',
