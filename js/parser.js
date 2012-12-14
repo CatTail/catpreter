@@ -41,6 +41,10 @@ var Parser = function(lexer, symbols, grammar){
   // Calculate symbol's first & follow
   this.calFirst();
   this.calFollow();
+
+  // TODO: LL seemed can't figure out grammar.
+  // Try LR instead.
+  console.log(this.grammar);
 };
 
 /**
@@ -355,12 +359,6 @@ Parser.prototype._follow = function(head, bidx, sidx, symbol){
  * @returns {Array} Resolved FOLLOW array
  */
 Parser.prototype._resolve= function(head, symbol){
-  console.log('xxx');
-  console.log('symbol ',symbol);
-  console.log('head ',head);
-  console.log('xxx');
-  debugger;
-
   var follow_head = head in this.unresolves ?
     this._resolve(this.unresolves[head], head) :
     this.followMapping[head];
