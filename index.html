@@ -27,6 +27,7 @@
 
 <body>
 
+  <div id="wrap">
   <div class="container">
 
     <div class="masthead">
@@ -47,43 +48,14 @@
 
     <div ng-view></div>
 
-    <script id="introduction.html" type="text/ng-template">
-      <div id="introduction">
-        <h3>Introduction</h3>
-      </div>
-      <div class="well">
-        stuff as a introduction of catpreter
-      </div>
-    </script>
-    <script id="bnf.html" type="text/ng-template">
-      <div id="bnf">
-        <h3>BNF Template</h3>
-        <div class="well">
-          <h4>Template</h4>
-          some controllers in here <br>
-          some controllers in here <br>
-          some controllers in here
-          <button class="btn btn-primary pull-right">Generate compiler</button>
-        </div>
-      </div>
-    </script>
-    <script id="code.html" type="text/ng-template">
-      <div id="code">
-        <h3>Execute Code</h3>
-      </div>
-    </script>
-    <script id="more.html" type="text/ng-template">
-      <div id="more">
-        <h3>More than that</h3>
-      </div>
-    </script>
-
-    <div class="footer">
-      <p>&copy; Company 2012</p>
-    </div>
-
   </div> <!-- /container -->
+  </div>
 
+  <div id="footer">
+    <div class="container">
+      <p>&copy; CatTail</p>
+    </div>
+  </div>
 
 </body>
 </html>
