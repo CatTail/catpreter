@@ -1,0 +1,3 @@
+[submodule "lib/catjs"]
+	path = lib/catjs
+	url = git@github.com:CatTail/catjs.git
