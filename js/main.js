@@ -2,11 +2,11 @@
 angular.module('catpreter', []).
   config(function($routeProvider) {
     $routeProvider.
-      when('/', {controller: IntroCtrl, templateUrl: 'intro.html'}).
-      when('/intro', {controller: IntroCtrl, templateUrl: 'intro.html'}).
-      when('/bnf', {controller: BNFCtrl, templateUrl: 'bnf.html'}).
-      when('/code', {controller: CodeCtrl, templateUrl: 'code.html'}).
-      when('/more', {controller: MoreCtrl, templateUrl: 'more.html'}).
+      when('/', {controller: IntroCtrl, templateUrl: 'template/intro.html'}).
+      when('/intro', {controller: IntroCtrl, templateUrl: 'template/intro.html'}).
+      when('/bnf', {controller: BNFCtrl, templateUrl: 'template/bnf.html'}).
+      when('/code', {controller: CodeCtrl, templateUrl: 'template/code.html'}).
+      when('/more', {controller: MoreCtrl, templateUrl: 'template/more.html'}).
       otherwise({redirect: '/'});
   });
  
