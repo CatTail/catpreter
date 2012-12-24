@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="lib/cat.js" type="text/javascript"></script>
+	<script src="js/Lexer.js" type="text/javascript"></script>
+</head>
+<body>
+<textarea id="source" name="" rows="10" cols="30">
+int a=0;
+int b=1+1;
+</textarea><br>
+	<button id="compile">compile</button><br>
+	Result tokens:
+	<div id="display"></div>
+	<script type="text/javascript">
+		cat.querySelectorAll('#compile')[0].onclick = function(){
+			var source = cat.querySelectorAll('#source')[0].value;
+			console.log(source);
+			var lexer = new Lexer(source);
+			var result = '';
+			for (var token = lexer.next() ; lexer.hasNext() ; token = lexer.next()) {
+				result += elegantDisplay(token);
+				console.log(token);
+			}
+			cat.querySelectorAll('#display')[0].innerHTML = result;
+		};
+		function elegantDisplay(token){
+			var value = token.value === '\n' ? '\\n' : token.value;
+			return cat.format('&lt;{0},"{1}"&gt;<br>',token.name,value);
+		}
+	</script>
+</body>
+</html>
