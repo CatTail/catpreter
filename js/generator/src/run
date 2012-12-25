@@ -1,0 +1,3 @@
+#! /bin/bash
+
+node ./cmm.js test.c
