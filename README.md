@@ -15,6 +15,14 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 goto
 def
 
+## virsual machine spec
+### registers
+* sp: stack pointer
+* pc: program count
+
+### memory
+stack
+
 
 ## EBNF
     ? 0-1
