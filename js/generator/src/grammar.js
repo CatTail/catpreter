@@ -81,8 +81,8 @@ Expression.prototype.appendChild = function (assignment_expression) {
 };
 exports.Expression = Expression;
 
-function AssignmentExpression (unary_expression, assignment_operator, assignment_expression) {
-  this.unary_expression = unary_expression;
+function AssignmentExpression (lvalue, assignment_operator, assignment_expression) {
+  this.lvalue = lvalue;
   this.assignment_operator = assignment_operator;
   this.assignment_expression = assignment_expression;
 }
@@ -130,13 +130,29 @@ function RealLiteral (real_literal) {
 }
 exports.RealLiteral = RealLiteral;
 
-function Identifier (identifier) {
+function LValueIdentifier (identifier) {
   this.identifier = identifier;
 }
-Identifier.prototype.addPostfix = function (expression) {
+LValueIdentifier.prototype.addPostfix = function (expression) {
   this.postfixExpr = expression;
 };
-exports.Identifier = Identifier;
+exports.LValueIdentifier = LValueIdentifier;
+
+function RValueIdentifier (identifier) {
+  this.identifier = identifier;
+}
+RValueIdentifier.prototype.addPostfix = function (expression) {
+  this.postfixExpr = expression;
+};
+exports.RValueIdentifier = RValueIdentifier;
+
+function DeclaratorIdentifier (identifier) {
+  this.identifier = identifier;
+}
+DeclaratorIdentifier.prototype.addPostfix = function (expression) {
+  this.postfixExpr = expression;
+};
+exports.DeclaratorIdentifier = DeclaratorIdentifier;
 
 function PrimaryExpression (expression) {
   this.expression = expression;
@@ -157,10 +173,10 @@ InitDeclaratorList.prototype.appendChild = function (init_declarator) {
 };
 exports.InitDeclaratorList = InitDeclaratorList;
 
-function InitDeclarator (declarator, initalizer) {
+function InitedDeclarator (declarator, initalizer) {
   this.declarator = declarator;
   this.initalizer = initalizer;
 }
-exports.InitDeclarator = InitDeclarator;
+exports.InitedDeclarator = InitedDeclarator;
 
 }());

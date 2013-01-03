@@ -110,8 +110,14 @@ expression
 assignment_expression
   : equality_expression
       {$$=$1;}
-  | unary_expression assignment_operator assignment_expression
+  | lvalue_expression assignment_operator assignment_expression
       {$$=new g.AssignmentExpression($1, $2, $3);}
+  ;
+lvalue_expression
+  : IDENTIFIER
+      {$$=new g.LValueIdentifier($1);}
+  | lvalue_expression '[' expression ']'
+      {$$=$1.addPostfix($3);}
   ;
 assignment_operator
   : '='
@@ -174,7 +180,7 @@ minus_unary_expression
 postfix_expression
   : primary_expression
       {$$=$1;}
-  | IDENTIFIER '[' expression ']'
+  | primary_expression '[' expression ']'
       {$$=$1.addPostfix($3);}
   ;
 primary_expression
@@ -183,7 +189,7 @@ primary_expression
   | REAL_LITERAL
       {$$=new g.RealLiteral($1);}
   | IDENTIFIER
-      {$$=new g.Identifier($1);}
+      {$$=new g.RValueIdentifier($1);}
   | '(' expression ')'
       {$$=new PrimaryExpression($2);}
   ;
@@ -220,7 +226,7 @@ inited_declarator
   ;
 declarator
   : IDENTIFIER
-      {$$=new g.Identifier($1);}
+      {$$=new g.DeclaratorIdentifier($1);}
   | IDENTIFIER '[' constant_expression ']'
       {$$=$1.addPostfix($3);}
   ;
