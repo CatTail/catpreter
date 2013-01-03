@@ -214,8 +214,9 @@ AssignmentExpression.prototype.assemble = function () {
   // TODO: add assignment_operator switch
   var buf = [];
   buf.push(this.assignment_expression.assemble());
-  buf.push(this.lvalue.assemble('lvalue'));
-  buf.push('st');
+//  buf.push(this.lvalue.getIdentifier());
+//  buf.push(this.lvalue.assemble('lvalue'));
+  buf.push('st '+this.lvalue.getIdentifier());
   return buf.join('\n');
 };
 exports.AssignmentExpression = AssignmentExpression;
@@ -242,19 +243,19 @@ EqualityExpression.prototype.assemble = function () {
 };
 exports.EqualityExpression = EqualityExpression;
 
-// RelationalExpresssion
-function RelationalExpresssion (relational_expression, additive_expression) {
+// RelationalExpression
+function RelationalExpression (relational_expression, additive_expression) {
   this.relational_expression = relational_expression;
   this.additive_expression = additive_expression;
 }
-RelationalExpresssion.prototype.assemble = function () {
+RelationalExpression.prototype.assemble = function () {
   var buf = [];
   buf.push(this.relational_expression.assemble());
   buf.push(this.additive_expression.assemble());
   buf.push('lt');
   return buf.join('\n');
 };
-exports.RelationalExpresssion = RelationalExpresssion;
+exports.RelationalExpression = RelationalExpression;
 
 // AdditiveExpression
 function AdditiveExpression (additive_expression, operator, multiplicative_expression) {
@@ -335,31 +336,45 @@ exports.RealLiteral = RealLiteral;
 function Identifier (identifier) {
   this.identifier = identifier;
 }
-Identifier.prototype.addPostfix = function (expression) {
-  this.postfixExpr = expression;
+Identifier.prototype.addPostfix = function (int_literal) {
+  this.postfix ? this.postfix.push(int_literal) : this.postfix = [int_literal];
 };
-Identifier.prototype.init = function () {
+Identifier.prototype.getPostfix = function () {
+  if (this.postfix) {
+    return ['[', this.postfix.join(','), ']'].join('');
+  }
+  return '';
+};
+Identifier.prototype.getIdentifier = function () {
+  return this.identifier + this.getPostfix();
+};
+Identifier.prototype.init = function (initializer) {
   this.initializer = initializer;
 };
 Identifier.prototype.assemble = function (type) {
+  // only right value will call this method
+  return 'ld '+this.getIdentifier();
+  /*
   var buf = [];
   switch (type) {
     case 'lvalue':
       // left value
-      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-      buf.push('loc '+this.identifier);
+//      buf.push('push '+this.identifier+this.getPostfix());
+//      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
+//      buf.push('loc '+this.identifier);
       break;
     case 'declarator':
       // declaration
       break;
     default:
       // right value
-      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-      buf.push('loc '+this.identifier);
-      buf.push('ld');
+//      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
+//      buf.push('loc '+this.identifier);
+      buf.push('ld '+this.getIdentifier());
       break;
   }
   return buf.join('\n');
+ */
 };
 exports.Identifier = Identifier;
 
@@ -384,7 +399,9 @@ Declaration.prototype.assemble = function () {
     buf.push(
       declarator.initializer ? declarator.initializer.assemble() : 'push NULL'
     );
-    buf.push(['def', this.declarator_specifier, declarator.identifier].join(' '));
+    buf.push(
+      ['def', this.declarator_specifier+declarator.getPostfix(), declarator.identifier].join(' ')
+    );
   }
   return buf.join('\n');
 };

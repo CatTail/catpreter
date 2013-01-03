@@ -110,14 +110,8 @@ expression
 assignment_expression
   : equality_expression
       {$$=$1;}
-  | primary_expression assignment_operator assignment_expression
+  | postfix_expression assignment_operator assignment_expression
       {$$=new g.AssignmentExpression($1, $2, $3);}
-  ;
-lvalue_expression
-  : IDENTIFIER
-      {$$=new g.LValueIdentifier($1);}
-  | lvalue_expression '[' expression ']'
-      {$1.addPostfix($3);$$=$1;}
   ;
 assignment_operator
   : '='
@@ -147,15 +141,15 @@ relational_expression
   : additive_expression
       {$$=$1;}
   | relational_expression '<' additive_expression
-      {$$=new g.RealtionalExpression($1, $3);}
+      {$$=new g.RelationalExpression($1, $3);}
   ;
 additive_expression
   : multiplicative_expression
       {$$=$1;}
   | additive_expression '+' multiplicative_expression
-      {$$=new g.AdditveExpression($1, $2, $3);}
+      {$$=new g.AdditiveExpression($1, $2, $3);}
   | additive_expression '-' multiplicative_expression
-      {$$=new g.AdditveExpression($1, $2, $3);}
+      {$$=new g.AdditiveExpression($1, $2, $3);}
   ;
 multiplicative_expression
   : unary_expression
@@ -180,7 +174,7 @@ minus_unary_expression
 postfix_expression
   : primary_expression
       {$$=$1;}
-  | primary_expression '[' expression ']'
+  | primary_expression '[' INT_LITERAL ']'
       {$1.addPostfix($3);$$=$1;}
   ;
 primary_expression
@@ -219,12 +213,8 @@ init_declarator
 declarator
   : IDENTIFIER
       {$$=new g.Identifier($1);}
-  | IDENTIFIER '[' constant_expression ']'
+  | declarator '[' INT_LITERAL ']'
       {$1.addPostfix($3);$$=$1;}
-  ;
-constant_expression
-  : equality_expression
-      {$$=$1;}
   ;
 initializer
   : assignment_expression
