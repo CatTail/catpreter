@@ -97,8 +97,8 @@ write_expression_statement
       {$$=new g.WriteExpressionStatement($2);}
   ;
 read_expression_statement
-  : 'read' IDENTIFIER declarator_specifiers
-      {$$=new g.ReadExpressionStatement($2, $3);}
+  : 'read' IDENTIFIER
+      {$$=new g.ReadExpressionStatement($2);}
   ;
 
 expression
@@ -211,18 +211,10 @@ init_declarator_list
       {$$=$1.appendChild($3);}
   ;
 init_declarator
-  : simple_declarator
-      {$$=$1;}
-  | inited_declarator
-      {$$=$1;}
-  ;
-simple_declarator
   : declarator
       {$$=$1;}
-  ;
-inited_declarator
-  : declarator '=' initializer
-      {$$=new g.InitedDeclarator($1, $3);}
+  | declarator '=' initializer
+      {$1.init($3);}
   ;
 declarator
   : IDENTIFIER
