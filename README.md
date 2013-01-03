@@ -16,7 +16,6 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
     def   define variable
     ld    load varible value into stack top
     st    store stack top into varible
-    loc   using stack top to locate varible
     add   add top two element in stack,store result in accumulator
     sub   sub top two element in stack,store result in accumulator
     mul   multiple top two element in stack,store result in accumulator

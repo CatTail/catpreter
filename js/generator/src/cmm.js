@@ -11,8 +11,8 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
         this.$=new g.Program($$[$0-1]);
-        console.log(util.inspect(this.$, false, null));
-        console.log(this.$.assemble());
+//        console.log(util.inspect(this.$, false, null));
+//        console.log(this.$.assemble());
       
 break;
 case 2:this.$=new g.StatementList($$[$0]);

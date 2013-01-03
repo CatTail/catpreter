@@ -1,4 +1,3 @@
-/* Jison generated parser */
 var bnf = (function(){
 var parser = {trace: function trace() { },
 yy: {},

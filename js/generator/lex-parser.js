@@ -1,4 +1,3 @@
-/* Jison generated parser */
 var jisonlex = (function(){
 var parser = {trace: function trace() { },
 yy: {},

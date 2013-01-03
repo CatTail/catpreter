@@ -1,5 +1,3 @@
-(function(){
- 
 var colors = require('colors');
 var util = require('util');
 var debugOutput = function (obj) {
@@ -44,10 +42,17 @@ function Program (statement_list) {
   this.statement_list = statement_list;
 }
 Program.prototype.assemble = function () {
-  var buf = [];
+  var buf = [], buf2 = [], i;
   buf.push(this.statement_list.assemble());
   buf.push('halt');
-  return buf.join('\n');
+  // remove empty instruction
+  buf = buf.join('\n').split('\n');
+  for (i=0; i<buf.length; i++) {
+    if (buf[i] !== '') {
+      buf2.push(buf[i]);
+    }
+  }
+  return buf2.join('\n');
 };
 exports.Program = Program;
 
@@ -415,5 +420,3 @@ InitDeclaratorList.prototype.appendChild = function (init_declarator) {
   this.init_declarators.push(init_declarator);
 };
 exports.InitDeclaratorList = InitDeclaratorList;
-
-}());
