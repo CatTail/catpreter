@@ -14,8 +14,9 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 ## virsual machine spec
 ### assembly instruction
     def   define variable
-    ld    load varible value into accumulator
-    st    store variable value into accumulator
+    ld    load varible value into stack top
+    st    store stack top into varible
+    loc   using stack top to locate varible
     add   add top two element in stack,store result in accumulator
     sub   sub top two element in stack,store result in accumulator
     mul   multiple top two element in stack,store result in accumulator
@@ -23,18 +24,21 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
     eq    test if top two element in stack are equal
     neq   test if top two element in stack are not equal
     lt    test if top element is little then under element in stack
-    goto  change program count
+    ja    change program count in all condition
+    jt    change program count if stack top is truly value
+    jf    change program count if stack top is falsy value
     push  push value in stack
     pop   pop stack top
-    in    standard input
-    out   standard output
+    read  standard input
+    write standard output
+    label define label stand for address
     halt  end of program
 
 
 ### registers
 * sp: stack pointer
 * pc: program count
-* ac: accumulator
+* ac: accumulator(deprecated)
 
 ### memory
 stack
