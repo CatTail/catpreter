@@ -2,6 +2,7 @@ var typal = require('./typal').typal,
     Set = require('./set').Set,
     RegExpLexer = require('./lexer').RegExpLexer;
 
+
 var Catpreter = exports.Catpreter = exports;
 
 // detect print
@@ -1356,11 +1357,7 @@ Catpreter.Parser = (function () {
             yyval._$.range = [lstack[lstack.length-(len||1)].range[0], lstack[lstack.length-1].range[1]];
           }
           
-          // init continueExecution to true
-          this.yy.continueExecution === undefined ? this.yy.continueExecution = true : 0;
-          if (this.yy.continueExecution) {
-            r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
-          }
+          r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
 
           if (typeof r !== 'undefined') {
             return r;

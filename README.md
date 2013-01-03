@@ -6,10 +6,7 @@ compiler and I was amazed about the power of BNF. The most interested part of ji
 use BNF to define BNF. As the author told me, bootstraping is wonderful!
 
 ## TODO
-* 构建产生式的内部存储结构，如有时间，通过代码实现自动消除左递归和提取左公因子
-* 语法动作
-* 计算FIRST并构建语法分析表
-* 执行语法分析并产生输出。内部构建语法树(虽然不是必须的),作为可选的输出。
+* 通过构建节点类实现语法树构建 
 
 ## Issue
 * primary_expression should not contain CONSTANT values
