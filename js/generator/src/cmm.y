@@ -168,8 +168,9 @@ minus_unary_expression
   ;
 postfix_expression
   : primary_expression
+      {$$=$1;}
       {$$=new g.PostfixExpression($1);}
-  | postfix_expression '[' expression ']'
+  | IDENTIFIER '[' expression ']'
       {$$=$1.addPostfix($3);}
   ;
 primary_expression
@@ -185,7 +186,7 @@ primary_expression
 
 declaration
   : declarator_specifiers init_declarator_list ';'
-      {$$=new g.Declaration($1, $2, $3);}
+      {$$=new g.Declaration($1, $2);}
   ;
 declarator_specifiers
   : 'int'
@@ -215,8 +216,8 @@ inited_declarator
   ;
 declarator
   : IDENTIFIER
-      {$$=new g.DeclaratorIdentifier($1);}
-  | declarator '[' constant_expression ']'
+      {$$=new g.Identifier($1);}
+  | IDENTIFIER '[' constant_expression ']'
       {$$=$1.addPostfix($3);}
   ;
 constant_expression
