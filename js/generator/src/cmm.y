@@ -16,8 +16,8 @@ prog
   : statement_list EOF
       {
         $$=new g.Program($1);
-        console.log(util.inspect($$, false, null));
-        console.log($$.assemble());
+//        console.log(util.inspect($$, false, null));
+//        console.log($$.assemble());
       }
   ;
 statement_list
