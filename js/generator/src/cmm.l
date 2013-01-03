@@ -5,16 +5,14 @@ LETTER                    [a-zA-Z]
 NUMBER                    [0-9]
 IDENTIFIER                {LETTER}({LETTER}|{NUMBER}|'_')*
 
-%x comment
+%s comment
 
 %%
 
 "//".*                  /* ignore line comment */
-"/*"                    this.begin(comment);
-<comment>[^*\n]*        /* eat anything that's not a '*' */
-<comment>"*"+[^*/\n]*   /* eat up '*'s not followed by '/'s */
-<comment>\n             this.yylineno++;
-<comment>"*"+"/"        this.begin(INITIAL);
+"/*"                  {this.begin('comment');}
+<comment>"*/"         {this.popState();}
+<comment>.            {/* skip comment content*/}
 \s+                     /* ignore white space */
 "if"                    return 'if';
 "else"                  return 'else';
