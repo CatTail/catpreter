@@ -1,4 +1,5 @@
-int a = 124;
-if (a=5) {
+int a;
+a = 5;
+if (a) {
   write a;
 }

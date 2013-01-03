@@ -214,7 +214,7 @@ AssignmentExpression.prototype.assemble = function () {
   // TODO: add assignment_operator switch
   var buf = [];
   buf.push(this.assignment_expression.assemble());
-  buf.push(this.lvalue.assemble());
+  buf.push(this.lvalue.assemble('lvalue'));
   buf.push('st');
   return buf.join('\n');
 };
@@ -331,36 +331,37 @@ RealLiteral.prototype.assemble = function () {
 };
 exports.RealLiteral = RealLiteral;
 
-// LValueIdentifier
-function LValueIdentifier (identifier) {
+// Identifier
+function Identifier (identifier) {
   this.identifier = identifier;
 }
-LValueIdentifier.prototype.addPostfix = function (expression) {
+Identifier.prototype.addPostfix = function (expression) {
   this.postfixExpr = expression;
 };
-LValueIdentifier.prototype.assemble = function () {
+Identifier.prototype.init = function () {
+  this.initializer = initializer;
+};
+Identifier.prototype.assemble = function (type) {
   var buf = [];
-  buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-  buf.push('loc '+this.identifier);
+  switch (type) {
+    case 'lvalue':
+      // left value
+      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
+      buf.push('loc '+this.identifier);
+      break;
+    case 'declarator':
+      // declaration
+      break;
+    default:
+      // right value
+      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
+      buf.push('loc '+this.identifier);
+      buf.push('ld');
+      break;
+  }
   return buf.join('\n');
 };
-exports.LValueIdentifier = LValueIdentifier;
-
-// RValueIdentifier
-function RValueIdentifier (identifier) {
-  this.identifier = identifier;
-}
-RValueIdentifier.prototype.addPostfix = function (expression) {
-  this.postfixExpr = expression;
-};
-RValueIdentifier.prototype.assemble = function () {
-  var buf = [];
-  buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-  buf.push('loc '+this.identifier);
-  buf.push('ld');
-  return buf.join('\n');
-};
-exports.RValueIdentifier = RValueIdentifier;
+exports.Identifier = Identifier;
 
 // PrimaryExpression
 function PrimaryExpression (expression) {
@@ -381,7 +382,7 @@ Declaration.prototype.assemble = function () {
   for (i=0; i<this.init_declarator_list.init_declarators.length; i++) {
     declarator = this.init_declarator_list.init_declarators[i];
     buf.push(
-      declarator.initalizer ? declarator.initializer.assemble() : 'push NULL'
+      declarator.initializer ? declarator.initializer.assemble() : 'push NULL'
     );
     buf.push(['def', this.declarator_specifier, declarator.identifier].join(' '));
   }
@@ -397,17 +398,5 @@ InitDeclaratorList.prototype.appendChild = function (init_declarator) {
   this.init_declarators.push(init_declarator);
 };
 exports.InitDeclaratorList = InitDeclaratorList;
-
-// DeclaratorIdentifier
-function DeclaratorIdentifier (identifier) {
-  this.identifier = identifier;
-}
-DeclaratorIdentifier.prototype.addPostfix = function (expression) {
-  this.postfixExpr = expression;
-};
-DeclaratorIdentifier.prototype.init = function (initializer) {
-  this.initializer = initializer;
-}
-exports.DeclaratorIdentifier = DeclaratorIdentifier;
 
 }());
