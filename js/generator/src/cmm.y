@@ -14,7 +14,11 @@ var util = require('util');
 
 prog
   : statement_list EOF
-      {$$=$1;console.log(util.inspect($$, false, null));}
+      {
+        $$=new g.Program($1);
+        console.log(util.inspect($$, false, null));
+        console.log($$.assemble());
+      }
   ;
 statement_list
   : statement
@@ -47,7 +51,7 @@ empty_compound_statement
   ;
 wrapped_compound_statement
   : '{' statement_list '}'
-      {$$=new g.WrappedCompoundStatement($1);}
+      {$$=new g.WrappedCompoundStatement($2);}
   ;
 
 selection_statement

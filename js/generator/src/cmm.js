@@ -9,7 +9,11 @@ performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1:this.$=$$[$0-1];console.log(util.inspect(this.$, false, null));
+case 1:
+        this.$=new g.Program($$[$0-1]);
+        console.log(util.inspect(this.$, false, null));
+        console.log(this.$.assemble());
+      
 break;
 case 2:this.$=new g.StatementList($$[$0]);
 break;
@@ -31,7 +35,7 @@ case 10:this.$=$$[$0];
 break;
 case 11:this.$=new g.EmptyCompoundStatement();
 break;
-case 12:this.$=new g.WrappedCompoundStatement($$[$0-2]);
+case 12:this.$=new g.WrappedCompoundStatement($$[$0-1]);
 break;
 case 13:this.$=$$[$0];
 break;

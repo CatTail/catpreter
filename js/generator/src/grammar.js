@@ -1,10 +1,27 @@
 (function(){
+ 
+var colors = require('colors');
+var util = require('util');
+var debugOutput = function (obj) {
+  return util.inspect(obj, false, null);
+};
+
+function Program (statement_list) {
+  this.statement_list = statement_list;
+}
+Program.prototype.assemble = function () {
+  return this.statement_list.assemble();
+};
+exports.Program = Program;
 
 function StatementList (statement) {
   this.statement_list = [statement];
 }
 StatementList.prototype.appendChild = function (statement) {
   this.statement_list.push(statement);
+};
+StatementList.prototype.assemble = function () {
+  return 'hellp';
 };
 exports.StatementList = StatementList;
 
