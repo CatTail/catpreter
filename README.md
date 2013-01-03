@@ -11,14 +11,30 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 ## Issue
 * primary_expression should not contain CONSTANT values
 
-## middle code
-goto
-def
-
 ## virsual machine spec
+### assembly instruction
+    def   define variable
+    ld    load varible value into accumulator
+    st    store variable value into accumulator
+    add   add top two element in stack,store result in accumulator
+    sub   sub top two element in stack,store result in accumulator
+    mul   multiple top two element in stack,store result in accumulator
+    div   divide top two element in stack,store result in accumulator
+    eq    test if top two element in stack are equal
+    neq   test if top two element in stack are not equal
+    lt    test if top element is little then under element in stack
+    goto  change program count
+    push  push value in stack
+    pop   pop stack top
+    in    standard input
+    out   standard output
+    halt  end of program
+
+
 ### registers
 * sp: stack pointer
 * pc: program count
+* ac: accumulator
 
 ### memory
 stack
