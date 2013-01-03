@@ -6,6 +6,7 @@ var debugOutput = function (obj) {
   return util.inspect(obj, false, null);
 };
 
+// utils
 var random = (function(){
   var ranNum = function(min, max) {
     min = min || 0;
@@ -83,7 +84,6 @@ function WrappedCompoundStatement (statement_list) {
 WrappedCompoundStatement.prototype.assemble = function () {
   var buf = [];
   buf.push('label '+this.start_label);
-  console.log(debugOutput(this).green);
   buf.push(this.statement_list.assemble());
   buf.push('label '+this.end_label);
   return buf.join('\n');
@@ -378,8 +378,8 @@ function Declaration (declarator_specifier, init_declarator_list) {
 }
 Declaration.prototype.assemble = function () {
   var buf = [], i, declarator;
-  for (i=0; i<this.init_declarator_list.length; i++) {
-    declarator = this.init_declarator_list[i];
+  for (i=0; i<this.init_declarator_list.init_declarators.length; i++) {
+    declarator = this.init_declarator_list.init_declarators[i];
     buf.push(
       declarator.initalizer ? declarator.initializer.assemble() : 'push NULL'
     );

@@ -24,7 +24,7 @@ statement_list
   : statement
       {$$=new g.StatementList($1);}
   | statement_list statement
-      {$$=$1.appendChild($2);}
+      {$1.appendChild($2);$$=$1;}
   ;
 statement
   : compound_statement
@@ -105,7 +105,7 @@ expression
   : assignment_expression
       {$$=new g.Expression($1);}
   | expression ',' assignment_expression
-      {$$=$1.appendChild($3);}
+      {$1.appendChild($3);$$=$1;}
   ;
 assignment_expression
   : equality_expression
@@ -117,7 +117,7 @@ lvalue_expression
   : IDENTIFIER
       {$$=new g.LValueIdentifier($1);}
   | lvalue_expression '[' expression ']'
-      {$$=$1.addPostfix($3);}
+      {$1.addPostfix($3);$$=$1;}
   ;
 assignment_operator
   : '='
@@ -181,7 +181,7 @@ postfix_expression
   : primary_expression
       {$$=$1;}
   | primary_expression '[' expression ']'
-      {$$=$1.addPostfix($3);}
+      {$1.addPostfix($3);$$=$1;}
   ;
 primary_expression
   : INT_LITERAL
@@ -208,7 +208,7 @@ init_declarator_list
   : init_declarator
       {$$=new g.InitDeclaratorList($1);}
   | init_declarator_list ',' init_declarator
-      {$$=$1.appendChild($3);}
+      {$1.appendChild($3);$$=$1;}
   ;
 init_declarator
   : declarator
@@ -220,7 +220,7 @@ declarator
   : IDENTIFIER
       {$$=new g.DeclaratorIdentifier($1);}
   | IDENTIFIER '[' constant_expression ']'
-      {$$=$1.addPostfix($3);}
+      {$1.addPostfix($3);$$=$1;}
   ;
 constant_expression
   : equality_expression
