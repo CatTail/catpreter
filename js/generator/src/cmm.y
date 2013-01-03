@@ -7,13 +7,14 @@
 
 %{
 var g = require('./grammar');
+var util = require('util');
 %}
 
 %%
 
 prog
   : statement_list EOF
-      {$$=$1;}
+      {$$=$1;console.log(util.inspect($$, false, null));}
   ;
 statement_list
   : statement
@@ -124,7 +125,7 @@ equality_expression
   : relational_expression
       {$$=$1;}
   | equality_expression equality_operator relational_expression
-      {$$=new g.EqualityExpresion($1, $2, $3);}
+      {$$=new g.EqualityExpression($1, $2, $3);}
   ;
 equality_operator
   : '=='
@@ -169,7 +170,6 @@ minus_unary_expression
 postfix_expression
   : primary_expression
       {$$=$1;}
-      {$$=new g.PostfixExpression($1);}
   | IDENTIFIER '[' expression ']'
       {$$=$1.addPostfix($3);}
   ;
