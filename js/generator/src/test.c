@@ -1,9 +1,10 @@
 int a = 1, b = 2.43e5;
-if (a==1) {
+if (a<>1) {
   write a;
 } else {
   write b;
 }
+/*
 
 if (5 == 2) {
   int b;
@@ -19,9 +20,6 @@ c = 1 + 1;
 // line comment
 c = 5 / c;
 c = c * 2;
-/*
- * multi-line comment
- */
 c = c - 1;// result to be 4
 write c;
 
@@ -31,3 +29,4 @@ write d[0];
 int e;
 read e;
 write e;
+*/
