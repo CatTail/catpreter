@@ -10,10 +10,10 @@ function Machine () {
 };
 Machine.prototype.popStack = function () {
   this.registers.sp--;
-  return parseFloat(this.stack.pop());
+  return this.stack.pop();
 };
 Machine.prototype.pushStack = function (value) {
-  this.stack.push(parseFloat(value));
+  this.stack.push(value);
   this.registers.sp++;
 };
 // load assembles into memory
@@ -24,16 +24,19 @@ Machine.prototype.run = function () {
   var that = this;
   that.execute(0);
 
-//  var util = require('util');
-//  console.log(util.inspect(that, false, null));
+
+  setTimeout(function () {
+    var util = require('util');
+    console.log(util.inspect(that, false, null));
+  }, 1000);
 };
 Machine.prototype.execute = function (address) {
   var assemble = this.memory[address];
   this.constructor.instructions[assemble.operator].apply(this, assemble.operands);
 };
 Machine.prototype.next = function (address) {
-  address = address ? address : ++this.registers.pc;
-  this.execute(address);
+  this.registers.pc = address ? address : this.registers.pc+1;
+  this.execute(this.registers.pc);
 };
 Machine.instructions = (function(){
   var isArray = function (identifier) {
@@ -128,12 +131,13 @@ Machine.instructions = (function(){
   };
   var jt = function (address) {
     if (this.popStack()) {
-      this.next(address);
-    } else {
       this.next();
+    } else {
+      this.next(address);
     }
   };
   var jf = function (address) {
+    debugger;
     if (!this.popStack()) {
       this.next(address);
     } else {
@@ -141,7 +145,7 @@ Machine.instructions = (function(){
     }
   };
   var push = function (value) {
-    this.pushStack(value);
+    this.pushStack(parseFloat(value));
     this.next();
   };
   var pop = function () {
@@ -194,7 +198,6 @@ Machine.instructions = (function(){
   };
 }());
 
-
 function Assembler (input) {
   var that = this;
   that.assembles = [];
@@ -240,5 +243,6 @@ Assembler.prototype.parseLabel = function () {
 };
 
 var assembler = new Assembler(assembles);
+
 
 exports.Assembler = Assembler;
