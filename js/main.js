@@ -16,6 +16,6 @@ define(function (require, exports) {
       }
     })
   ).then(function () {
-    console.log(util.genCompiler(grammar, lex));
+//    console.log(util.genCompiler(grammar, lex));
   });
 })
