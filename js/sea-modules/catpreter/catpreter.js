@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var typal = require('./typal').typal,
     Set = require('./set').Set,
     RegExpLexer = require('./lexer').RegExpLexer;
@@ -1057,8 +1058,8 @@ Catpreter.Parser = (function () {
   function removeErrorRecovery (fn) {
     var parseFn = String(fn);
     try {
-      var JSONSelect = require('JSONSelect');
-      var Reflect = require('reflect');
+//      var JSONSelect = require('JSONSelect');
+//      var Reflect = require('reflect');
       var ast = Reflect.parse(parseFn);
 
       var labeled = JSONSelect.match(':has(:root > .label > .name:val("_handle_error"))', ast);
@@ -1092,6 +1093,7 @@ Catpreter.Parser = (function () {
   };
 
   // default main method for generated commonjs modules
+  /*
   function commonjsMain (args) {
     if (!args[1])
       throw new Error('Usage: '+args[0]+' FILE');
@@ -1103,6 +1105,7 @@ Catpreter.Parser = (function () {
     }
     return exports.parser.parse(source);
   }
+ */
 
   // debug mixin for LR parser generators
 
@@ -1711,3 +1714,4 @@ Catpreter.Parser = (function () {
 
 })();
 
+});

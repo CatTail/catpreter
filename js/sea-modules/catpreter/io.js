@@ -1,4 +1,4 @@
-
+define(function (require, exports) {
 // node
 if (typeof process !== 'undefined') {
 
@@ -69,3 +69,4 @@ exports.stdout = function (out) {
 };
 
 }
+});

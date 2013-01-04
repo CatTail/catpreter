@@ -1,3 +1,4 @@
+define(function (require, exports) {
 /*
  * Introduces a typal object to make classical/prototypal patterns easier
  * Plus some AOP sugar
@@ -94,3 +95,4 @@ var typal = (function () {
 if (typeof exports !== 'undefined') {
   exports.typal = typal;
 }
+});

@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var RegExpLexer = (function () {
 
   /**
@@ -425,3 +426,4 @@ return RegExpLexer;
 if (typeof exports !== 'undefined')
     exports.RegExpLexer = RegExpLexer;
 
+});

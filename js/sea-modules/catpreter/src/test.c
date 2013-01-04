@@ -4,11 +4,12 @@ if (a<>1) {
 } else {
   write b;
 }
-/*
+write a+5;
 
-if (5 == 2) {
+if (1 == a) {
   int b;
   read b;
+  write b;
 }
 
 int c = 0;
@@ -26,7 +27,3 @@ write c;
 int d[5];
 d[0] = 1;
 write d[0];
-int e;
-read e;
-write e;
-*/

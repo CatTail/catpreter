@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var bnf = require("./bnf-parser").parser,
     jisonlex = require("./catlex");
 
@@ -42,3 +43,4 @@ var parseLex = function (text) {
     return jisonlex.parse(text.replace(/(?:^%lex)|(?:\/lex$)/g, ''));
 };
 
+});

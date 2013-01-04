@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var jisonlex = (function(){
 var parser = {trace: function trace() { },
 yy: {},
@@ -548,6 +549,7 @@ if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
 exports.parser = jisonlex;
 exports.Parser = jisonlex.Parser;
 exports.parse = function () { return jisonlex.parse.apply(jisonlex, arguments); }
+/*
 exports.main = function commonjsMain(args) {
     if (!args[1])
         throw new Error('Usage: '+args[0]+' FILE');
@@ -562,4 +564,6 @@ exports.main = function commonjsMain(args) {
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
 }
+*/
 }
+});

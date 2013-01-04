@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var jisonlex = require("./lex-parser").parser;
 
 var parse_ = jisonlex.parse;
@@ -16,3 +17,4 @@ jisonlex.yy = {
         return s;
     }
 };
+});
