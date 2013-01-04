@@ -1,5 +1,5 @@
 int a = 1, b = 2.43e5;
-if (a) {
+if (a==1) {
   write a;
 } else {
   write b;
@@ -18,11 +18,11 @@ while (c <> 5) {
 c = 1 + 1;
 // line comment
 c = 5 / c;
+c = c * 2;
 /*
  * multi-line comment
  */
-c = c * 2;
-c = c - 4;
+c = c - 1;// result to be 4
 write c;
 
 int d[5];
