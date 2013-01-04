@@ -13,6 +13,7 @@ case 1:
         this.$=new g.Program($$[$0-1]);
 //        console.log(util.inspect(this.$, false, null));
 //        console.log(this.$.assemble());
+        return this.$.assemble();
       
 break;
 case 2:this.$=new g.StatementList($$[$0]);
