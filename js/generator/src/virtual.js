@@ -10,10 +10,10 @@ function Machine () {
 };
 Machine.prototype.popStack = function () {
   this.registers.sp--;
-  return this.stack.pop();
+  return parseFloat(this.stack.pop());
 };
 Machine.prototype.pushStack = function (value) {
-  this.stack.push(value);
+  this.stack.push(parseFloat(value));
   this.registers.sp++;
 };
 // load assembles into memory
@@ -24,8 +24,8 @@ Machine.prototype.run = function () {
   var that = this;
   that.execute(0);
 
-  var util = require('util');
-  console.log(util.inspect(that, false, null));
+//  var util = require('util');
+//  console.log(util.inspect(that, false, null));
 };
 Machine.prototype.execute = function (address) {
   var assemble = this.memory[address];
@@ -48,7 +48,7 @@ Machine.instructions = (function(){
 
   var def = function (type, name) {
     var value, arr;
-    value = parseFloat(this.popStack());
+    value = this.popStack();
     if (isArray(type)) {
       this.symbols[name] = {type: type, value: []};
     } else {
@@ -155,10 +155,10 @@ Machine.instructions = (function(){
       input: process.stdin,
       output: process.stdout
     });
-    rl.question('enter value\n', function (value) {
-      that.pushStack(parseFloat(value));
-      that.next();
+    rl.question('', function (value) {
+      that.pushStack(value);
       rl.close();
+      that.next();
     });
   };
   var write = function () {

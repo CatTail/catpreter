@@ -9,7 +9,7 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 * 通过构建节点类实现语法树构建 
 
 ## Issue
-* primary_expression should not contain CONSTANT values
+* if_else statement parse error
 
 ## virsual machine spec
 ### assembly instruction
