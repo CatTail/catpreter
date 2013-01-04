@@ -18,6 +18,7 @@ prog
         $$=new g.Program($1);
 //        console.log(util.inspect($$, false, null));
 //        console.log($$.assemble());
+        return $$.assemble();
       }
   ;
 statement_list

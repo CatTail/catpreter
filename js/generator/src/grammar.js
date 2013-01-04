@@ -359,27 +359,6 @@ Identifier.prototype.init = function (initializer) {
 Identifier.prototype.assemble = function (type) {
   // only right value will call this method
   return 'ld '+this.getIdentifier();
-  /*
-  var buf = [];
-  switch (type) {
-    case 'lvalue':
-      // left value
-//      buf.push('push '+this.identifier+this.getPostfix());
-//      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-//      buf.push('loc '+this.identifier);
-      break;
-    case 'declarator':
-      // declaration
-      break;
-    default:
-      // right value
-//      buf.push(this.postfixExpr ? this.postfixExpr.assemble() : 'push NULL');
-//      buf.push('loc '+this.identifier);
-      buf.push('ld '+this.getIdentifier());
-      break;
-  }
-  return buf.join('\n');
- */
 };
 exports.Identifier = Identifier;
 
