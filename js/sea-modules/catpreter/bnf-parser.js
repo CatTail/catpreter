@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var bnf = (function(){
 var parser = {trace: function trace() { },
 yy: {},
@@ -473,6 +474,7 @@ if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
 exports.parser = bnf;
 exports.Parser = bnf.Parser;
 exports.parse = function () { return bnf.parse.apply(bnf, arguments); }
+/*
 exports.main = function commonjsMain(args) {
     if (!args[1])
         throw new Error('Usage: '+args[0]+' FILE');
@@ -487,4 +489,6 @@ exports.main = function commonjsMain(args) {
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
 }
+*/
 }
+});

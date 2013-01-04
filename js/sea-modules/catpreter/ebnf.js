@@ -1,3 +1,4 @@
+define(function (require, exports) {
 var EBNF = (function(){
     var grammar = {
         "lex": {
@@ -40,7 +41,7 @@ var EBNF = (function(){
         }
     };
 
-    var parser = new require('./jison').Parser(grammar);
+    var parser = new require('./catpreter').Parser(grammar);
 
     /**
      * CATTAIL
@@ -176,3 +177,4 @@ var EBNF = (function(){
 
 exports.transform = EBNF.transform;
 
+});

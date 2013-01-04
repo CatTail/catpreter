@@ -25,10 +25,12 @@ Machine.prototype.run = function () {
   that.execute(0);
 
 
+  /*
   setTimeout(function () {
     var util = require('util');
     console.log(util.inspect(that, false, null));
   }, 1000);
+ */
 };
 Machine.prototype.execute = function (address) {
   var assemble = this.memory[address];
@@ -160,7 +162,7 @@ Machine.instructions = (function(){
       output: process.stdout
     });
     rl.question('', function (value) {
-      that.pushStack(value);
+      that.pushStack(parseFloat(value));
       rl.close();
       that.next();
     });

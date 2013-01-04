@@ -5,11 +5,205 @@ I came across jison for help. Through out reading jison's source file, I learn m
 compiler and I was amazed about the power of BNF. The most interested part of jison is it
 use BNF to define BNF. As the author told me, bootstraping is wonderful!
 
-## TODO
-* 通过构建节点类实现语法树构建 
+## Dependencies
+* catjs
+* angular
+* impress
+* bootstrap
+* codemirror
+* jison
 
-## Issue
-* if_else statement parse error
+## 幻灯片
+* 展示CMM具有的功能,使用一个clike codemirror输入框输入代码，在页面中显示输出
+* 生成CMM编译器的过程，显示CMM的lex, grammar,以及生成的编译器代码
+* 生成
+* CatIO
+
+## CMM lex
+    DIGIT                     \d+
+    INT                       {DIGIT}+ 
+    REAL                      {INT}\.{INT}('e'[-+]?{INT})?
+    LETTER                    [a-zA-Z]
+    NUMBER                    [0-9]
+    IDENTIFIER                {LETTER}({LETTER}|{NUMBER}|'_')*
+
+    "//".*                  /* ignore line comment */
+    "/*"                    {this.begin('comment');}
+    <comment>"*/"           {this.popState();}
+    <comment>.              {/* skip comment content*/}
+    \s+                     /* ignore white space */
+    "if"                    return 'if';
+    "else"                  return 'else';
+    "while"                 return 'while';
+    "read"                  return 'read';
+    "write"                 return 'write';
+    "int"                   return 'int';
+    "real"                  return 'real';
+    {REAL}                  return 'REAL_LITERAL';
+    {INT}                   return 'INT_LITERAL';
+    {IDENTIFIER}            return 'IDENTIFIER';
+    "+="                    return '+=';
+    "-="                    return '-=';
+    "*="                    return '*=';
+    "/="                    return '/=';
+    "=="                    return '==';
+    "<>"                    return '<>';
+    "+"                     return '+';
+    "-"                     return '-';
+    "*"                     return '*';
+    "/"                     return '/';
+    "<"                     return '<';
+    "["                     return '[';
+    "]"                     return ']';
+    "="                     return '=';
+    "("                     return '(';
+    ")"                     return ')';
+    ";"                     return ';';
+    "{"                     return '{';
+    "}"                     return '}';
+    ","                     return ',';
+    .                       /* ignore */
+
+## CMM grammar
+    %start prog
+    prog
+      : statement_list EOF
+      ;
+    statement_list
+      : statement
+      | statement_list statement
+      ;
+    statement
+      : compound_statement
+      | expression_statement
+      | selection_statement
+      | iteration_statement
+      | declaration
+      ;
+
+    compound_statement
+      : empty_compound_statement
+      | wrapped_compound_statement
+      ;
+    empty_compound_statement
+      : '{' '}'
+      ;
+    wrapped_compound_statement
+      : '{' statement_list '}'
+      ;
+
+    selection_statement
+      : if_statement
+      | if_else_statement
+      ;
+    if_statement
+      : 'if' '(' expression ')' statement
+      ;
+    if_else_statement
+      : 'if' '(' expression ')' statement 'else' statement
+      ;
+
+    iteration_statement
+      : 'while' '(' expression ')' statement
+      ;
+
+    expression_statement
+      : empty_expression_statement
+      | ended_expression_statement
+      | write_expression_statement
+      | read_expression_statement
+      ;
+    empty_expression_statement
+      : ';'
+      ;
+    ended_expression_statement
+      : expression ';'
+      ;
+    write_expression_statement
+      : 'write' expression ';'
+      ;
+    read_expression_statement
+      : 'read' IDENTIFIER
+      ;
+
+    expression
+      : assignment_expression
+      | expression ',' assignment_expression
+      ;
+    assignment_expression
+      : equality_expression
+      | postfix_expression assignment_operator assignment_expression
+      ;
+    assignment_operator
+      : '='
+      | '+='
+      | '-='
+      | '*='
+      | '/='
+      ;
+    equality_expression
+      : relational_expression
+      | equality_expression equality_operator relational_expression
+      ;
+    equality_operator
+      : '=='
+      | '<>'
+      ;
+    relational_expression
+      : additive_expression
+      | relational_expression '<' additive_expression
+      ;
+    additive_expression
+      : multiplicative_expression
+      | additive_expression '+' multiplicative_expression
+      | additive_expression '-' multiplicative_expression
+      ;
+    multiplicative_expression
+      : unary_expression
+      | multiplicative_expression '*' unary_expression
+      | multiplicative_expression '/' unary_expression
+      ;
+    unary_expression
+      : postfix_expression
+      | '+' unary_expression
+      | minus_unary_expression
+      ;
+    minus_unary_expression
+      : '-' unary_expression
+      ;
+    postfix_expression
+      : primary_expression
+      | primary_expression '[' INT_LITERAL ']'
+      ;
+    primary_expression
+      : INT_LITERAL
+      | REAL_LITERAL
+      | IDENTIFIER
+      | '(' expression ')'
+      ;
+
+    declaration
+      : declarator_specifiers init_declarator_list ';'
+      ;
+    declarator_specifiers
+      : 'int'
+      | 'real'
+      ;
+    init_declarator_list
+      : init_declarator
+      | init_declarator_list ',' init_declarator
+      ;
+    init_declarator
+      : declarator
+      | declarator '=' initializer
+      ;
+    declarator
+      : IDENTIFIER
+      | declarator '[' INT_LITERAL ']'
+      ;
+    initializer
+      : assignment_expression
+      ;
 
 ## virsual machine spec
 ### assembly instruction
@@ -39,162 +233,12 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 * pc: program count
 * ac: accumulator(deprecated)
 
-### memory
-stack
+## Issue
+* if_else statement parse error
 
-
-## EBNF
+## Feature
+### EBNF
     ? 0-1
     * 0-*
     + 1-*
     | optional
-
-## CMM lex
-    +
-    -
-    *
-    /
-    <
-    ==
-    <>
-    [
-    ]
-    =
-    if
-    else
-    while
-    read
-    write
-    int
-    real
-    960
-    4.6e-10
-    identifier
-    (
-    )
-    ;
-    {
-    }
-    //
-    /*
-    */
-
-## CMM grammar
-    prog
-      : statement
-      ;
-    statement
-      : compound_statement
-      | expression_statement
-      | selection_statement
-      | iteration_statement
-      | declaration
-      ;
-    compound_statement
-      : '{' '}'
-      | '{' statement_list '}'
-      ;
-    statement_list
-      : statement+
-      ;
-    expression_statement
-      : ';'
-      | expression ';'
-      ;
-    selection_statement
-      : 'if' '(' expression ')' statement (options {k=1; backtrack=false;}:'else' statement)?
-      ;
-    iteration_statement
-      : 'while' '(' expression ')' statement
-      ;
-    expression
-      : assignment_expression ( ',' assignment_expression )*
-      ;
-    constant_expression
-      : equality_expression
-      ;
-    assignment_expression
-      : equality_expression
-      | primary_expression assignment_operator assignment_expression
-      ;
-    equality_expression
-      : relational_expression ( EQ_OP relational_expression | NE_OP relational_expression )*
-      ;
-    relational_expression
-      : additive_expression ( '<' additive_expression )*
-      ;
-    additive_expression
-      : multiplicative_expression ( '+' multiplicative_expression | '-' multiplicative_expression )*
-      ;
-    multiplicative_expression
-      : unary_expression ( '*' unary_expression | '/' unary_expression )*
-      ;
-    unary_expression returns
-      : postfix_expression
-      | unary_operator unary_expression
-      ;
-    postfix_expression
-      : primary_expression ('[' expression ']')*
-      ;
-    primary_expression
-      : constant
-      | IDENTIFIER
-      | '(' expression ')' 
-      ;
-    declaration
-      : declarator_specifiers init_declarator_list ';'
-      ;
-    declarator_specifiers
-      : 'int'
-      | 'real'
-      ;
-    init_declarator_list
-      : init_declarator ( ',' init_declarator )*
-      ;
-    init_declarator
-      : declarator ('=' initializer)?
-      ;
-    declarator
-      : IDENTIFIER ('[' constant_expression? ']')*
-      ;
-    initializer
-      : assignment_expression 
-      ;
-    constant
-      : INT_LITERAL
-      | REAL_LITERAL
-      ;
-    IDENTIFIER
-      : LETTER (LETTER | '0'..'9' |  '_' )* ( LETTER | '0'..'9' )?
-      ;
-    LETTER
-      : ('a'..'z'|'A'..'Z')
-      ;
-    INT_LITERAL
-      : ('0'..'9')+
-      ;
-    REAL_LITERAL
-      : INT_LITERAL '.' INT_LITERAL ( ('e'|'E') ('+'|'-') INT_LITERAL )?
-      ;
-    assignment_operator
-      : '='
-      | '+='
-      | '-='
-      | '*='
-      | '/='
-      ;
-    EQ_OP
-      : '=='
-      ;
-    NE_OP
-      : '<>'
-      ;
-    unary_operator
-      : '+'
-      | '-'
-      | 'read'
-      | 'write'
-      ;
-    WS
-     :  (' '|'\r'|'\t'|'\u000C'|'\n')
-     ;

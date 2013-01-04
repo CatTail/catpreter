@@ -1,3 +1,4 @@
+define(function (require, exports) {
 // Set class to wrap arrays
 
 var typal = require("./typal").typal;
@@ -113,3 +114,4 @@ var Set = typal.construct(setMixin).mix({
 if (typeof exports !== 'undefined') {
   exports.Set = Set;
 }
+});
