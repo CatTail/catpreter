@@ -1,9 +1,3 @@
-var colors = require('colors');
-var util = require('util');
-var debugOutput = function (obj) {
-  return util.inspect(obj, false, null);
-};
-
 // utils
 var random = (function(){
   var ranNum = function(min, max) {

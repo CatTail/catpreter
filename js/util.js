@@ -21,6 +21,32 @@ define(function (require, exports) {
     }
   };
 
+  // load all the template string
+  var templates = {};
+  exports.loadTemplate = function () {
+    // card
+    $.ajax({
+      url: 'template/card.jade',
+      success: function (card) {
+        templates.card = jade.compile(card);
+      }
+    });
+    // modal
+    $.ajax({
+      url: 'template/modal.jade',
+      success: function (modal) {
+        templates.modal = jade.compile(modal);
+      }
+    });
+  };
+  exports.templates = templates;
+
+  // display modal
+  exports.modal = function (locals) {
+    $(document.body).append(templates.modal(locals));
+    $('.modal').modal();
+  };
+
   // generate compiler
   exports.genCompiler = function (rawGrammar, lex) {
     var catpreter = require('catpreter/catpreter');
