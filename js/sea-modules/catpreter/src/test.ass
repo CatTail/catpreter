@@ -1,0 +1,76 @@
+push 1
+def int a
+push 2.43e5
+def int b
+ld a
+push 1
+neq
+jf tEHSEuUp
+label qCiKTxlh
+ld a
+write
+label MlHsUFlH
+ja tbhJBUNx
+label tEHSEuUp
+label GCJcmnAk
+ld b
+write
+label InijTsOZ
+label tbhJBUNx
+ld a
+push 5
+add
+write
+push 1
+ld a
+eq
+jf vZnpaScT
+label kqhcClLh
+push NULL
+def int b
+read
+st b
+ld b
+write
+label JJiIEVLs
+label vZnpaScT
+push 0
+def int c
+label kiNaCtez
+ld c
+push 5
+neq
+jf tmIBlnhA
+label GkWIdYuA
+ld c
+push 1
+add
+st c
+label QCUbglyC
+ja kiNaCtez
+label tmIBlnhA
+push 1
+push 1
+add
+st c
+push 5
+ld c
+div
+st c
+ld c
+push 2
+mul
+st c
+ld c
+push 1
+sub
+st c
+ld c
+write
+push NULL
+def int[5] d
+push 1
+st d[0]
+ld d[0]
+write
+halt

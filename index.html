@@ -6,14 +6,30 @@
   <link media="all" rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" type="text/css" />
   <link media="all" rel="stylesheet" href="css/bootstrap.css" type="text/css" />
   <link media="all" rel="stylesheet" href="css/style.css" type="text/css" />
+  <link media="all" rel="stylesheet" href="css/codemirror.css" type="text/css" />
 
   <!-- jQuery -->
   <script src="js/jquery.js" type="text/javascript"></script>
   <!-- jQuery UI -->
   <script src="js/jquery-ui.js" type="text/javascript"></script>
+  <!-- bootstrap -->
+  <script src="js/bootstrap/bootstrap-transition.js"></script>
+  <script src="js/bootstrap/bootstrap-alert.js"></script>
+  <script src="js/bootstrap/bootstrap-modal.js"></script>
+  <script src="js/bootstrap/bootstrap-dropdown.js"></script>
+  <script src="js/bootstrap/bootstrap-scrollspy.js"></script>
+  <script src="js/bootstrap/bootstrap-tab.js"></script>
+  <script src="js/bootstrap/bootstrap-tooltip.js"></script>
+  <script src="js/bootstrap/bootstrap-popover.js"></script>
+  <script src="js/bootstrap/bootstrap-button.js"></script>
+  <script src="js/bootstrap/bootstrap-collapse.js"></script>
+  <script src="js/bootstrap/bootstrap-carousel.js"></script>
+  <script src="js/bootstrap/bootstrap-typeahead.js"></script>
   <!-- CodeMirror -->
   <script src="js/codemirror/codemirror.js" type="text/javascript"></script>
   <script src="js/codemirror/mode/clike/clike.js" type="text/javascript"></script>
+  <script src="js/codemirror/mode/javascript/javascript.js" type="text/javascript"></script>
+  <script src="js/codemirror/mode/markdown/markdown.js" type="text/javascript"></script>
   <!-- jade -->
   <script src="js/jade.min.js" type="text/javascript"></script>
   <!-- seajs -->
@@ -76,11 +92,11 @@
               </div>
             </li>
             <li class="tool-holder">
-              <div id="catassembler" class="card">
+              <div id="assembler" class="card">
                 <i class="icon-file-alt icon-large code-detail"></i>
                 <i class="icon-pencil icon-large"></i>
                 <i class="icon-trash icon-large"></i>
-                <span contentEditable="true">Catassembler</span>
+                <span contentEditable="true">Assembler</span>
               </div>
             </li>
             <li class="tool-holder">
@@ -123,7 +139,14 @@
                 <span contentEditable="true">Lex lex</span>
               </div>
             </li>
-            <li class="tool-holder"></li>
+            <li class="tool-holder">
+              <div id="test-assembles" class="card">
+                <i class="icon-file-alt icon-large code-detail"></i>
+                <i class="icon-pencil icon-large"></i>
+                <i class="icon-trash icon-large"></i>
+                <span contentEditable="true">test-assembles</span>
+              </div>
+            </li>
             <li class="tool-holder"></li>
             <li class="tool-holder"></li>
             <li class="tool-holder"></li>
@@ -138,6 +161,18 @@
       </div>
     </div>
   </div><!-- viewport -->
-
+  <div class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div class="content"></div>
+    </div>
+    <div class="modal-body">
+      <textarea class="content"></textarea>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Close</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
 </body>
 </html>

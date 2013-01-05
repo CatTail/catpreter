@@ -4,6 +4,7 @@ define(function (require, exports) {
     this.registers = {sp: 0, pc: 0, ac: 0};
     this.memory = [];
     this.symbols = {};
+    this.buffer = '';
   };
   Machine.prototype.popStack = function () {
     this.registers.sp--;
@@ -16,6 +17,13 @@ define(function (require, exports) {
   // load assembles into memory
   Machine.prototype.load = function (assembles) {
     this.memory = assembles.slice(0);
+  };
+  // IO operation
+  Machine.prototype.read = function (callback) {
+    callback(window.prompt());
+  };
+  Machine.prototype.write = function (buffer) {
+    this.buffer = [this.buffer, buffer].join('\n');
   };
   Machine.prototype.run = function () {
     var that = this;
@@ -128,7 +136,6 @@ define(function (require, exports) {
       }
     };
     var jf = function (address) {
-      debugger;
       if (!this.popStack()) {
         this.next(address);
       } else {
@@ -145,21 +152,13 @@ define(function (require, exports) {
     };
     var read = function () {
       var that = this;
-      /*
-      var readline = require('readline');
-      var rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
+      that.read(function (value) {
+        that.pushStack(value);
+        that.next();
       });
-      rl.question('', function (value) {
-        that.pushStack(parseFloat(value));
-        rl.close();
-      });
-     */
-      that.next();
     };
     var write = function () {
-      console.log(this.popStack());
+      this.write(this.popStack());
       this.next();
     };
     var label = function () {
@@ -201,6 +200,7 @@ define(function (require, exports) {
     var machine = new Machine();
     machine.load(this.assembles);
     machine.run();
+    return machine.buffer;
   };
   /**
    * parse input string to array of operators.
@@ -235,14 +235,6 @@ define(function (require, exports) {
       }
     });
   };
-
-  /*
-  var cmm = require('./cmm.js').parser;
-  var source = require('fs').readFileSync('./test.c', "utf8");
-  var assembles = cmm.parse(source);
-  var assembler = new Assembler(assembles);
-  assembler.run();
- */
 
   exports.Assembler = Assembler;
 });

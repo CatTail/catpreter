@@ -7,17 +7,51 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 
 ## Dependencies
 * catjs
-* angular
-* impress
+* jison
+* jquery
+* jquery ui
+* jade
+* seajs
 * bootstrap
 * codemirror
-* jison
 
-## 幻灯片
-* 展示CMM具有的功能,使用一个clike codemirror输入框输入代码，在页面中显示输出
-* 生成CMM编译器的过程，显示CMM的lex, grammar,以及生成的编译器代码
-* 生成
-* CatIO
+## Issue
+* if_else statement parse error
+
+## Feature
+### EBNF
+    ? 0-1
+    * 0-*
+    + 1-*
+    | optional
+
+## virsual machine spec
+### assembly instruction
+    def   define variable
+    ld    load varible value into stack top
+    st    store stack top into varible
+    add   add top two element in stack,store result in accumulator
+    sub   sub top two element in stack,store result in accumulator
+    mul   multiple top two element in stack,store result in accumulator
+    div   divide top two element in stack,store result in accumulator
+    eq    test if top two element in stack are equal
+    neq   test if top two element in stack are not equal
+    lt    test if top element is little then under element in stack
+    ja    change program count in all condition
+    jt    change program count if stack top is truly value
+    jf    change program count if stack top is falsy value
+    push  push value in stack
+    pop   pop stack top
+    read  standard input
+    write standard output
+    label define label stand for address
+    halt  end of program
+
+
+### registers
+* sp: stack pointer
+* pc: program count
+* ac: accumulator(deprecated)
 
 ## CMM lex
     DIGIT                     \d+
@@ -204,41 +238,3 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
     initializer
       : assignment_expression
       ;
-
-## virsual machine spec
-### assembly instruction
-    def   define variable
-    ld    load varible value into stack top
-    st    store stack top into varible
-    add   add top two element in stack,store result in accumulator
-    sub   sub top two element in stack,store result in accumulator
-    mul   multiple top two element in stack,store result in accumulator
-    div   divide top two element in stack,store result in accumulator
-    eq    test if top two element in stack are equal
-    neq   test if top two element in stack are not equal
-    lt    test if top element is little then under element in stack
-    ja    change program count in all condition
-    jt    change program count if stack top is truly value
-    jf    change program count if stack top is falsy value
-    push  push value in stack
-    pop   pop stack top
-    read  standard input
-    write standard output
-    label define label stand for address
-    halt  end of program
-
-
-### registers
-* sp: stack pointer
-* pc: program count
-* ac: accumulator(deprecated)
-
-## Issue
-* if_else statement parse error
-
-## Feature
-### EBNF
-    ? 0-1
-    * 0-*
-    + 1-*
-    | optional

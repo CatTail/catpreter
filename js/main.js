@@ -70,10 +70,30 @@ define(function (require, exports) {
       var generator = new catpreter.Generator(grammar, opt);
       return generator.generate(opt);
   });
-  // catassembler
-  setBind($('#catassembler')[0], 'func', function (assembles) {
-    var assembler = new require('catpreter/catassembler').Assembler(assembles);
-    assembler.run();
+  $.ajax({
+    url: '/js/sea-modules/catpreter/catpreter.js',
+    success: function (code) {
+      setBind($('#catpreter')[0], 'data', code);
+    }
+  });
+  // assembler
+  setBind($('#assembler')[0], 'func', function (assembles) {
+    var Assembler = require('catpreter/assembler').Assembler;
+    var assembler = new Assembler(assembles);
+    return assembler.run();
+  });
+  $.ajax({
+    url: '/js/sea-modules/catpreter/assembler.js',
+    success: function (code) {
+      setBind($('#assembler')[0], 'data', code);
+    }
+  });
+  // test assembles
+  $.ajax({
+    url: '/js/sea-modules/catpreter/src/test.ass',
+    success: function (assembles) {
+      setBind($('#test-assembles')[0], 'data', assembles);
+    }
   });
 
   /* Drag and Drop */
@@ -85,31 +105,44 @@ define(function (require, exports) {
       revert: 'invalid',
       handle: '.card',
       cancel: '.card span',
-      start: function (event, ui) {
-        if (!getBind(this, 'droppable')) return;
-        removeBind(getBind(this, 'droppable'), 'draggable', this);
-        removeBind(this, 'droppable');
-      }
     });
     // droppable
     $('.work-holder').droppable({
       tolerance: 'fit',
       drop: function (event, ui) {
-        var draggable = ui.draggable[0];
-        var droppable = this;
-        setBind(droppable, 'draggable', draggable);
-        setBind(draggable, 'droppable', droppable);
+        var draggable = ui.draggable;
+        var droppable = $(this);
+        droppable.append(draggable);
+        draggable.css({
+          position: 'absolute',
+          top: '0',
+          left: '0'
+        });
       },
     });
     $('.tool-holder').droppable({
-      tolerance: 'fit'
+      tolerance: 'fit',
+      drop: function (event, ui) {
+        var draggable = ui.draggable;
+        var droppable = $(this);
+        droppable.append(draggable);
+        draggable.css({
+          position: 'absolute',
+          top: '0',
+          left: '0'
+        });
+      }
     });
 
     // show code detail
     $('.code-detail').click(function () {
+      var draggable = $(this).parent();
+      var header = draggable.children('span').html();
+      var body = getBind(draggable[0], 'data');
       util.modal({
-        header: 'header',
-        body: 'body'
+        card: draggable[0],
+        header: header,
+        body: body
       });
     });
   };
@@ -119,11 +152,11 @@ define(function (require, exports) {
   // run program
   $('#run').click(function () {
     // get input arguments
-    var input = $('#input .work-holder').map(function (index, el) {
-      return getBind(getBind(el, 'draggable'), 'data');
+    var args = $('#input .work-holder .card').map(function (index, el) {
+      return getBind(el, 'data');
     });
-    var program = getBind(getBind($('#program .work-holder')[0], 'draggable'), 'func');
-    var output = program.apply(null, input);
+    var program = getBind($('#program .work-holder .card')[0], 'func');
+    var output = program.apply(null, args);
     var card = new util.Card('new title', output);
     $('#output .work-holder').append(card);
     enableDnD();
