@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="catpreter">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Catpreter</title>
-
-  <!-- Bootstrap -->
+  <!-- stylesheet -->
   <link media="all" rel="stylesheet" href="css/bootstrap.css" type="text/css" />
   <link media="all" rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css" />
+  <link media="all" rel="stylesheet" href="css/codemirror.css" type="text/css" />
   <link media="all" rel="stylesheet" href="css/style.css" type="text/css" />
-  <script src="js/bootstrap/jquery.js" type="text/javascript"></script>
+
+  <!-- javascript -->
+  <!-- jQuery -->
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <!-- Bootstrap -->
   <script src="js/bootstrap/bootstrap.js" type="text/javascript"></script>
   <!-- Font Awesome -->
   <link media="all" rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" type="text/css" />
   <!-- jQuery UI -->
   <script src="js/jquery-ui.js" type="text/javascript"></script>
-  <!-- angular -->
-  <script src="js/angular.min.js" type="text/javascript"></script>
   <!-- CodeMirror -->
-  <link media="all" rel="stylesheet" href="css/codemirror.css" type="text/css" />
   <script src="js/codemirror/codemirror.js" type="text/javascript"></script>
   <script src="js/codemirror/mode/clike/clike.js" type="text/javascript"></script>
   <!-- SeaJs -->
@@ -47,23 +48,34 @@
       </div>
 
       <div id="workflow" class="row-fluid">
-        <div class="well span4">
+        <div id="input" class="well span4 action">
           <h4>Input</h3>
         </div>
-        <div class="well span4">
+        <div id="program" class="well span4 action">
           <h4>Program</h4>
+          <button id="execute" class="btn btn-primary">Execute</button>
         </div>
-        <div class="well span4">
+        <div id="output" class="well span4 action">
           <h4>Output</h4>
         </div>
       </div>
 
-      <div id="card row-fluid">
+      <div id="toolbox" class="hero-unit">
         <div id="cmm-lex" class="well span1 card">
-          <i class="icon-file-alt"></i>
-          <h5>CMM Lex</h5>
+          <i class="icon-file-alt code-detail"></i>
+          <div editable="true"></div>
+          <p>CMM Lex</p>
+        </div>
+        <div id="cmm-grammar" class="well span1 card">
+          <i class="icon-file-alt code-detail"></i>
+          <p>CMM Grammar</p>
+        </div>
+        <div id="catpreter" class="well span1 card">
+          <i class="icon-file-alt code-detail"></i>
+          <p>Catpreter</p>
         </div>
       </div>
+
 
     </div> <!-- /container -->
   </div><!-- wrap -->
@@ -74,8 +86,19 @@
     </div>
   </div>
 
-  <script id="cmm-lex" src="js/sea-modules/catpreter/src/cmm.l" type="text/plain"></script>
-  <script id="cmm-grammar" src="js/sea-modules/catpreter/src/cmm.y" type="text/plain"></script>
+  <div class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Close</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
 </body>
-<script src="js/init.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
 </html>
