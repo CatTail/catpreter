@@ -10,49 +10,49 @@ define(function (require, exports) {
   /* data binding */
   // cmm grammar
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/cmm.y',
+    url: 'js/sea-modules/catpreter/src/cmm.y',
     success: function (grammar) {
       setBind($('#cmm-grammar')[0], 'data', grammar);
     }
   });
   // cmm lex
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/cmm.l',
+    url: 'js/sea-modules/catpreter/src/cmm.l',
     success: function (lex) {
       setBind($('#cmm-lex')[0], 'data', lex);
     }
   });
   // cmm test program
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/test.c',
+    url: 'js/sea-modules/catpreter/src/test.c',
     success: function (program) {
       setBind($('#cmm-program')[0], 'data', program);
     }
   });
   // bnf grammar
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/bnf.y',
+    url: 'js/sea-modules/catpreter/src/bnf.y',
     success: function (grammar) {
       setBind($('#bnf-grammar')[0], 'data', grammar);
     }
   });
   // bnf lex
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/bnf.l',
+    url: 'js/sea-modules/catpreter/src/bnf.l',
     success: function (lex) {
       setBind($('#bnf-lex')[0], 'data', lex);
     }
   });
   // lex grammar
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/lex.y',
+    url: 'js/sea-modules/catpreter/src/lex.y',
     success: function (grammar) {
       setBind($('#lex-grammar')[0], 'data', grammar);
     }
   });
   // lex lex
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/lex.l',
+    url: 'js/sea-modules/catpreter/src/lex.l',
     success: function (lex) {
       setBind($('#lex-lex')[0], 'data', lex);
     }
@@ -71,7 +71,7 @@ define(function (require, exports) {
       return generator.generate(opt);
   });
   $.ajax({
-    url: '/js/sea-modules/catpreter/catpreter.js',
+    url: 'js/sea-modules/catpreter/catpreter.js',
     success: function (code) {
       setBind($('#catpreter')[0], 'data', code);
     }
@@ -83,14 +83,14 @@ define(function (require, exports) {
     return assembler.run();
   });
   $.ajax({
-    url: '/js/sea-modules/catpreter/assembler.js',
+    url: 'js/sea-modules/catpreter/assembler.js',
     success: function (code) {
       setBind($('#assembler')[0], 'data', code);
     }
   });
   // test assembles
   $.ajax({
-    url: '/js/sea-modules/catpreter/src/test.ass',
+    url: 'js/sea-modules/catpreter/src/test.ass',
     success: function (assembles) {
       setBind($('#test-assembles')[0], 'data', assembles);
     }
