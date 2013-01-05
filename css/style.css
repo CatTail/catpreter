@@ -19,7 +19,7 @@ body {
 .card {
   position: relative;
   height: 50px;
-  width: 50px;
+  width: 50px !important;
   cursor: move;
 }
 .card i {
@@ -27,4 +27,7 @@ body {
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+.card p{
+  font-size: 10px;
 }
