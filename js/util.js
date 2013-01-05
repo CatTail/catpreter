@@ -32,18 +32,21 @@ define(function (require, exports) {
       }
     });
     // modal
+    /*
     $.ajax({
       url: 'template/modal.jade',
       success: function (modal) {
         templates.modal = jade.compile(modal);
       }
     });
+   */
   };
   exports.templates = templates;
 
   // display modal
   exports.modal = function (locals) {
-    $(document.body).append(templates.modal(locals));
+    $('.modal .modal-header .content').html(locals.header);
+    $('.modal .modal-body .content').html(locals.body);
     $('.modal').modal();
   };
 

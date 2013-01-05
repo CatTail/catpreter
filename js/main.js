@@ -30,8 +30,8 @@ define(function (require, exports) {
     if (!opt.moduleName && name) opt.moduleName =
         name.replace(/-\w/g, function (match){ return match.charAt(1).toUpperCase(); });
 
-    var generator = new catpreter.Generator(grammar, opt);
-    return generator.generate(opt);
+      var generator = new catpreter.Generator(grammar, opt);
+      return generator.generate(opt);
   });
 
   var enableDnD = function(){
@@ -58,20 +58,20 @@ define(function (require, exports) {
       },
     });
     $('#toolbox').droppable({});
+
+    // show code detail
+    $('.code-detail').click(function () {
+      util.modal({
+        header: 'header',
+        body: 'body'
+      });
+    });
   };
   enableDnD();
 
-  // show code detail
-  $('.code-detail').click(function () {
-    util.modal({
-      header: '',
-      body: ''
-    });
-  });
-
   // execute
   $('#execute').click(function () {
-    var card = templates.card({id: '', title: '加息'});
+    var card = templates.card({id: 'id', title: 'title'});
     $('#output').append($(card));
     console.log(card);
     enableDnD();
