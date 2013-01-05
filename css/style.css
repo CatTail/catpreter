@@ -76,6 +76,7 @@ body {
   min-height: 320px;
   padding: 5px 50px;
   width: 15%;
+  position: relative;
   float: left;
 }
 .action h3 {
@@ -107,6 +108,11 @@ body {
   color: #999;
   margin: 150px 10px 0;
 }
+#run {
+  display: block;
+  float: left;
+  margin: 150px 10px 0;
+}
 #toolbox {
   /*
   -moz-border-radius: 7px;
@@ -128,12 +134,14 @@ body {
   list-style-position: outside;
   margin: 0;
   padding: 0;
+  /*
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  */
   background-color: #F7F7F7;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#F7F7F7), to(white));
   background-image: -webkit-linear-gradient(top, #F7F7F7, white);
@@ -158,12 +166,14 @@ body {
   -moz-box-shadow: 0 0 12px rgba(0,0,0,0.4);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
-#toolbox .card { 
-  height: 92px;
-  width: 112px;
+.card { 
+  height: 90px;
+  width: 110px;
   background-color: #B1BBC4;
+  z-index: 5;
+  border: 1px dashed gray;
 }
-#toolbox .card span {
+.card span {
   display: inline-block;
   zoom: 1;
   background-color: rgba(0, 0, 0, 0.5);
@@ -179,6 +189,11 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
-#toolbox .tool-holder i {
+.card i {
+  margin-top: 10px;
+  cursor: pointer;
+}
+.footer p {
   margin-top: 20px;
+  font-size: 16px;
 }
