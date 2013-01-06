@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-
-require('../jison2json').main(system.args);
