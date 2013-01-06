@@ -1,0 +1,656 @@
+
+<!-- saved from url=(0022)http://localhost:8090/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="./readme_files/ghf_marked.css">
+  <script src="./readme_files/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:8090/');
+    socket.on('connect', function () {
+      socket.on('newContent', function(newHTML) {
+        document.body.innerHTML = newHTML;
+      });
+      socket.on('die', function(newHTML) {
+        window.open('', '_self', '');
+        window.close();
+
+        var firefoxWarning =
+        "<h1>Oops!</h1>" +
+        "<h3>Firefox doesn't allow windows to self-close.</h3>" +
+        "<h3>If you want the preview window to close automatically like in other browsers, go to about:config and set dom.allow_scripts_to_close_windows to true.</h3>"
+        document.body.innerHTML = firefoxWarning;
+      });
+    });
+  </script>
+</head>
+<body><div class="md"><article>
+<h2>Introduction</h2>
+
+<p>This project is base on <a href="https://github.com/zaach/jison">https://github.com/zaach/jison</a>.
+I start from my own catpreter when I realized that LL can't parse CMM language, then
+I came across jison for help. Through out reading jison's source file, I learn more about
+compiler and I was amazed about the power of BNF. The most interested part of jison is it
+use BNF to define BNF. As the author told me, bootstraping is wonderful!</p>
+
+<h2>Dependencies</h2>
+
+<ul>
+<li>catjs</li>
+<li>jison</li>
+<li>jquery</li>
+<li>jquery ui</li>
+<li>jade</li>
+<li>seajs</li>
+<li>bootstrap</li>
+<li>codemirror</li>
+</ul>
+
+<h2>Issue</h2>
+
+<ul>
+<li>unable to dectect error address, only throw error outside</li>
+<li>type varify is not supported</li>
+</ul>
+
+<h2>Feature</h2>
+
+<h3>EBNF</h3>
+<div class="highlight"><pre>? 0<span class="o">-</span>1
+<span class="o">*</span> 0<span class="o">-*</span>
+<span class="o">+</span> 1<span class="o">-*</span>
+<span class="o">|</span> <span class="n">optional</span>
+</pre></div>
+<h2>Virsual machine spec</h2>
+
+<h3>Assembly instruction</h3>
+
+<p>Following define a stack-oriented instruction set.
+Stack-oriented defined instruction set differ from register-oriented instruction set in that it's instruction set use stack rather than registers for operation.</p>
+<div class="highlight"><pre><span class="n">def</span>   <span class="n">define</span> <span class="n">variable</span>
+<span class="n">ld</span>    <span class="n">load</span> <span class="n">varible</span> <span class="n">value</span> <span class="n">into</span> <span class="n">stack</span> <span class="n">top</span>
+<span class="n">st</span>    <span class="n">store</span> <span class="n">stack</span> <span class="n">top</span> <span class="n">into</span> <span class="n">varible</span>
+<span class="n">add</span>   <span class="n">add</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span><span class="p">,</span><span class="n">store</span> <span class="n">result</span> <span class="n">in</span> <span class="n">accumulator</span>
+<span class="n">sub</span>   <span class="n">sub</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span><span class="p">,</span><span class="n">store</span> <span class="n">result</span> <span class="n">in</span> <span class="n">accumulator</span>
+<span class="n">mul</span>   <span class="n">multiple</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span><span class="p">,</span><span class="n">store</span> <span class="n">result</span> <span class="n">in</span> <span class="n">accumulator</span>
+<span class="n">div</span>   <span class="n">divide</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span><span class="p">,</span><span class="n">store</span> <span class="n">result</span> <span class="n">in</span> <span class="n">accumulator</span>
+<span class="n">eq</span>    <span class="n">test</span> <span class="k">if</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span> <span class="n">are</span> <span class="n">equal</span>
+<span class="n">neq</span>   <span class="n">test</span> <span class="k">if</span> <span class="n">top</span> <span class="n">two</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span> <span class="n">are</span> <span class="n">not</span> <span class="n">equal</span>
+<span class="n">lt</span>    <span class="n">test</span> <span class="k">if</span> <span class="n">top</span> <span class="n">element</span> <span class="n">is</span> <span class="n">little</span> <span class="n">then</span> <span class="n">under</span> <span class="n">element</span> <span class="n">in</span> <span class="n">stack</span>
+<span class="n">ja</span>    <span class="n">change</span> <span class="n">program</span> <span class="n">count</span> <span class="n">in</span> <span class="n">all</span> <span class="n">condition</span>
+<span class="n">jt</span>    <span class="n">change</span> <span class="n">program</span> <span class="n">count</span> <span class="k">if</span> <span class="n">stack</span> <span class="n">top</span> <span class="n">is</span> <span class="n">truly</span> <span class="n">value</span>
+<span class="n">jf</span>    <span class="n">change</span> <span class="n">program</span> <span class="n">count</span> <span class="k">if</span> <span class="n">stack</span> <span class="n">top</span> <span class="n">is</span> <span class="n">falsy</span> <span class="n">value</span>
+<span class="n">push</span>  <span class="n">push</span> <span class="n">value</span> <span class="n">in</span> <span class="n">stack</span>
+<span class="n">pop</span>   <span class="n">pop</span> <span class="n">stack</span> <span class="n">top</span>
+<span class="n">read</span>  <span class="n">standard</span> <span class="n">input</span>
+<span class="n">write</span> <span class="n">standard</span> <span class="n">output</span>
+<span class="n">label</span> <span class="n">define</span> <span class="n">label</span> <span class="n">stand</span> <span class="k">for</span> <span class="n">address</span>
+<span class="n">halt</span>  <span class="k">end</span> <span class="n">of</span> <span class="n">program</span>
+</pre></div>
+<h3>Registers</h3>
+
+<ul>
+<li>sp: stack pointer</li>
+<li>pc: program count</li>
+<li>ac: accumulator(deprecated)</li>
+</ul>
+
+<h3>Brief introdution</h3>
+
+<p>Virtual machine code definition.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">Machine</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">stack</span> <span class="o">=</span> <span class="cp">[]</span><span class="p">;</span> <span class="c1">// memory stack</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registers</span> <span class="o">=</span> <span class="p">{</span><span class="nx">sp</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">pc</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">ac</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">memory</span> <span class="o">=</span> <span class="cp">[]</span><span class="p">;</span> <span class="c1">// memory used to store instructions</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">symbols</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">buffer</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span> <span class="c1">// output buffer, could be seen as terminal or anything you like</span>
+<span class="p">};</span>
+</pre></div>
+<p>Stack operation.</p>
+
+<p>Let's examine how Assembler works. We just explain the simplest part here, say we want to calculate <code>1 + 2</code> and <code>write</code> it in output. CMM compiler which create by Catpreter will do the work for us to create assembles so we don't need to afraid of lex, grammar analysis. Result assembles will be:</p>
+<div class="highlight"><pre><span class="n">push</span> 1
+<span class="n">push</span> 2
+<span class="n">write</span>
+<span class="n">halt</span>
+</pre></div>
+<p>Now let's take a look at these instructions to understack stack-oriented instruction-set.</p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span>
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top
+ <span class="o">-------</span>
+</pre></div>
+<p><code>push 1</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span>
+ <span class="o">-------</span>
+</pre></div>
+<p><code>push 2</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">2</span>   <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span>
+ <span class="o">-------</span>
+</pre></div>
+<p><code>add</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>                   <span class="o">-------</span>                     <span class="o">-------</span>                     <span class="o">-------</span>               
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top   <span class="o">|</span>       <span class="o">|</span>                   <span class="o">|</span>       <span class="o">|</span>                   <span class="o">|</span>       <span class="o">|</span>              
+<span class="o">|-------|</span>                 <span class="o">|-------|</span>                   <span class="o">|-------|</span>                   <span class="o">|-------|</span>              
+<span class="o">|</span>   <span class="m">2</span>   <span class="o">|</span>                 <span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top     <span class="o">|</span>       <span class="o">|</span>                   <span class="o">|</span>       <span class="o">|</span>   <span class="o">&lt;--</span> stack top
+<span class="o">|-------|</span>                 <span class="o">|-------|</span>                   <span class="o">|-------|</span>                   <span class="o">|-------|</span>              
+<span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span>                 <span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span>                   <span class="o">|</span>       <span class="o">|</span>  <span class="o">&lt;--</span> stack top    <span class="o">|</span>   <span class="m">3</span>   <span class="o">|</span>             
+ <span class="o">-------</span>                   <span class="o">-------</span>                     <span class="o">-------</span>                     <span class="o">-------</span>               
+</pre></div>
+<p><code>write</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span>
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top
+ <span class="o">-------</span>
+</pre></div>
+<p>After all, we will get the result we want <code>3</code></p>
+
+<p>On the contrary, follow is what register-oriend instruction-set's behaviour:</p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> accumulator
+ <span class="o">-------</span>
+
+ <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top 
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span>
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">2</span>   <span class="o">|</span>
+ <span class="o">-------</span>
+</pre></div>
+<p><code>ld</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>   <span class="m">1</span>   <span class="o">|</span> <span class="o">&lt;--</span> accumulator
+ <span class="o">-------</span>
+
+ <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top 
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">2</span>   <span class="o">|</span>
+ <span class="o">-------</span>
+</pre></div>
+<p><code>add</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>   <span class="m">3</span>   <span class="o">|</span> <span class="o">&lt;--</span> accumulator
+ <span class="o">-------</span>
+
+ <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top
+ <span class="o">-------</span>
+</pre></div>
+<p><code>st</code></p>
+<div class="highlight"><pre> <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> accumulator
+ <span class="o">-------</span>
+
+ <span class="o">-------</span>
+<span class="o">|</span>       <span class="o">|</span> 
+<span class="o">|-------|</span>
+<span class="o">|</span>       <span class="o">|</span> <span class="o">&lt;--</span> stack top 
+<span class="o">|-------|</span>
+<span class="o">|</span>   <span class="m">3</span>   <span class="o">|</span>
+ <span class="o">-------</span>
+</pre></div>
+<p>I don't want to take a close look at why there are two approch and what's the difference and EVEN which is better, if you are interested, I recommand you to read this book <code>汇编语言与计算机体系结构,使用c++和Java</code>. I benefit a lot from this book.</p>
+
+<h2>Catpreter spec</h2>
+
+<h3>BNF defined grammar</h3>
+<div class="highlight"><pre><span class="n">prog</span>
+  <span class="o">:</span> <span class="n">statement</span>
+  <span class="o">;</span>
+<span class="n">statement</span>
+  <span class="o">:</span> <span class="n">compound_statement</span>
+  <span class="o">|</span> <span class="n">expression_statement</span>
+  <span class="o">|</span> <span class="n">selection_statement</span>
+  <span class="o">|</span> <span class="n">iteration_statement</span>
+  <span class="o">|</span> <span class="n">declaration</span>
+  <span class="o">;</span>
+<span class="n">compound_statement</span>
+  <span class="o">:</span> <span class="s1">'{'</span> <span class="s1">'}'</span>
+  <span class="o">|</span> <span class="s1">'{'</span> <span class="n">statement_list</span> <span class="s1">'}'</span>
+  <span class="o">;</span>
+<span class="n">statement_list</span>
+  <span class="o">:</span> <span class="o">(</span> <span class="n">statement</span> <span class="o">)+</span>
+  <span class="o">;</span>
+<span class="n">expression_statement</span>
+  <span class="o">:</span> <span class="s1">';'</span>
+  <span class="o">|</span> <span class="n">expression</span> <span class="s1">';'</span>
+  <span class="o">;</span>
+<span class="n">selection_statement</span>
+  <span class="o">:</span> <span class="s1">'if'</span> <span class="s1">'('</span> <span class="n">expression</span> <span class="s1">')'</span> <span class="n">statement</span> <span class="o">(</span> <span class="s1">'else'</span> <span class="n">statement</span> <span class="o">)?</span>
+  <span class="o">;</span>
+<span class="n">iteration_statement</span>
+  <span class="o">:</span> <span class="s1">'while'</span> <span class="s1">'('</span> <span class="n">expression</span> <span class="s1">')'</span> <span class="n">statement</span>
+  <span class="o">;</span>
+<span class="n">expression</span>
+  <span class="o">:</span> <span class="n">assignment_expression</span> <span class="o">(</span> <span class="s1">','</span> <span class="n">assignment_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">constant_expression</span>
+  <span class="o">:</span> <span class="n">equality_expression</span>
+  <span class="o">;</span>
+<span class="n">assignment_expression</span>
+  <span class="o">:</span> <span class="n">equality_expression</span>
+  <span class="o">|</span> <span class="n">primary_expression</span> <span class="n">assignment_operator</span> <span class="n">assignment_expression</span>
+  <span class="o">;</span>
+<span class="n">equality_expression</span>
+  <span class="o">:</span> <span class="n">relational_expression</span> <span class="o">(</span> <span class="s1">'=='</span> <span class="n">relational_expression</span> <span class="o">|</span> <span class="s1">'&lt;&gt;'</span> <span class="n">relational_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">relational_expression</span>
+  <span class="o">:</span> <span class="n">additive_expression</span> <span class="o">(</span> <span class="s1">'&lt;'</span> <span class="n">additive_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">additive_expression</span>
+  <span class="o">:</span> <span class="n">multiplicative_expression</span> <span class="o">(</span> <span class="s1">'+'</span> <span class="n">multiplicative_expression</span> <span class="o">|</span> <span class="s1">'-'</span> <span class="n">multiplicative_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">multiplicative_expression</span>
+  <span class="o">:</span> <span class="n">unary_expression</span> <span class="o">(</span> <span class="s1">'*'</span> <span class="n">unary_expression</span> <span class="o">|</span> <span class="s1">'/'</span> <span class="n">unary_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">unary_expression</span>
+  <span class="o">:</span> <span class="n">postfix_expression</span>
+  <span class="o">|</span> <span class="n">unary_operator</span> <span class="n">unary_expression</span>
+  <span class="o">;</span>
+<span class="n">postfix_expression</span>
+  <span class="o">:</span> <span class="n">primary_expression</span> <span class="o">(</span> <span class="s1">'['</span> <span class="n">expression</span> <span class="s1">']'</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">primary_expression</span>
+  <span class="o">:</span> <span class="n">constant</span>
+  <span class="o">|</span> <span class="n">IDENTIFIER</span>
+  <span class="o">|</span> <span class="s1">'('</span> <span class="n">expression</span> <span class="s1">')'</span>
+  <span class="o">;</span>
+<span class="n">declaration</span>
+  <span class="o">:</span> <span class="n">declarator_specifiers</span> <span class="n">init_declarator_list</span> <span class="s1">';'</span>
+  <span class="o">;</span>
+<span class="n">declarator_specifiers</span>
+  <span class="o">:</span> <span class="s1">'int'</span>
+  <span class="o">|</span> <span class="s1">'real'</span>
+  <span class="o">;</span>
+<span class="n">init_declarator_list</span>
+  <span class="o">:</span> <span class="n">init_declarator</span> <span class="o">(</span> <span class="s1">','</span> <span class="n">init_declarator</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">init_declarator</span>
+  <span class="o">:</span> <span class="n">declarator</span> <span class="o">(</span> <span class="s1">'='</span> <span class="n">initializer</span> <span class="o">)?</span>
+  <span class="o">;</span>
+<span class="n">declarator</span>
+  <span class="o">:</span> <span class="n">IDENTIFIER</span> <span class="o">(</span> <span class="s1">'['</span> <span class="o">(</span> <span class="n">constant_expression</span> <span class="o">)?</span> <span class="s1">']'</span> <span class="o">)*</span>
+  <span class="o">;</span>
+<span class="n">initializer</span>
+  <span class="o">:</span> <span class="n">assignment_expression</span>
+  <span class="o">;</span>
+<span class="n">constant</span>
+  <span class="o">:</span> <span class="n">INT_LITERAL</span>
+  <span class="o">|</span> <span class="n">REAL_LITERAL</span>
+  <span class="o">;</span>
+<span class="n">assignment_operator</span>
+  <span class="o">:</span> <span class="s1">'='</span>
+  <span class="o">;</span>
+<span class="n">unary_operator</span>
+  <span class="o">:</span> <span class="s1">'+'</span>
+  <span class="o">|</span> <span class="s1">'-'</span>
+  <span class="o">|</span> <span class="s1">'read'</span>
+  <span class="o">|</span> <span class="s1">'write'</span>
+  <span class="o">;</span>
+</pre></div>
+<p>After grammar generator:</p>
+<div class="highlight"><pre><span class="c1">// This file was generated automatically by genGrammar.js</span>
+<span class="c1">// Don't edit it directly</span>
+<span class="k">var</span> <span class="n">grammar</span> <span class="o">=</span> <span class="p">{</span> <span class="nl">prog:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">statement</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">statement:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">compound_statement</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">expression_statement</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">selection_statement</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">iteration_statement</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">declaration</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">compound_statement:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'{</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="err">\</span><span class="p">'}</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'{</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">statement_list</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">'}</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">statement_list:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">{</span> <span class="sc">'+'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="n">statement</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">expression_statement:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">';</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="n">expression</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">';</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">selection_statement:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="k">if</span><span class="err">\</span><span class="p">'',</span>
+       <span class="p">'</span><span class="err">\</span><span class="p">'(</span><span class="err">\</span><span class="p">'',</span>
+       <span class="p">'</span><span class="n">expression</span><span class="p">',</span>
+       <span class="p">'</span><span class="err">\</span><span class="p">')</span><span class="err">\</span><span class="p">'',</span>
+       <span class="p">'</span><span class="n">statement</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'?'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="k">else</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">statement</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">iteration_statement:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="k">while</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="err">\</span><span class="p">'(</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">expression</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">')</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">statement</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">assignment_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">',</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">assignment_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">constant_expression:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">equality_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">assignment_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">equality_expression</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">primary_expression</span><span class="p">',</span>
+       <span class="p">'</span><span class="n">assignment_operator</span><span class="p">',</span>
+       <span class="p">'</span><span class="n">assignment_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">equality_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">relational_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> 
+          <span class="p">[</span> <span class="p">{</span> <span class="sc">'|'</span><span class="o">:</span> 
+               <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">==</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">relational_expression</span><span class="p">'</span> <span class="p">],</span>
+                 <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">&lt;&gt;</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">relational_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">relational_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">additive_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">&lt;</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">additive_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">additive_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">multiplicative_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> 
+          <span class="p">[</span> <span class="p">{</span> <span class="sc">'|'</span><span class="o">:</span> 
+               <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">+</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">multiplicative_expression</span><span class="p">'</span> <span class="p">],</span>
+                 <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">-</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">multiplicative_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">multiplicative_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">unary_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> 
+          <span class="p">[</span> <span class="p">{</span> <span class="sc">'|'</span><span class="o">:</span> 
+               <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">*</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">unary_expression</span><span class="p">'</span> <span class="p">],</span>
+                 <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">/</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">unary_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">unary_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">postfix_expression</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="n">unary_operator</span><span class="p">',</span> <span class="p">'</span><span class="n">unary_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">postfix_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">primary_expression</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'[</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">expression</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">']</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">primary_expression:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">constant</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="no">IDENTIFIER</span><span class="p">'</span> <span class="p">],</span>
+     <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'(</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">expression</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">')</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">declaration:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">declarator_specifiers</span><span class="p">',</span> <span class="p">'</span><span class="n">init_declarator_list</span><span class="p">',</span> <span class="p">'</span><span class="err">\</span><span class="p">';</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">declarator_specifiers:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="k">int</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="k">real</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">init_declarator_list:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">init_declarator</span><span class="p">',</span> <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">',</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">init_declarator</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">init_declarator:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">declarator</span><span class="p">',</span> <span class="p">{</span> <span class="sc">'?'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">=</span><span class="err">\</span><span class="p">'',</span> <span class="p">'</span><span class="n">initializer</span><span class="p">'</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">declarator:</span> 
+   <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="no">IDENTIFIER</span><span class="p">',</span>
+       <span class="p">{</span> <span class="sc">'*'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'[</span><span class="err">\</span><span class="p">'',</span> <span class="p">{</span> <span class="sc">'?'</span><span class="o">:</span> <span class="p">[</span> <span class="p">'</span><span class="n">constant_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">},</span> <span class="p">'</span><span class="err">\</span><span class="p">']</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">initializer:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="n">assignment_expression</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">constant:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="no">INT_LITERAL</span><span class="p">'</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="no">REAL_LITERAL</span><span class="p">'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">assignment_operator:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">=</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="nl">unary_operator:</span> <span class="p">[</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">+</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="o">-</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="n">read</span><span class="err">\</span><span class="p">''</span> <span class="p">],</span> <span class="p">[</span> <span class="p">'</span><span class="err">\</span><span class="p">'</span><span class="n">write</span><span class="err">\</span><span class="p">''</span> <span class="p">]</span> <span class="p">]</span> <span class="p">};</span>
+<span class="n">try</span><span class="p">{</span><span class="n">exports</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">grammar</span><span class="p">;}</span><span class="n">catch</span><span class="p">(</span><span class="n">err</span><span class="p">){}</span>
+</pre></div>
+<p>After eliminate left recursive, extract common factor and expand EBNF <code>? * +</code>:</p>
+<div class="highlight"><pre><span class="p">{</span> <span class="n">prog</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'statement'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">statement</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'compound_statement'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'expression_statement'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'selection_statement'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'iteration_statement'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'declaration'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">compound_statement</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">{</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'compound_statement$c_cJFmBc'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">statement_list</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'statement_list$+'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">expression_statement</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">;</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'expression'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">;</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">selection_statement</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">if</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span>
+       <span class="s1">'</span><span class="se">\'</span><span class="s1">(</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span>
+       <span class="s1">'expression'</span><span class="p">,</span>
+       <span class="s1">'</span><span class="se">\'</span><span class="s1">)</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span>
+       <span class="s1">'statement'</span><span class="p">,</span>
+       <span class="s1">'selection_statement$?'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">iteration_statement</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">while</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">(</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'expression'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">)</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'statement'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'assignment_expression'</span><span class="p">,</span> <span class="s1">'expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">constant_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'equality_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">assignment_expression</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'equality_expression'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'primary_expression'</span><span class="p">,</span>
+       <span class="s1">'assignment_operator'</span><span class="p">,</span>
+       <span class="s1">'assignment_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">equality_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'relational_expression'</span><span class="p">,</span> <span class="s1">'equality_expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">relational_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'additive_expression'</span><span class="p">,</span> <span class="s1">'relational_expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">additive_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'multiplicative_expression'</span><span class="p">,</span> <span class="s1">'additive_expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">multiplicative_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'unary_expression'</span><span class="p">,</span> <span class="s1">'multiplicative_expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">unary_expression</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'postfix_expression'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'unary_operator'</span><span class="p">,</span> <span class="s1">'unary_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">postfix_expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'primary_expression'</span><span class="p">,</span> <span class="s1">'postfix_expression$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">primary_expression</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'constant'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'IDENTIFIER'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">(</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'expression'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">)</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">declaration</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'declarator_specifiers'</span><span class="p">,</span> <span class="s1">'init_declarator_list'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">;</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">declarator_specifiers</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">int</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">real</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">init_declarator_list</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'init_declarator'</span><span class="p">,</span> <span class="s1">'init_declarator_list$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">init_declarator</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'declarator'</span><span class="p">,</span> <span class="s1">'init_declarator$?'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">declarator</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'IDENTIFIER'</span><span class="p">,</span> <span class="s1">'declarator$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">initializer</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'assignment_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">constant</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'INT_LITERAL'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'REAL_LITERAL'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">assignment_operator</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">=</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="n">unary_operator</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">+</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">-</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">read</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">write</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'statement_list$+'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'statement'</span><span class="p">,</span> <span class="s1">'statement_list$+$*'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'statement_list$+$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'statement'</span><span class="p">,</span> <span class="s1">'statement_list$+$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'selection_statement$?'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">else</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'statement'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'expression$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">,</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'assignment_expression'</span><span class="p">,</span> <span class="s1">'expression$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'equality_expression$*'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'equality_expression$*$|_pynGFz'</span><span class="p">,</span> <span class="s1">'equality_expression$*'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'equality_expression$*$|_pynGFz'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">==</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'relational_expression'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">&lt;&gt;</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'relational_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'relational_expression$*'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">&lt;</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'additive_expression'</span><span class="p">,</span> <span class="s1">'relational_expression$*'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'additive_expression$*'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'additive_expression$*$|_CuSWdJ'</span><span class="p">,</span> <span class="s1">'additive_expression$*'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'additive_expression$*$|_CuSWdJ'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">+</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'multiplicative_expression'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">-</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'multiplicative_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'multiplicative_expression$*'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'multiplicative_expression$*$|_FhAVbz'</span><span class="p">,</span>
+       <span class="s1">'multiplicative_expression$*'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'multiplicative_expression$*$|_FhAVbz'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">*</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'unary_expression'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">/</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'unary_expression'</span> <span class="cp">]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'postfix_expression$*'</span><span class="o">:</span> 
+   <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">[</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'expression'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">]</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'postfix_expression$*'</span> <span class="cp">]</span><span class="o">,</span>
+     <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'init_declarator_list$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">,</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'init_declarator'</span><span class="p">,</span> <span class="s1">'init_declarator_list$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'init_declarator$?'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">=</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'initializer'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'declarator$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">[</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'declarator$*$?'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">]</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'declarator$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'declarator$*$?'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'constant_expression'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
+  <span class="s1">'compound_statement$c_cJFmBc'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">}</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'statement_list'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">}</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span> <span class="p">}</span>
+</pre></div>
+<h2>CMM lex</h2>
+<div class="highlight"><pre>DIGIT                     \d+
+INT                       {DIGIT}+ 
+REAL                      {INT}\.{INT}('e'<span class="cp">[</span><span class="o">-+</span><span class="cp">]</span>?{INT})?
+LETTER                    <span class="cp">[</span><span class="nx">a</span><span class="na">-zA-Z</span><span class="cp">]</span>
+NUMBER                    <span class="cp">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="cp">]</span>
+IDENTIFIER                {LETTER}({LETTER}|{NUMBER}|'_')*
+
+"//".*                  /* ignore line comment */
+"/*"                    {this.begin('comment');}
+<span class="nt">&lt;comment&gt;</span>"*/"           {this.popState();}
+<span class="nt">&lt;comment&gt;</span>.              {/* skip comment content*/}
+\s+                     /* ignore white space */
+"if"                    return 'if';
+"else"                  return 'else';
+"while"                 return 'while';
+"read"                  return 'read';
+"write"                 return 'write';
+"int"                   return 'int';
+"real"                  return 'real';
+{REAL}                  return 'REAL_LITERAL';
+{INT}                   return 'INT_LITERAL';
+{IDENTIFIER}            return 'IDENTIFIER';
+"+="                    return '+=';
+"-="                    return '-=';
+"*="                    return '*=';
+"/="                    return '/=';
+"=="                    return '==';
+"<span class="err">&lt;</span>&gt;"                    return '<span class="err">&lt;</span>&gt;';
+"+"                     return '+';
+"-"                     return '-';
+"*"                     return '*';
+"/"                     return '/';
+"<span class="err">&lt;</span>"                     return '<span class="err">&lt;</span>';
+"<span class="cp">[</span><span class="s2">"                     return '[';</span>
+<span class="s2">"</span><span class="cp">]</span>"                     return ']';
+"="                     return '=';
+"("                     return '(';
+")"                     return ')';
+";"                     return ';';
+"{"                     return '{';
+"}"                     return '}';
+","                     return ',';
+.                       /* ignore */
+</pre></div>
+<h2>CMM grammar</h2>
+<div class="highlight"><pre><span class="c">%start prog</span>
+<span class="n">prog</span>
+  <span class="p">:</span> <span class="n">statement_list</span> <span class="n">EOF</span>
+  <span class="p">;</span>
+<span class="n">statement_list</span>
+  <span class="p">:</span> <span class="n">statement</span>
+  <span class="o">|</span> <span class="n">statement_list</span> <span class="n">statement</span>
+  <span class="p">;</span>
+<span class="n">statement</span>
+  <span class="p">:</span> <span class="n">compound_statement</span>
+  <span class="o">|</span> <span class="n">expression_statement</span>
+  <span class="o">|</span> <span class="n">selection_statement</span>
+  <span class="o">|</span> <span class="n">iteration_statement</span>
+  <span class="o">|</span> <span class="n">declaration</span>
+  <span class="p">;</span>
+
+<span class="n">compound_statement</span>
+  <span class="p">:</span> <span class="n">empty_compound_statement</span>
+  <span class="o">|</span> <span class="n">wrapped_compound_statement</span>
+  <span class="p">;</span>
+<span class="n">empty_compound_statement</span>
+  <span class="p">:</span> <span class="s">'{'</span> <span class="s">'}'</span>
+  <span class="p">;</span>
+<span class="n">wrapped_compound_statement</span>
+  <span class="p">:</span> <span class="s">'{'</span> <span class="n">statement_list</span> <span class="s">'}'</span>
+  <span class="p">;</span>
+
+<span class="n">selection_statement</span>
+  <span class="p">:</span> <span class="n">if_statement</span>
+  <span class="o">|</span> <span class="n">if_else_statement</span>
+  <span class="p">;</span>
+<span class="n">if_statement</span>
+  <span class="p">:</span> <span class="s">'if'</span> <span class="s">'('</span> <span class="n">expression</span> <span class="s">')'</span> <span class="n">statement</span>
+  <span class="p">;</span>
+<span class="n">if_else_statement</span>
+  <span class="p">:</span> <span class="s">'if'</span> <span class="s">'('</span> <span class="n">expression</span> <span class="s">')'</span> <span class="n">statement</span> <span class="s">'else'</span> <span class="n">statement</span>
+  <span class="p">;</span>
+
+<span class="n">iteration_statement</span>
+  <span class="p">:</span> <span class="s">'while'</span> <span class="s">'('</span> <span class="n">expression</span> <span class="s">')'</span> <span class="n">statement</span>
+  <span class="p">;</span>
+
+<span class="n">expression_statement</span>
+  <span class="p">:</span> <span class="n">empty_expression_statement</span>
+  <span class="o">|</span> <span class="n">ended_expression_statement</span>
+  <span class="o">|</span> <span class="n">write_expression_statement</span>
+  <span class="o">|</span> <span class="n">read_expression_statement</span>
+  <span class="p">;</span>
+<span class="n">empty_expression_statement</span>
+  <span class="p">:</span> <span class="s">';'</span>
+  <span class="p">;</span>
+<span class="n">ended_expression_statement</span>
+  <span class="p">:</span> <span class="n">expression</span> <span class="s">';'</span>
+  <span class="p">;</span>
+<span class="n">write_expression_statement</span>
+  <span class="p">:</span> <span class="s">'write'</span> <span class="n">expression</span> <span class="s">';'</span>
+  <span class="p">;</span>
+<span class="n">read_expression_statement</span>
+  <span class="p">:</span> <span class="s">'read'</span> <span class="n">IDENTIFIER</span>
+  <span class="p">;</span>
+
+<span class="n">expression</span>
+  <span class="p">:</span> <span class="n">assignment_expression</span>
+  <span class="o">|</span> <span class="n">expression</span> <span class="s">','</span> <span class="n">assignment_expression</span>
+  <span class="p">;</span>
+<span class="n">assignment_expression</span>
+  <span class="p">:</span> <span class="n">equality_expression</span>
+  <span class="o">|</span> <span class="n">postfix_expression</span> <span class="n">assignment_operator</span> <span class="n">assignment_expression</span>
+  <span class="p">;</span>
+<span class="n">assignment_operator</span>
+  <span class="p">:</span> <span class="s">'='</span>
+  <span class="o">|</span> <span class="s">'+='</span>
+  <span class="o">|</span> <span class="s">'-='</span>
+  <span class="o">|</span> <span class="s">'*='</span>
+  <span class="o">|</span> <span class="s">'/='</span>
+  <span class="p">;</span>
+<span class="n">equality_expression</span>
+  <span class="p">:</span> <span class="n">relational_expression</span>
+  <span class="o">|</span> <span class="n">equality_expression</span> <span class="n">equality_operator</span> <span class="n">relational_expression</span>
+  <span class="p">;</span>
+<span class="n">equality_operator</span>
+  <span class="p">:</span> <span class="s">'=='</span>
+  <span class="o">|</span> <span class="s">'&lt;&gt;'</span>
+  <span class="p">;</span>
+<span class="n">relational_expression</span>
+  <span class="p">:</span> <span class="n">additive_expression</span>
+  <span class="o">|</span> <span class="n">relational_expression</span> <span class="s">'&lt;'</span> <span class="n">additive_expression</span>
+  <span class="p">;</span>
+<span class="n">additive_expression</span>
+  <span class="p">:</span> <span class="n">multiplicative_expression</span>
+  <span class="o">|</span> <span class="n">additive_expression</span> <span class="s">'+'</span> <span class="n">multiplicative_expression</span>
+  <span class="o">|</span> <span class="n">additive_expression</span> <span class="s">'-'</span> <span class="n">multiplicative_expression</span>
+  <span class="p">;</span>
+<span class="n">multiplicative_expression</span>
+  <span class="p">:</span> <span class="n">unary_expression</span>
+  <span class="o">|</span> <span class="n">multiplicative_expression</span> <span class="s">'*'</span> <span class="n">unary_expression</span>
+  <span class="o">|</span> <span class="n">multiplicative_expression</span> <span class="s">'/'</span> <span class="n">unary_expression</span>
+  <span class="p">;</span>
+<span class="n">unary_expression</span>
+  <span class="p">:</span> <span class="n">postfix_expression</span>
+  <span class="o">|</span> <span class="s">'+'</span> <span class="n">unary_expression</span>
+  <span class="o">|</span> <span class="n">minus_unary_expression</span>
+  <span class="p">;</span>
+<span class="n">minus_unary_expression</span>
+  <span class="p">:</span> <span class="s">'-'</span> <span class="n">unary_expression</span>
+  <span class="p">;</span>
+<span class="n">postfix_expression</span>
+  <span class="p">:</span> <span class="n">primary_expression</span>
+  <span class="o">|</span> <span class="n">primary_expression</span> <span class="s">'['</span> <span class="n">INT_LITERAL</span> <span class="s">']'</span>
+  <span class="p">;</span>
+<span class="n">primary_expression</span>
+  <span class="p">:</span> <span class="n">INT_LITERAL</span>
+  <span class="o">|</span> <span class="n">REAL_LITERAL</span>
+  <span class="o">|</span> <span class="n">IDENTIFIER</span>
+  <span class="o">|</span> <span class="s">'('</span> <span class="n">expression</span> <span class="s">')'</span>
+  <span class="p">;</span>
+
+<span class="n">declaration</span>
+  <span class="p">:</span> <span class="n">declarator_specifiers</span> <span class="n">init_declarator_list</span> <span class="s">';'</span>
+  <span class="p">;</span>
+<span class="n">declarator_specifiers</span>
+  <span class="p">:</span> <span class="s">'int'</span>
+  <span class="o">|</span> <span class="s">'real'</span>
+  <span class="p">;</span>
+<span class="n">init_declarator_list</span>
+  <span class="p">:</span> <span class="n">init_declarator</span>
+  <span class="o">|</span> <span class="n">init_declarator_list</span> <span class="s">','</span> <span class="n">init_declarator</span>
+  <span class="p">;</span>
+<span class="n">init_declarator</span>
+  <span class="p">:</span> <span class="n">declarator</span>
+  <span class="o">|</span> <span class="n">declarator</span> <span class="s">'='</span> <span class="n">initializer</span>
+  <span class="p">;</span>
+<span class="n">declarator</span>
+  <span class="p">:</span> <span class="n">IDENTIFIER</span>
+  <span class="o">|</span> <span class="n">declarator</span> <span class="s">'['</span> <span class="n">INT_LITERAL</span> <span class="s">']'</span>
+  <span class="p">;</span>
+<span class="n">initializer</span>
+  <span class="p">:</span> <span class="n">assignment_expression</span>
+  <span class="p">;</span>
+</pre></div></article></div>
+</body></html>
