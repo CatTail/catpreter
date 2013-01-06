@@ -1,4 +1,0 @@
-<project name="C" basedir="." default="all">
-	<property name="grammars" value="${basedir}/XMLLexer.g"/>
-	<import file="${basedir}/../build-common.xml"/>
-</project>
