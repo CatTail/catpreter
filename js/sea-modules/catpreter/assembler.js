@@ -20,7 +20,7 @@ define(function (require, exports) {
   };
   // IO operation
   Machine.prototype.read = function (callback) {
-    callback(window.prompt());
+    callback(window.prompt('enter input>'));
   };
   Machine.prototype.write = function (buffer) {
     this.buffer = [this.buffer, buffer].join('\n');
