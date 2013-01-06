@@ -16,7 +16,8 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
 * codemirror
 
 ## Issue
-* if_else statement parse error
+* unable to dectect error address, only throw error outside
+* type varify is not supported
 
 ## Feature
 ### EBNF
@@ -25,8 +26,11 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
     + 1-*
     | optional
 
-## virsual machine spec
-### assembly instruction
+## Virsual machine spec
+### Assembly instruction
+Following define a stack-oriented instruction set.
+Stack-oriented defined instruction set differ from register-oriented instruction set in that it's instruction set use stack rather than registers for operation.
+
     def   define variable
     ld    load varible value into stack top
     st    store stack top into varible
@@ -48,10 +52,141 @@ use BNF to define BNF. As the author told me, bootstraping is wonderful!
     halt  end of program
 
 
-### registers
+### Registers
 * sp: stack pointer
 * pc: program count
 * ac: accumulator(deprecated)
+
+### Brief introdution
+Virtual machine code definition.
+
+    function Machine () {
+      this.stack = []; // memory stack
+      this.registers = {sp: 0, pc: 0, ac: 0};
+      this.memory = []; // memory used to store instructions
+      this.symbols = {};
+      this.buffer = ''; // output buffer, could be seen as terminal or anything you like
+    };
+
+Stack operation.
+
+Let's examine how Assembler works. We just explain the simplest part here, say we want to calculate `1 + 2` and `write` it in output. CMM compiler which create by Catpreter will do the work for us to create assembles so we don't need to afraid of lex, grammar analysis. Result assembles will be:
+
+    push 1
+    push 2
+    write
+    halt
+
+Now let's take a look at these instructions to understack stack-oriented instruction-set.
+
+     -------
+    |       | 
+    |-------|
+    |       |
+    |-------|
+    |       | <-- stack top
+     -------
+
+`push 1`
+
+     -------
+    |       | 
+    |-------|
+    |       | <-- stack top
+    |-------|
+    |   1   |
+     -------
+
+`push 2`
+
+     -------
+    |       | <-- stack top
+    |-------|
+    |   2   | 
+    |-------|
+    |   1   |
+     -------
+
+`add`
+
+     -------                   -------                     -------                     -------               
+    |       | <-- stack top   |       |                   |       |                   |       |              
+    |-------|                 |-------|                   |-------|                   |-------|              
+    |   2   |                 |       | <-- stack top     |       |                   |       |   <-- stack top
+    |-------|                 |-------|                   |-------|                   |-------|              
+    |   1   |                 |   1   |                   |       |  <-- stack top    |   3   |             
+     -------                   -------                     -------                     -------               
+
+`write`
+
+     -------
+    |       | 
+    |-------|
+    |       |
+    |-------|
+    |       | <-- stack top
+     -------
+
+After all, we will get the result we want `3`
+
+On the contrary, follow is what register-oriend instruction-set's behaviour:
+
+     -------
+    |       | <-- accumulator
+     -------
+
+     -------
+    |       | <-- stack top 
+    |-------|
+    |   1   |
+    |-------|
+    |   2   |
+     -------
+
+`ld`
+
+     -------
+    |   1   | <-- accumulator
+     -------
+
+     -------
+    |       | 
+    |-------|
+    |       | <-- stack top 
+    |-------|
+    |   2   |
+     -------
+
+`add`
+
+     -------
+    |   3   | <-- accumulator
+     -------
+
+     -------
+    |       | 
+    |-------|
+    |       | 
+    |-------|
+    |       | <-- stack top
+     -------
+
+`st`
+
+     -------
+    |       | <-- accumulator
+     -------
+
+     -------
+    |       | 
+    |-------|
+    |       | <-- stack top 
+    |-------|
+    |   3   |
+     -------
+
+I don't want to take a close look at why there are two approch and what's the difference and EVEN which is better, if you are interested, I recommand you to read this book `汇编语言与计算机体系结构,使用c++和Java`. I benefit a lot from this book.
+
 
 ## CMM lex
     DIGIT                     \d+

@@ -1,5 +1,5 @@
 /* Catpreter generated parser */
-var cmm = (function(){
+var parser = (function(){
 var parser = {trace: function trace() { },
 yy: {},
 symbols_: {"error":2,"prog":3,"statement_list":4,"EOF":5,"statement":6,"compound_statement":7,"expression_statement":8,"selection_statement":9,"iteration_statement":10,"declaration":11,"empty_compound_statement":12,"wrapped_compound_statement":13,"{":14,"}":15,"if_statement":16,"if_else_statement":17,"if":18,"(":19,"expression":20,")":21,"else":22,"while":23,"empty_expression_statement":24,"ended_expression_statement":25,"write_expression_statement":26,"read_expression_statement":27,";":28,"write":29,"read":30,"IDENTIFIER":31,"assignment_expression":32,",":33,"equality_expression":34,"postfix_expression":35,"assignment_operator":36,"=":37,"+=":38,"-=":39,"*=":40,"/=":41,"relational_expression":42,"equality_operator":43,"==":44,"<>":45,"additive_expression":46,"<":47,"multiplicative_expression":48,"+":49,"-":50,"unary_expression":51,"*":52,"/":53,"minus_unary_expression":54,"primary_expression":55,"[":56,"INT_LITERAL":57,"]":58,"REAL_LITERAL":59,"declarator_specifiers":60,"init_declarator_list":61,"int":62,"real":63,"init_declarator":64,"declarator":65,"initializer":66,"$accept":0,"$end":1},
@@ -11,8 +11,6 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
         this.$=new g.Program($$[$0-1]);
-//        console.log(util.inspect(this.$, false, null));
-//        console.log(this.$.assemble());
         return this.$.assemble();
       
 break;
@@ -346,8 +344,403 @@ parse: function parse(input) {
     return true;
   }};
 
-var g = require('./grammar');
-var util = require('util');
+var g = {};
+// utils
+var random = (function(){
+  var ranNum = function(min, max) {
+    min = min || 0;
+    max = max || 9;
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+  return function (len, range) {
+    var alphabet = 'abcdefghijklmnopqistuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ';
+    if (arguments.length === 1) {
+      // supplied with one argument
+      if (typeof len === 'number') {
+        range = alphabet;
+      } else {
+        range = len;
+        len = 4;
+      }
+    } else {
+      len = len || 4;
+      range = range || alphabet;
+    }
+    var str = '';
+    for ( ; len>0; len-- ) {
+      str += range[ranNum(0, range.length)];
+    }
+    return str;
+  };
+}());
+
+function createLabel () {
+  return random(8);
+}
+
+// Program
+function Program (statement_list) {
+  this.statement_list = statement_list;
+}
+Program.prototype.assemble = function () {
+  var buf = [], buf2 = [], i;
+  buf.push(this.statement_list.assemble());
+  buf.push('halt');
+  // remove empty instruction
+  buf = buf.join('\n').split('\n');
+  for (i=0; i<buf.length; i++) {
+    if (buf[i] !== '') {
+      buf2.push(buf[i]);
+    }
+  }
+  return buf2.join('\n');
+};
+g.Program = Program;
+
+// StatementList
+function StatementList (statement) {
+  this.statement_list = [statement];
+}
+StatementList.prototype.appendChild = function (statement) {
+  this.statement_list.push(statement);
+};
+StatementList.prototype.assemble = function () {
+  var buf = [], i;
+  for (i=0; i<this.statement_list.length; i++) {
+    buf.push(this.statement_list[i].assemble());
+  }
+  return buf.join('\n');
+};
+g.StatementList = StatementList;
+
+// EmptyCompoundStatement
+function EmptyCompoundStatement () {
+}
+EmptyCompoundStatement.prototype.assemble = function () {
+  return '';
+};
+g.EmptyCompoundStatement = EmptyCompoundStatement;
+
+// WrappedCompoundStatement
+function WrappedCompoundStatement (statement_list) {
+  this.start_label = createLabel();
+  this.statement_list = statement_list;
+  this.end_label = createLabel();
+}
+WrappedCompoundStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push('label '+this.start_label);
+  buf.push(this.statement_list.assemble());
+  buf.push('label '+this.end_label);
+  return buf.join('\n');
+};
+g.WrappedCompoundStatement = WrappedCompoundStatement;
+
+// IfStatement
+function IfStatement (condition, true_statement) {
+  this.condition = condition;
+//  this.start_label = createLabel();
+  this.true_statement = true_statement;
+  this.end_label = createLabel();
+}
+IfStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.condition.assemble());
+  buf.push('jf '+this.end_label);
+  buf.push(this.true_statement.assemble());
+  buf.push('label '+this.end_label);
+  return buf.join('\n');
+};
+g.IfStatement = IfStatement;
+
+// IfElseStatement
+function IfElseStatement (condition, true_statement, false_statement) {
+  this.condition = condition;
+  this.true_statement = true_statement;
+  this.else_label = createLabel();
+  this.false_statement = false_statement;
+  this.end_label = createLabel();
+}
+IfElseStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.condition.assemble());
+  buf.push('jf '+this.else_label);
+  buf.push(this.true_statement.assemble());
+  buf.push('ja '+this.end_label);
+  buf.push('label '+this.else_label);
+  buf.push(this.false_statement.assemble());
+  buf.push('label '+this.end_label);
+  return buf.join('\n');
+};
+g.IfElseStatement = IfElseStatement;
+
+// WhileStatement
+function WhileStatement (condition, statement) {
+  this.start_label = createLabel();
+  this.condition = condition;
+  this.statement = statement;
+  this.end_label = createLabel();
+}
+WhileStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push('label '+this.start_label);
+  buf.push(this.condition.assemble());
+  buf.push('jf '+this.end_label);
+  buf.push(this.statement.assemble());
+  buf.push('ja '+this.start_label);
+  buf.push('label '+this.end_label);
+  return buf.join('\n');
+};
+g.WhileStatement = WhileStatement;
+
+// EmptyExpressionStatement
+function EmptyExpressionStatement () {
+}
+EmptyExpressionStatement.prototype.assemble = function () {
+  return '';
+};
+g.EmptyExpressionStatement = EmptyExpressionStatement;
+
+// EndedExpressionStatement
+function EndedExpressionStatement (expression) {
+  this.expression = expression;
+}
+EndedExpressionStatement.prototype.assemble = function () {
+  return this.expression.assemble();
+};
+g.EndedExpressionStatement = EndedExpressionStatement;
+
+// WriteExpressionStatement
+function WriteExpressionStatement (expression) {
+  this.expression = expression;
+}
+WriteExpressionStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.expression.assemble());
+  buf.push('write');
+  return buf.join('\n');
+};
+g.WriteExpressionStatement = WriteExpressionStatement;
+
+// ReadExpressionStatement
+function ReadExpressionStatement (identifier) {
+  this.identifier = identifier;
+}
+ReadExpressionStatement.prototype.assemble = function () {
+  var buf = [];
+  buf.push('read');
+  buf.push('st '+this.identifier);
+  return buf.join('\n');
+};
+g.ReadExpressionStatement = ReadExpressionStatement;
+
+// Expression
+function Expression (assignment_expression) {
+  this.assignment_expressions = [assignment_expression];
+}
+Expression.prototype.appendChild = function (assignment_expression) {
+  this.assignment_expressions.push(assignment_expression);
+};
+Expression.prototype.assemble = function () {
+  var buf = [], i;
+  for (i=0; i<this.assignment_expressions.length; i++) {
+    buf.push(this.assignment_expressions[i].assemble());
+  }
+  return buf.join('\n');
+};
+g.Expression = Expression;
+
+// AssignmentExpression
+function AssignmentExpression (lvalue, assignment_operator, assignment_expression) {
+  this.lvalue = lvalue;
+  this.assignment_operator = assignment_operator;
+  this.assignment_expression = assignment_expression;
+}
+AssignmentExpression.prototype.assemble = function () {
+  // TODO: add assignment_operator switch
+  var buf = [];
+  buf.push(this.assignment_expression.assemble());
+//  buf.push(this.lvalue.getIdentifier());
+//  buf.push(this.lvalue.assemble('lvalue'));
+  buf.push('st '+this.lvalue.getIdentifier());
+  return buf.join('\n');
+};
+g.AssignmentExpression = AssignmentExpression;
+
+// EqualityExpression
+function EqualityExpression (equality_expresion, equality_operator, relational_expression) {
+  this.equality_expresion = equality_expresion;
+  this.equality_operator = equality_operator;
+  this.relational_expression = relational_expression;
+}
+EqualityExpression.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.equality_expresion.assemble());
+  buf.push(this.relational_expression.assemble());
+  switch (this.equality_operator) {
+    case '==':
+      buf.push('eq');
+    break;
+    case '<>':
+      buf.push('neq');
+    break;
+  }
+  return buf.join('\n');
+};
+g.EqualityExpression = EqualityExpression;
+
+// RelationalExpression
+function RelationalExpression (relational_expression, additive_expression) {
+  this.relational_expression = relational_expression;
+  this.additive_expression = additive_expression;
+}
+RelationalExpression.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.relational_expression.assemble());
+  buf.push(this.additive_expression.assemble());
+  buf.push('lt');
+  return buf.join('\n');
+};
+g.RelationalExpression = RelationalExpression;
+
+// AdditiveExpression
+function AdditiveExpression (additive_expression, operator, multiplicative_expression) {
+  this.additive_expression = additive_expression;
+  this.operator = operator;
+  this.multiplicative_expression = multiplicative_expression;
+}
+AdditiveExpression.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.additive_expression.assemble());
+  buf.push(this.multiplicative_expression.assemble());
+  switch (this.operator) {
+    case '+':
+      buf.push('add');
+    break;
+    case '-':
+      buf.push('sub');
+    break;
+  }
+  return buf.join('\n');
+};
+g.AdditiveExpression = AdditiveExpression;
+
+// MultiplicativeExpression
+function MultiplicativeExpression (multiplicative_expression, operator, unary_expression) {
+  this.multiplicative_expression = multiplicative_expression;
+  this.operator = operator;
+  this.unary_expression = unary_expression;
+}
+MultiplicativeExpression.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.multiplicative_expression.assemble());
+  buf.push(this.unary_expression.assemble());
+  switch (this.operator) {
+    case '*':
+      buf.push('mul');
+    break;
+    case '/':
+      buf.push('div');
+    break;
+  }
+  return buf.join('\n');
+}
+g.MultiplicativeExpression = MultiplicativeExpression;
+
+// MinusUnaryExpression
+function MinusUnaryExpression (unary_expression) {
+  this.unary_expression = unary_expression;
+}
+MinusUnaryExpression.prototype.assemble = function () {
+  var buf = [];
+  buf.push(this.unary_expression.assemble());
+  buf.push('push -1');
+  buf.push('mul');
+  return buf.join('\n');
+};
+g.MinusUnaryExpression = MinusUnaryExpression;
+
+// IntLiteral
+function IntLiteral (int_literal) {
+  this.int_literal = int_literal;
+}
+IntLiteral.prototype.assemble = function () {
+  return 'push '+this.int_literal;
+};
+g.IntLiteral = IntLiteral;
+
+// RealLiteral
+function RealLiteral (real_literal) {
+  this.real_literal = real_literal;
+}
+RealLiteral.prototype.assemble = function () {
+  return 'push '+this.real_literal;
+};
+g.RealLiteral = RealLiteral;
+
+// Identifier
+function Identifier (identifier) {
+  this.identifier = identifier;
+}
+Identifier.prototype.addPostfix = function (int_literal) {
+  this.postfix ? this.postfix.push(int_literal) : this.postfix = [int_literal];
+};
+Identifier.prototype.getPostfix = function () {
+  if (this.postfix) {
+    return ['[', this.postfix.join(','), ']'].join('');
+  }
+  return '';
+};
+Identifier.prototype.getIdentifier = function () {
+  return this.identifier + this.getPostfix();
+};
+Identifier.prototype.init = function (initializer) {
+  this.initializer = initializer;
+};
+Identifier.prototype.assemble = function (type) {
+  // only right value will call this method
+  return 'ld '+this.getIdentifier();
+};
+g.Identifier = Identifier;
+
+// PrimaryExpression
+function PrimaryExpression (expression) {
+  this.expression = expression;
+}
+PrimaryExpression.prototype.assemble = function () {
+  return this.expression.assemble();
+};
+g.PrimaryExpression = PrimaryExpression;
+
+// Declaration
+function Declaration (declarator_specifier, init_declarator_list) {
+  this.declarator_specifier = declarator_specifier;
+  this.init_declarator_list = init_declarator_list;
+}
+Declaration.prototype.assemble = function () {
+  var buf = [], i, declarator;
+  for (i=0; i<this.init_declarator_list.init_declarators.length; i++) {
+    declarator = this.init_declarator_list.init_declarators[i];
+    buf.push(
+      declarator.initializer ? declarator.initializer.assemble() : 'push NULL'
+    );
+    buf.push(
+      ['def', this.declarator_specifier+declarator.getPostfix(), declarator.identifier].join(' ')
+    );
+  }
+  return buf.join('\n');
+};
+g.Declaration = Declaration;
+
+// InitDeclaratorList
+function InitDeclaratorList (init_declarator) {
+  this.init_declarators = [init_declarator];
+}
+InitDeclaratorList.prototype.appendChild = function (init_declarator) {
+  this.init_declarators.push(init_declarator);
+};
+g.InitDeclaratorList = InitDeclaratorList;
+
 
 /* catpreter generated lexer */
 var lexer = (function(){
@@ -615,22 +1008,3 @@ parser.lexer = lexer;
 function Parser () { this.yy = {}; }Parser.prototype = parser;parser.Parser = Parser;
 return new Parser;
 })();
-if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
-exports.parser = cmm;
-exports.Parser = cmm.Parser;
-exports.parse = function () { return cmm.parse.apply(cmm, arguments); };
-exports.main = function commonjsMain(args) {
-    if (!args[1])
-      throw new Error('Usage: '+args[0]+' FILE');
-    var source, cwd;
-    if (typeof process !== 'undefined') {
-      source = require('fs').readFileSync(require('path').resolve(args[1]), "utf8");
-    } else {
-      source = require("file").path(require("file").cwd()).join(args[1]).read({charset: "utf-8"});
-    }
-    return exports.parser.parse(source);
-  };
-if (typeof module !== 'undefined' && require.main === module) {
-  exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
-}
-}
