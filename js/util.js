@@ -49,8 +49,7 @@ define(function (require, exports) {
     body.append($('<textarea class="content"></textarea>'));
     $('.modal .modal-body .content').html(locals.body);
     var editor = CodeMirror.fromTextArea($('.modal-body .content')[0], {
-      lineNumbers: true,
-      mode: 'clike'
+      lineNumbers: true
     });
     // update on change
     editor.on("change", function (instance, changeObj) {

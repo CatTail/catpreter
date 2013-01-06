@@ -95,6 +95,16 @@ define(function (require, exports) {
       setBind($('#test-assembles')[0], 'data', assembles);
     }
   });
+  // CMM compiler
+  $.ajax({
+    url: 'js/sea-modules/catpreter/src/cmm.js',
+    success: function (compiler) {
+      setBind($('#cmm-compiler')[0], 'data', compiler);
+      var func = compiler + "return parser.parse(input);";
+      func = new Function('input', func);
+      setBind($('#cmm-compiler')[0], 'func', func);
+    },
+  });
 
   /* Drag and Drop */
   var enableDnD = function(){
