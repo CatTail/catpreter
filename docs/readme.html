@@ -2,8 +2,8 @@
 <!-- saved from url=(0022)http://localhost:8090/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="./localhost_files/ghf_marked.css">
-  <script src="./localhost_files/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="./readme_files/ghf_marked.css">
+  <script src="./readme_files/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:8090/');
     socket.on('connect', function () {
@@ -110,6 +110,7 @@ Stack-oriented defined instruction set differ from register-oriented instruction
 <p>Let's examine how Assembler works. We just explain the simplest part here, say we want to calculate <code>1 + 2</code> and <code>write</code> it in output. CMM compiler which create by Catpreter will do the work for us to create assembles so we don't need to afraid of lex, grammar analysis. Result assembles will be:</p>
 <div class="highlight"><pre><span class="n">push</span> 1
 <span class="n">push</span> 2
+<span class="n">add</span>
 <span class="n">write</span>
 <span class="n">halt</span>
 </pre></div>
@@ -513,11 +514,23 @@ Stack-oriented defined instruction set differ from register-oriented instruction
   <span class="o">:</span> <span class="n">assignment_expression</span> <span class="n">expression$</span><span class="o">*</span> 
   <span class="o">;</span>
  <span class="n">expression$</span><span class="o">*</span>
-  <span class="o">:</span> <span class="s1">','</span> <span class="n">assignment_expression</span>
+  <span class="o">:</span> <span class="s1">','</span> <span class="n">assignment_expression</span> <span class="n">expression$</span><span class="o">*</span>
   <span class="o">|</span> <span class="err">ϵ</span>
   <span class="o">;</span>
 </pre></div>
-<h2>CMM lex</h2>
+<h3>Next up</h3>
+
+<p>FIRST</p>
+
+<p>FOLLOW</p>
+
+<p>Closure</p>
+
+<p>Translation table</p>
+
+<h2>CMM</h2>
+
+<h3>Lex</h3>
 <div class="highlight"><pre>DIGIT                     \d+
 INT                       {DIGIT}+ 
 REAL                      {INT}\.{INT}('e'<span class="cp">[</span><span class="o">-+</span><span class="cp">]</span>?{INT})?
@@ -562,7 +575,7 @@ IDENTIFIER                {LETTER}({LETTER}|{NUMBER}|'_')*
 ","                     return ',';
 .                       /* ignore */
 </pre></div>
-<h2>CMM grammar</h2>
+<h3>Grammar</h3>
 <div class="highlight"><pre><span class="c">%start prog</span>
 <span class="n">prog</span>
   <span class="p">:</span> <span class="n">statement_list</span> <span class="n">EOF</span>

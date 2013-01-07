@@ -74,6 +74,7 @@ Let's examine how Assembler works. We just explain the simplest part here, say w
 
     push 1
     push 2
+    add
     write
     halt
 
@@ -491,11 +492,21 @@ eg:
       : assignment_expression expression$* 
       ;
      expression$*
-      : ',' assignment_expression
+      : ',' assignment_expression expression$*
       | ϵ
       ;
 
-## CMM lex
+### Next up
+FIRST
+
+FOLLOW
+
+Closure
+
+Translation table
+
+## CMM
+### Lex
     DIGIT                     \d+
     INT                       {DIGIT}+ 
     REAL                      {INT}\.{INT}('e'[-+]?{INT})?
@@ -540,7 +551,7 @@ eg:
     ","                     return ',';
     .                       /* ignore */
 
-## CMM grammar
+### Grammar
     %start prog
     prog
       : statement_list EOF
