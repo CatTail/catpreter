@@ -444,6 +444,7 @@ After eliminate left recursive, extract common factor and expand EBNF `? * +`:
 ### Conclusion
 
 Eliminate left recursive
+
     compound_statement
       : '{' '}'
       | '{' statement_list '}'
