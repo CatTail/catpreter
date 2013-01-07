@@ -441,6 +441,59 @@ After eliminate left recursive, extract common factor and expand EBNF `? * +`:
       'declarator$*$?': [ [ 'constant_expression' ], [] ],
       'compound_statement$c_cJFmBc': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] }
 
+Conclusion
+
+Eliminate left recursive
+    compound_statement
+      : '{' '}'
+      | '{' statement_list '}'
+      ;
+
+      compound_statement: [ 
+        [ '\'{\'', '\'}\'' ],
+        [ '\'{\'', 'statement_list', '\'}\'' ] 
+      ],
+
+      compound_statement: [ [ '\'{\'', 'compound_statement$c_cJFmBc' ] ],
+      'compound_statement$c_cJFmBc': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] }
+
+eg:
+
+     compund_statement
+      : '{' compound_statement$c_cJFmBc
+      ;
+     compound_statement$c_cJFmBc
+      : 'statement_list' '}'
+      | '}'
+      ;
+
+Extend EBNF
+
+    expression
+      : assignment_expression ( ',' assignment_expression )*
+      ;
+
+    expression: [[
+     'assignment_expression',
+      { '*': [ '\',\'', 'assignment_expression' ] } 
+     ]]
+
+
+     expression: [ [
+       'assignment_expression', 'expression$*' 
+     ] ],
+     'expression$*': [ ['\',\'', 'assignment_expression', 'expression$*' ], [] ],
+
+eg:
+
+    expression
+      : assignment_expression expression$* 
+      ;
+     expression$*
+      : ',' assignment_expression
+      | ϵ
+      ;
+
 ## CMM lex
     DIGIT                     \d+
     INT                       {DIGIT}+ 
