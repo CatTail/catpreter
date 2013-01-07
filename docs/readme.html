@@ -469,12 +469,13 @@ Stack-oriented defined instruction set differ from register-oriented instruction
 </pre></div>
 <h3>Conclusion</h3>
 
-<p>Eliminate left recursive
-    compound_statement
-      : '{' '}'
-      | '{' statement_list '}'
-      ;</p>
-<div class="highlight"><pre>  <span class="n">compound_statement</span><span class="p">:</span> <span class="p">[</span> 
+<p>Eliminate left recursive</p>
+<div class="highlight"><pre><span class="n">compound_statement</span>
+  <span class="p">:</span> <span class="s">'{'</span> <span class="s">'}'</span>
+  <span class="o">|</span> <span class="s">'{'</span> <span class="n">statement_list</span> <span class="s">'}'</span>
+  <span class="p">;</span>
+
+  <span class="n">compound_statement</span><span class="p">:</span> <span class="p">[</span> 
     <span class="p">[</span> <span class="s">'\'</span><span class="p">{</span><span class="o">\</span><span class="s">''</span><span class="p">,</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">],</span>
     <span class="p">[</span> <span class="s">'\'</span><span class="p">{</span><span class="o">\</span><span class="s">''</span><span class="p">,</span> <span class="s">'statement_list'</span><span class="p">,</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">]</span> 
   <span class="p">],</span>
