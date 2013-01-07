@@ -105,6 +105,19 @@ define(function (require, exports) {
       setBind($('#cmm-compiler')[0], 'func', func);
     },
   });
+  // calculator
+  $.ajax({
+    url: 'js/sea-modules/catpreter/src/calculator.l',
+    success: function (lex) {
+      setBind($('#calculator-lex')[0], 'data', lex);
+    },
+  });
+  $.ajax({
+    url: 'js/sea-modules/catpreter/src/calculator.y',
+    success: function (grammar) {
+      setBind($('#calculator-grammar')[0], 'data', grammar);
+    },
+  });
 
   /* Drag and Drop */
   var enableDnD = function(){

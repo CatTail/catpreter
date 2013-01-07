@@ -441,7 +441,7 @@ After eliminate left recursive, extract common factor and expand EBNF `? * +`:
       'declarator$*$?': [ [ 'constant_expression' ], [] ],
       'compound_statement$c_cJFmBc': [ [ '\'}\'' ], [ 'statement_list', '\'}\'' ] ] }
 
-Conclusion
+### Conclusion
 
 Eliminate left recursive
     compound_statement

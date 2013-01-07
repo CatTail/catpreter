@@ -2,8 +2,8 @@
 <!-- saved from url=(0022)http://localhost:8090/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="./readme_files/ghf_marked.css">
-  <script src="./readme_files/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="./localhost_files/ghf_marked.css">
+  <script src="./localhost_files/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:8090/');
     socket.on('connect', function () {
@@ -466,6 +466,55 @@ Stack-oriented defined instruction set differ from register-oriented instruction
   <span class="s1">'declarator$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">[</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'declarator$*$?'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">]</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'declarator$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
   <span class="s1">'declarator$*$?'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'constant_expression'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="p">]</span><span class="o">,</span>
   <span class="s1">'compound_statement$c_cJFmBc'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">}</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[</span> <span class="s1">'statement_list'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">}</span><span class="se">\'</span><span class="s1">'</span> <span class="cp">]</span> <span class="p">]</span> <span class="p">}</span>
+</pre></div>
+<h3>Conclusion</h3>
+
+<p>Eliminate left recursive
+    compound_statement
+      : '{' '}'
+      | '{' statement_list '}'
+      ;</p>
+<div class="highlight"><pre>  <span class="n">compound_statement</span><span class="p">:</span> <span class="p">[</span> 
+    <span class="p">[</span> <span class="s">'\'</span><span class="p">{</span><span class="o">\</span><span class="s">''</span><span class="p">,</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">],</span>
+    <span class="p">[</span> <span class="s">'\'</span><span class="p">{</span><span class="o">\</span><span class="s">''</span><span class="p">,</span> <span class="s">'statement_list'</span><span class="p">,</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">]</span> 
+  <span class="p">],</span>
+
+  <span class="n">compound_statement</span><span class="p">:</span> <span class="p">[</span> <span class="p">[</span> <span class="s">'\'</span><span class="p">{</span><span class="o">\</span><span class="s">''</span><span class="p">,</span> <span class="s">'compound_statement$c_cJFmBc'</span> <span class="p">]</span> <span class="p">],</span>
+  <span class="s">'compound_statement$c_cJFmBc'</span><span class="p">:</span> <span class="p">[</span> <span class="p">[</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">],</span> <span class="p">[</span> <span class="s">'statement_list'</span><span class="p">,</span> <span class="s">'\'</span><span class="p">}</span><span class="o">\</span><span class="s">''</span> <span class="p">]</span> <span class="p">]</span> <span class="p">}</span>
+</pre></div>
+<p>eg:</p>
+<div class="highlight"><pre> <span class="n">compund_statement</span>
+  <span class="p">:</span> <span class="s">'{'</span> <span class="n">compound_statement</span>$<span class="n">c_cJFmBc</span>
+  <span class="p">;</span>
+ <span class="n">compound_statement</span>$<span class="n">c_cJFmBc</span>
+  <span class="p">:</span> <span class="s">'statement_list'</span> <span class="s">'}'</span>
+  <span class="o">|</span> <span class="s">'}'</span>
+  <span class="p">;</span>
+</pre></div>
+<p>Extend EBNF</p>
+<div class="highlight"><pre><span class="nt">expression</span>
+  <span class="o">:</span> <span class="nt">assignment_expression</span> <span class="o">(</span> <span class="s1">','</span> <span class="nt">assignment_expression</span> <span class="o">)*</span>
+  <span class="o">;</span>
+
+<span class="nt">expression</span><span class="o">:</span> <span class="cp">[</span><span class="err">[</span>
+ <span class="s1">'assignment_expression'</span><span class="p">,</span>
+  <span class="p">{</span> <span class="s1">'*'</span><span class="p">:</span> <span class="err">[</span> <span class="s1">'</span><span class="se">\'</span><span class="s1">,</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'assignment_expression'</span> <span class="cp">]</span> <span class="err">}</span> 
+ <span class="o">]]</span>
+
+
+ <span class="nt">expression</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span>
+   <span class="s1">'assignment_expression'</span><span class="p">,</span> <span class="s1">'expression$*'</span> 
+ <span class="cp">]</span> <span class="o">],</span>
+ <span class="s1">'expression$*'</span><span class="o">:</span> <span class="cp">[</span> <span class="err">[</span><span class="s1">'</span><span class="se">\'</span><span class="s1">,</span><span class="se">\'</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'assignment_expression'</span><span class="p">,</span> <span class="s1">'expression$*'</span> <span class="cp">]</span><span class="o">,</span> <span class="cp">[]</span> <span class="o">],</span>
+</pre></div>
+<p>eg:</p>
+<div class="highlight"><pre><span class="n">expression</span>
+  <span class="o">:</span> <span class="n">assignment_expression</span> <span class="n">expression$</span><span class="o">*</span> 
+  <span class="o">;</span>
+ <span class="n">expression$</span><span class="o">*</span>
+  <span class="o">:</span> <span class="s1">','</span> <span class="n">assignment_expression</span>
+  <span class="o">|</span> <span class="err">ϵ</span>
+  <span class="o">;</span>
 </pre></div>
 <h2>CMM lex</h2>
 <div class="highlight"><pre>DIGIT                     \d+
