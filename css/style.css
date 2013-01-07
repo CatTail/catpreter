@@ -54,6 +54,9 @@ body {
   font-size: 24.5px;
   margin: 20px 0;
 }
+.logo span {
+  font-size: 14px;
+}
 .doc {
   position: absolute;
   top: 0;
